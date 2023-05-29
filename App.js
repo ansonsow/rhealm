@@ -1,10 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import {useState} from 'react'
+import axios from 'axios';
 
 export default function App() {
+  const [wa,setWa] = useState("")
+  axios.get("http://localhost:8000/api/v1/test").then((response)=>{
+    setWa(response.data[0].name)
+  })
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>{wa}</Text>
       <StatusBar style="auto" />
     </View>
   );
