@@ -2,7 +2,7 @@ import { Container, Center, Text } from "native-base";
 import SignUpForm from "../forms/SignUpForm";
 import { useState } from "react";
 import axios from "axios";
-// import { REACT_APP_BACKEND } from "react-native-dotenv";
+import { BACKEND } from "@env";
 
 export const SignUpContainer = () => {
 
@@ -40,7 +40,7 @@ export const SignUpContainer = () => {
             setError("Passwords don't match");
         } else {
             // console.log("Passwords match");
-            axios.post(`http://localhost:8000/api/v1/register`, {
+            axios.post(`${BACKEND}/register`, {
                 name: name,
                 email: email,
                 password: password
