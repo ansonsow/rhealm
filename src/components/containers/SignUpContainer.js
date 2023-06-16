@@ -3,6 +3,7 @@ import SignUpForm from "../forms/SignUpForm";
 import { useState } from "react";
 import axios from "axios";
 import { BACKEND } from "@env";
+import { SignUpOnePop } from "../layout/SignUpOnePop";
 
 export const SignUpContainer = () => {
 
@@ -11,6 +12,8 @@ export const SignUpContainer = () => {
     const [password, setPassword] = useState("");
     const [confPsw, setConfPsw] = useState("");
     const [error, setError] = useState("");
+    const [popOne, setPopOne] = useState(false);
+    // const [popTwo, setPopTwo] = useState(false);
 
     const handleNameChange = (name) => {
         setName(name);
@@ -34,6 +37,11 @@ export const SignUpContainer = () => {
     // console.log(email);
     // console.log(psw);
 
+    const backToSplash = () => {
+        console.log("Back To Splash!")
+        setPopOne(true);
+    }
+
     const savePrimary = () => {
         if (password !== confPsw) {
             console.log("Passwords don't match");
@@ -52,17 +60,35 @@ export const SignUpContainer = () => {
         }
     }
 
+    const cancelBtn = () => {
+        // setPopOne(true);
+    }
+
+    const leaveBtn = () => {
+        console.log("Leave Page is Working!")
+    }
+
     return (
         <Container>
-            <Text fontWeight="bold" fontSize={20} marginBottom={20}>Sign Up</Text>
+            <Text
+                fontWeight="bold"
+                fontSize={20}
+                marginBottom={20}
+            >
+                Sign Up
+            </Text>
             <SignUpForm
                 onNameChange={handleNameChange}
                 onEmailChange={handleEmailChange}
                 onPswChange={handlePswChange}
                 onConfPswChange={handlePswConf}
-                onNext={savePrimary}
+                onSubmit={savePrimary}
                 error={error}
+                backToSplash={backToSplash}
+                cancelBtn={cancelBtn}
+                leaveBtn={leaveBtn}
             />
+            {popOne ? (<SignUpOnePop />) : (console.log("Sign up pop closed"))}
         </Container>
     )
 }

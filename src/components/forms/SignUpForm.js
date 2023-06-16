@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 const SignUpForm = props => {
 
-    const { onNext, onNameChange, onEmailChange, onPswChange, onConfPswChange, error } = props;
+    const { onSubmit, onNameChange, onEmailChange, onPswChange, onConfPswChange, error, backToSplash, cancelBtn, leaveBtn } = props;
 
     const [show, setShow] = useState(false);
     const [showConf, setShowConf] = useState(false);
@@ -84,10 +84,20 @@ const SignUpForm = props => {
                 </FormControl>
                 <Text color="red.500">{error}</Text>
                 <Button
-                    onPress={onNext}
-                    marginTop={20}
+                    onPress={onSubmit}
+                    marginTop={10}
+                    width={250}
                 >
                     Next
+                </Button>
+                <Button
+                    onPress={backToSplash}
+                    marginTop={5}
+                    width={250}
+                    cancelBtn={cancelBtn}
+                    leaveBtn={leaveBtn}
+                >
+                    Back
                 </Button>
             </VStack>
         </Container>
