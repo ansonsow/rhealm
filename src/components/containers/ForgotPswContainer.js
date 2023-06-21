@@ -1,7 +1,8 @@
-import { Container, Text } from "native-base";
+import { Container, Text, Button } from "native-base";
 import { ForgotPswForm } from "../forms/ForgotPswForm";
 import { useState } from "react";
-import { ForgotPswPop } from "../layout/ForgotPswPop";
+import { StyleSheet } from "react-native";
+import { PopUp } from "../layout/PopUp";
 
 export const ForgotPswContainer = () => {
 
@@ -38,9 +39,7 @@ export const ForgotPswContainer = () => {
     return (
         <Container>
             <Text
-                fontWeight="bold"
-                fontSize={20}
-                marginBottom={20}
+                style={styles.heading}
             >
                 Forgot Password?
             </Text>
@@ -51,7 +50,49 @@ export const ForgotPswContainer = () => {
                 error={error}
                 login={backToLogin}
             />
-            {pop ? (<ForgotPswPop onPress={backToLoginPop} />) : (console.log("Popup not Open"))}
+            {pop ? (<PopUp
+                content={
+                    <>
+                        <Text
+                            style={styles.headingPop}
+                        >
+                            Password Sent
+                        </Text>
+                        <Text
+                            style={styles.text}
+                        >
+                            New password has been sent to your email.
+                            Please check the email to retrieve your password.
+                        </Text>
+                        <Button
+                            onPress={backToLoginPop}
+                            style={styles.btn}
+                        >
+                            Back to Login Page
+                        </Button>
+
+                    </>
+                }
+            />) : (console.log("Closed"))}
         </Container>
     )
 }
+
+const styles = StyleSheet.create({
+    heading: {
+        fontWeight: "bold",
+        fontSize: 20,
+        marginBottom: 20
+    },
+    headingPop: {
+        fontWeight: "bold",
+        fontSize: 20
+    },
+    text: {
+        fontSize: 16
+    },
+    btn: {
+        marginTop: 10,
+        width: 250
+    }
+})
