@@ -2,30 +2,15 @@ import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable,
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const SignUpForm = props => {
+export const LoginForm = props => {
 
-    const { onSubmit, onNameChange, onEmailChange, onPswChange, onConfPswChange, error, backToSplash, cancelBtn, leaveBtn } = props;
+    const { onSubmit, onEmailChange, onPswChange, error, forgotPsw } = props;
 
     const [show, setShow] = useState(false);
-    const [showConf, setShowConf] = useState(false);
 
     return (
         <Container>
             <VStack width="100%">
-                <FormControl isRequired>
-                    <FormControl.Label>Name</FormControl.Label>
-                    <HStack width="100%">
-                        <Input
-                            placeholder="John Doe"
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            onChangeText={value => {
-                                onNameChange(value)
-                            }}
-                        />
-                    </HStack>
-                </FormControl>
                 <FormControl isRequired>
                     <FormControl.Label>Email</FormControl.Label>
                     <HStack width="100%">
@@ -61,47 +46,18 @@ const SignUpForm = props => {
                         />
                     </HStack>
                 </FormControl>
-                <FormControl isRequired>
-                    <FormControl.Label>Confirm Password</FormControl.Label>
-                    <HStack width="100%">
-                        <Input
-                            placeholder="************"
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            type={showConf ? "text" : "password"}
-                            InputRightElement={
-                                <Pressable onPress={() => setShowConf(!showConf)} paddingRight={1}>
-                                    <Icon as={<MaterialIcons name={showConf ? "visibility" : "visibility-off"} size={10} color="muted.400" />} />
-                                </Pressable>
-                            }
-                            onChangeText={value => {
-                                onConfPswChange(value)
-                                confPassword = value
-                            }}
-                        />
-                    </HStack>
-                </FormControl>
                 <Text color="red.500">{error}</Text>
+                <Text
+                    onPress={forgotPsw}
+                >Forgot Password?</Text>
                 <Button
                     onPress={onSubmit}
                     marginTop={10}
                     width={250}
                 >
-                    Next
-                </Button>
-                <Button
-                    onPress={backToSplash}
-                    marginTop={5}
-                    width={250}
-                    cancelBtn={cancelBtn}
-                    leaveBtn={leaveBtn}
-                >
-                    Back
+                    Login
                 </Button>
             </VStack>
         </Container>
     )
 }
-
-export default SignUpForm;
