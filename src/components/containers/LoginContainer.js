@@ -2,6 +2,8 @@ import { Container, Text } from "native-base";
 import { LoginForm } from "../forms/LoginForm";
 import { useState } from "react";
 import { BACKEND } from "@env";
+import axios from "axios";
+import { StyleSheet } from "react-native";
 
 export const LoginContainer = () => {
 
@@ -20,7 +22,16 @@ export const LoginContainer = () => {
     }
 
     const login = () => {
-        setError("Credentials don't match, please check your credentials");
+        if (email === "" && password === "") {
+            setError("Credentials don't match, please check your credentials");
+        } else {
+            axios.post(`${BACKEND}/login`, {
+                email: email,
+                password: password
+            }).then((res) => {
+                console.log("Res: ", res);
+            })
+        }
     }
 
     const forgotPsw = () => {
@@ -34,9 +45,7 @@ export const LoginContainer = () => {
     return (
         <Container>
             <Text
-                fontWeight="bold"
-                fontSize={20}
-                marginBottom={20}
+                style={styles.heading}
             >
                 Login
             </Text>
@@ -55,3 +64,11 @@ export const LoginContainer = () => {
         </Container>
     )
 }
+
+const styles = StyleSheet.create({
+    heading: {
+        fontWeight: "bold",
+        fontSize: 20,
+        marginBottom: 20
+    }
+})
