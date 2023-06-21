@@ -1,11 +1,12 @@
-import { Container, Center, Text } from "native-base";
+import { Container, Center, Text, Button } from "native-base";
 import SignUpForm from "../forms/SignUpForm";
 import { useState } from "react";
 import axios from "axios";
 import { BACKEND } from "@env";
-import { SignUpOnePop } from "../layout/SignUpOnePop";
+import { PopUp } from "../layout/PopUp";
+import { StyleSheet } from "react-native";
 
-export const SignUpContainer = () => {
+export const SignUpContainer = ({ navigation }) => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ export const SignUpContainer = () => {
     const [confPsw, setConfPsw] = useState("");
     const [error, setError] = useState("");
     const [popOne, setPopOne] = useState(false);
-    // const [popTwo, setPopTwo] = useState(false);
+    const [popTwo, setPopTwo] = useState(false);
 
     const handleNameChange = (name) => {
         setName(name);
@@ -33,12 +34,8 @@ export const SignUpContainer = () => {
         setError("");
     }
 
-    // console.log(name);
-    // console.log(email);
-    // console.log(psw);
-
     const backToSplash = () => {
-        console.log("Back To Splash!")
+        navigation.navigate("Index");
         setPopOne(true);
     }
 
@@ -56,24 +53,27 @@ export const SignUpContainer = () => {
                 console.log("Res: ", res);
                 // setError("");
                 // console.log(error)
+                setPopTwo(true);
             })
         }
     }
 
     const cancelBtn = () => {
-        // setPopOne(true);
+        setPopOne(false);
     }
 
     const leaveBtn = () => {
-        console.log("Leave Page is Working!")
+        console.log("Go to Welcome Screen")
+    }
+
+    const nextBtn = () => {
+        console.log("Go to Profile Photo Set up")
     }
 
     return (
         <Container>
             <Text
-                fontWeight="bold"
-                fontSize={20}
-                marginBottom={20}
+                style={styles.heading}
             >
                 Sign Up
             </Text>
@@ -88,7 +88,75 @@ export const SignUpContainer = () => {
                 cancelBtn={cancelBtn}
                 leaveBtn={leaveBtn}
             />
-            {popOne ? (<SignUpOnePop />) : (console.log("Sign up pop closed"))}
+            {popOne ? (<PopUp
+                content={
+                    <>
+                        <Text
+                            style={styles.headingPop}
+                        >
+                            Are you sure?
+                        </Text>
+                        <Text
+                            style={styles.text}
+                        >
+                            Your changes will be lost.
+                        </Text>
+                        <Button
+                            onPress={cancelBtn}
+                            style={styles.btn}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onPress={leaveBtn}
+                            style={styles.btn}
+                        >
+                            Leave
+                        </Button>
+                    </>
+                }
+            />) : (console.log("Closed"))}
+            {popTwo ? (<PopUp
+                content={
+                    <>
+                        <Text
+                            style={styles.headingPop}
+                        >
+                            Saved!
+                        </Text>
+                        <Text
+                            style={styles.text}
+                        >
+                            Your information has been saved.
+                        </Text>
+                        <Button
+                            onPress={nextBtn}
+                            style={styles.btn}
+                        >
+                            Next
+                        </Button>
+                    </>
+                }
+            />) : (console.log("Closed"))}
         </Container>
     )
 }
+
+const styles = StyleSheet.create({
+    heading: {
+        fontWeight: "bold",
+        fontSize: 20,
+        marginBottom: 20
+    },
+    headingPop: {
+        fontWeight: "bold",
+        fontSize: 20
+    },
+    text: {
+        fontSize: 16
+    },
+    btn: {
+        marginTop: 10,
+        width: 250
+    }
+})
