@@ -1,10 +1,21 @@
 import { Container, Text, Icon, View } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export const Menu = props => {
 
+    const navigation = useNavigation();
+
     const { closeMenu } = props;
+
+    const profilePage = () => {
+        navigation.navigate("Profile");
+    }
+
+    const signOut = () => {
+        navigation.navigate("Login");
+    }
 
     return (
         <Container style={styles.container}>
@@ -21,6 +32,7 @@ export const Menu = props => {
             </View>
             <Text
                 style={styles.text}
+                onPress={profilePage}
             >
                 Profile
             </Text>
@@ -31,6 +43,7 @@ export const Menu = props => {
             </Text>
             <Text
                 style={styles.text}
+                onPress={signOut}
             >
                 Sign Out
             </Text>

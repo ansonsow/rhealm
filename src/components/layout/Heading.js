@@ -1,4 +1,5 @@
-import { Container, Text, Image, View, Pressable } from "native-base";
+import { Container, Text, View, Pressable } from "native-base";
+import { Image } from "react-native";
 import axios from "axios";
 import { StyleSheet } from "react-native";
 

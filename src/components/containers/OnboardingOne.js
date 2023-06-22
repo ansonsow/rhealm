@@ -3,18 +3,23 @@ import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { PopUp } from "../layout/PopUp";
+import { useNavigation } from "@react-navigation/native";
 
 export const OnboardingOne = () => {
+
+    const navigation = useNavigation();
 
     const [popOne, setPopOne] = useState(false);
     const [popTwo, setPopTwo] = useState(false);
 
     const skipSetup = () => {
-        console.log("Skip the Setup")
+        // console.log("Skip the Setup")
+        setPopTwo(true);
     }
 
     const instructions = () => {
-        console.log("Back to Instructions")
+        // console.log("Back to Instructions")
+        navigation.navigate("Instruction");
     }
 
     const openPop = () => {
@@ -30,7 +35,8 @@ export const OnboardingOne = () => {
     }
 
     const confirmBtn = () => {
-        console.log("Go to Details Page")
+        // console.log("Go to Details Page")
+        navigation.navigate("OnboardingTwo");
     }
 
     return (

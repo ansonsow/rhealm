@@ -4,8 +4,11 @@ import { useState } from "react";
 import { BACKEND } from "@env";
 import axios from "axios";
 import { StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export const LoginContainer = () => {
+
+    const navigation = useNavigation();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -30,16 +33,19 @@ export const LoginContainer = () => {
                 password: password
             }).then((res) => {
                 console.log("Res: ", res);
+                navigation.navigate("Main");
             })
         }
     }
 
     const forgotPsw = () => {
-        console.log("Forgot Password Clicked!")
+        // console.log("Forgot Password Clicked!")
+        navigation.navigate("ForgotPsw");
     }
 
     const signUp = () => {
-        console.log("Sign Up Clicked!")
+        // console.log("Sign Up Clicked!")
+        navigation.navigate("Index");
     }
 
     return (

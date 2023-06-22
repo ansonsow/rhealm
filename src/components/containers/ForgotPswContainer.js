@@ -3,8 +3,11 @@ import { ForgotPswForm } from "../forms/ForgotPswForm";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { PopUp } from "../layout/PopUp";
+import { useNavigation } from "@react-navigation/native";
 
 export const ForgotPswContainer = () => {
+
+    const navigation = useNavigation();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -28,7 +31,8 @@ export const ForgotPswContainer = () => {
     }
 
     const backToLogin = () => {
-        console.log("Back to Login Clicked!");
+        // console.log("Back to Login Clicked!");
+        navigation.navigate("Login");
     }
 
     const backToLoginPop = () => {

@@ -5,8 +5,11 @@ import axios from "axios";
 import { BACKEND } from "@env";
 import { PopUp } from "../layout/PopUp";
 import { StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export const SignUpContainer = ({ navigation }) => {
+export const SignUpContainer = () => {
+
+    const navigation = useNavigation();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -35,7 +38,6 @@ export const SignUpContainer = ({ navigation }) => {
     }
 
     const backToSplash = () => {
-        navigation.navigate("Index");
         setPopOne(true);
     }
 
@@ -62,12 +64,12 @@ export const SignUpContainer = ({ navigation }) => {
         setPopOne(false);
     }
 
-    const leaveBtn = () => {
-        console.log("Go to Welcome Screen")
+    const nextBtn = () => {
+        navigation.navigate("Instruction");
     }
 
-    const nextBtn = () => {
-        console.log("Go to Profile Photo Set up")
+    const confirmBtn = () => {
+        navigation.navigate("Index");
     }
 
     return (
@@ -85,8 +87,6 @@ export const SignUpContainer = ({ navigation }) => {
                 onSubmit={savePrimary}
                 error={error}
                 backToSplash={backToSplash}
-                cancelBtn={cancelBtn}
-                leaveBtn={leaveBtn}
             />
             {popOne ? (<PopUp
                 content={
@@ -108,7 +108,7 @@ export const SignUpContainer = ({ navigation }) => {
                             Cancel
                         </Button>
                         <Button
-                            onPress={leaveBtn}
+                            onPress={confirmBtn}
                             style={styles.btn}
                         >
                             Leave
