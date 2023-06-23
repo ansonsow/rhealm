@@ -2,6 +2,7 @@ import { Container, Text, Icon, View } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Menu = props => {
 
@@ -9,11 +10,24 @@ export const Menu = props => {
 
     const { closeMenu } = props;
 
+    const removeUser = async () => {
+        try {
+            await AsyncStorage.removeItem("user");
+
+            // const jsonValue = await AsyncStorage.getItem("user");
+            // console.log(jsonValue);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const profilePage = () => {
         navigation.navigate("Profile");
     }
 
     const signOut = () => {
+        removeUser();
         navigation.navigate("Login");
     }
 
