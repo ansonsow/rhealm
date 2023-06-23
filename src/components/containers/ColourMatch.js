@@ -10,9 +10,14 @@ export const ColourMatch = () => {
     const navigation = useNavigation();
     const [selectedPalette, setSelectedPalette] = useState({});
 
-    const handleViewClick = () => {
-        const springPale = palettes.Spring.Pale;
-        setSelectedPalette(springPale);
+    const showCoolPalette = () => {
+        const winterBright = palettes.Winter.Bright;
+        setSelectedPalette(winterBright);
+    }; 
+
+    const showWarmPalette = () => {
+        const autumnSoft = palettes.Autumn.Soft;
+        setSelectedPalette(autumnSoft);
     }; 
 
     const backToIndex = () => {
@@ -28,14 +33,14 @@ export const ColourMatch = () => {
 
                 <Text>COOL SKIN TONES:</Text>
                 {skinTones.cool.map((color, index) => (
-                    <TouchableHighlight key={index} style={{backgroundColor: color, width: 100, height: 30}} onPress={handleViewClick}>
+                    <TouchableHighlight key={index} style={{backgroundColor: color, width: 100, height: 30}} onPress={showCoolPalette}>
                         <Text>{color}</Text>
                     </TouchableHighlight>
                 ))}
 
                 <Text>WARM SKIN TONES:</Text>
                 {skinTones.warm.map((color, index) => (
-                    <TouchableHighlight key={index} style={{backgroundColor: color, width: 100, height: 30}} onPress={handleViewClick}>
+                    <TouchableHighlight key={index} style={{backgroundColor: color, width: 100, height: 30}} onPress={showWarmPalette}>
                         <Text>{color}</Text>
                     </TouchableHighlight>
                 ))}
