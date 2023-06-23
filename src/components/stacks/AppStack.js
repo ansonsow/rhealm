@@ -11,6 +11,7 @@ import { OnboardingTwo } from "../containers/OnboardingTwo";
 import { MainContainer } from "../containers/MainContainer";
 import { ProfileContainer } from "../containers/ProfileContainer";
 import { ColourMatch } from "../containers/ColourMatch"
+import { CameraContainer } from "../containers/CameraContainer"
 
 const Stack = createNativeStackNavigator();
 // const Stack = createStackNavigator();
@@ -63,6 +64,10 @@ export const AppStack = () => {
                 <Stack.Screen
                     name="ColourMatch"
                     component={ColourMatch}
+                />
+                <Stack.Screen
+                    name="CameraContainer"
+                    component={CameraContainer}
                 />
 
             </Stack.Navigator>

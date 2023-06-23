@@ -5,6 +5,7 @@ import { BACKEND } from "@env";
 import axios from "axios";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const LoginContainer = () => {
 
@@ -23,6 +24,17 @@ export const LoginContainer = () => {
         setPassword(password);
         setError("");
     }
+    // console.log(BACKEND)
+
+    const storeData = async (value) => {
+        try {
+          const jsonValue = JSON.stringify(value);
+          await AsyncStorage.setItem('user', jsonValue);
+        } catch (e) {
+          // saving error
+        }
+    };
+
 
     const login = () => {
         if (email === "" && password === "") {
@@ -32,7 +44,8 @@ export const LoginContainer = () => {
                 email: email,
                 password: password
             }).then((res) => {
-                console.log("Res: ", res);
+                // console.log("Res: ", res);
+                storeData(res.data)
                 navigation.navigate("Main");
             })
         }
