@@ -2,8 +2,11 @@ import { Container, Text, Button, Icon, View } from "native-base";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { PopUp } from "../layout/PopUp";
+import { useNavigation } from "@react-navigation/native";
 
 export const OnboardingTwo = () => {
+
+    const navigation = useNavigation();
 
     const [pop, setPop] = useState(false);
 
@@ -16,11 +19,13 @@ export const OnboardingTwo = () => {
     }
 
     const confirmBtn = () => {
-        console.log("Go to Details Page")
+        // console.log("Go to Details Page")
+        navigation.navigate("OnboardingOne");
     }
 
     const saveSetup = () => {
-        console.log("Save the setup")
+        // console.log("Save the setup")
+        navigation.navigate("Main");
     }
 
     return (

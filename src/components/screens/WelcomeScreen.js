@@ -1,10 +1,14 @@
 import { Container, Text, Button, View } from "native-base";
 import { StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export const WelcomeScreen = () => {
 
+    const navigation = useNavigation();
+
     const simpleSignUp = () => {
-        console.log("First Screen Working")
+        console.log("First Screen Working");
+        navigation.navigate("SignUp");
     }
 
     const googleSignUp = () => {

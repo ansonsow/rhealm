@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 const SignUpForm = props => {
 
-    const { onSubmit, onNameChange, onEmailChange, onPswChange, onConfPswChange, error, backToSplash, cancelBtn, leaveBtn } = props;
+    const { onSubmit, onNameChange, onEmailChange, onPswChange, onConfPswChange, error, backToSplash } = props;
 
     const [show, setShow] = useState(false);
     const [showConf, setShowConf] = useState(false);
@@ -94,8 +94,6 @@ const SignUpForm = props => {
                     onPress={backToSplash}
                     marginTop={5}
                     width={250}
-                    cancelBtn={cancelBtn}
-                    leaveBtn={leaveBtn}
                 >
                     Back
                 </Button>

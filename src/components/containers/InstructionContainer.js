@@ -1,14 +1,19 @@
 import { Text, Button, Container } from "native-base"
-import { StyleSheet } from "react-native"
+import { StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export const InstructionContainer = () => {
 
+    const navigation = useNavigation();
+
     const onNext = () => {
-        console.log("Next Working")
+        // console.log("Next Working");
+        navigation.navigate("OnboardingOne");
     }
 
     const inputSkinTone = () => {
-        console.log("Input Skin Tone Working")
+        // console.log("Input Skin Tone Working")
+        navigation.navigate("OnboardingTwo");
     }
 
     return (
