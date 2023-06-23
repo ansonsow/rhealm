@@ -48,6 +48,11 @@ export const LoginContainer = () => {
         navigation.navigate("Index");
     }
 
+    const goColourMatch = () => {
+        // console.log("Sign Up Clicked!")
+        navigation.navigate("ColourMatch");
+    }
+
     return (
         <Container>
             <Text
@@ -66,6 +71,11 @@ export const LoginContainer = () => {
                 onPress={signUp}
             >
                 Don't have an account? Sign up!
+            </Text>
+            <Text
+                onPress={goColourMatch}
+            >
+                Check Colours
             </Text>
         </Container>
     )
