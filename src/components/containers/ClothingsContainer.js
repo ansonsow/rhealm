@@ -12,14 +12,16 @@ import axios from "axios"
 
 
 export const ClothingsContainer = () => {
+    const navigation = useNavigation();
+
 
     const [user, setUser] = useState('');
+    const [clothings, setClothings] = useState([])
 
     const getData = async () => {
         try {
           const jsonValue = await AsyncStorage.getItem('user');
           if(jsonValue!=null){
-            //   console.log("wat")
             setUser(JSON.parse(jsonValue).data)
             getClothingData()
           }
@@ -28,34 +30,52 @@ export const ClothingsContainer = () => {
         }
     };
 
-    const getClothingData = async () => {
-        console.log(user._id)
-        axios.get(`${BACKEND}/clothing/user`,{
-            userId: '6495d283fb82d52847f7bef1'
-        }).then(
+    const getClothingData = () => {
+        // console.log(user._id)
+        axios.get(`${BACKEND}/clothing/user/${user._id}`).then(
             (res)=>{
-                // setTimeout(() => {
-                //     console.log("CLOTHING")
-                //     console.log(res)  
-                // }, 1000);
-                console.log("CLOTHING")
-                console.log(res)  
+
+                setClothings(res.data.data)
+                // console.log(clothings)
+                
             }
         ).catch(
             (err)=>{
-                console.log(err)
+                console.log("err")
             }
         )
 
     }
     
     useEffect(() => {
-        console.log("Clothings")
+
         getData()
         
     }, [])
+
+    const handlePress = (i) =>{
+        // console.log(i)
+        const props = i;
+        navigation.setParams({item : i})
+        navigation.navigate("ClothingContainer",item=i );
+    } 
+
+    
     return(
-        <></>
+        <>
+        <Container style={styles.container}>
+            {clothings.length>0?(
+                clothings.map((item,index) => <Button title = {item.name} onPress={()=>{handlePress(item)}} key={index}>{item.name}</Button>)
+            ):<Text>No Clothing found</Text>}
+
+        </Container>
+        </>
     )
     
 }
+
+const styles = StyleSheet.create({
+    container: {
+        width: "100%"
+    }
+})

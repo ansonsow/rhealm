@@ -13,6 +13,7 @@ import { ProfileContainer } from "../containers/ProfileContainer";
 import { ColourMatch } from "../containers/ColourMatch"
 import { CameraContainer } from "../containers/CameraContainer"
 import { ClothingsContainer } from "../containers/ClothingsContainer"
+import { ClothingContainer } from "../containers/ClothingContainer"
 
 const Stack = createNativeStackNavigator();
 // const Stack = createStackNavigator();
@@ -73,6 +74,14 @@ export const AppStack = () => {
                 <Stack.Screen
                     name="ClothingsContainer"
                     component={ClothingsContainer}
+                />
+                {/* <Stack.Screen name="ClothingContainer">
+                    {() => <ClothingContainer item={"i"}/>}
+                </Stack.Screen> */}
+                <Stack.Screen
+                    name="ClothingContainer"
+                    component={ClothingContainer}
+                    initialParams={{item: "item not found"}}
                 />
 
             </Stack.Navigator>
