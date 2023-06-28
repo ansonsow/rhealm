@@ -7,6 +7,9 @@ import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { CameraContainer } from "../containers/CameraContainer"
+
+
 export const LoginContainer = () => {
 
     const navigation = useNavigation();
@@ -68,6 +71,7 @@ export const LoginContainer = () => {
 
     return (
         <Container>
+            {/* <CameraContainer/> */}
             <Text
                 style={styles.heading}
             >
