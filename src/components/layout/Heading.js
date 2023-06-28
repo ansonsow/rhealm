@@ -12,20 +12,20 @@ export const Heading = props => {
 
     const getData = async () => {
         try {
-          const jsonValue = await AsyncStorage.getItem('user');
-        //   return jsonValue != null ? JSON.parse(jsonValue) : null;
-          if(jsonValue!=null){
-            //   console.log("JSON")
-            //   console.log(JSON.parse(jsonValue))
+            const jsonValue = await AsyncStorage.getItem('user');
+            //   return jsonValue != null ? JSON.parse(jsonValue) : null;
+            if (jsonValue != null) {
+                //   console.log("JSON")
+                //   console.log(JSON.parse(jsonValue))
                 setUser(JSON.parse(jsonValue).data)
                 // console.log("USER")
                 // console.log(user)
-          }
+            }
         } catch (e) {
-          // error reading value
+            // error reading value
         }
     };
-    
+
     useEffect(() => {
         getData()
     }, [])
@@ -48,7 +48,7 @@ export const Heading = props => {
                     style={styles.text}
 
                 >
-                    Hello {user!=undefined? user.name: "Marina"}!
+                    Hello {user != undefined ? user.name : "Marina"}!
                 </Text>
                 <Text
                     style={styles.text}
