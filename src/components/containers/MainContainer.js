@@ -25,6 +25,10 @@ export const MainContainer = () => {
         navigation.navigate("CameraContainer");
     }
 
+    const ClothingsBtn = () => {
+        navigation.navigate("ClothingsContainer");
+    }
+
     return (
         <>
             <Container style={styles.container}>
@@ -44,6 +48,9 @@ export const MainContainer = () => {
             </Container>
 
             <Button title="camera" onPress={CameraBtn}>Camera</Button>
+
+            <Button title="clothings" onPress={ClothingsBtn}>Clothings</Button>
+
 
             {menu ? (<Menu
                 closeMenu={closeMenu}

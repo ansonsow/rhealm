@@ -2,6 +2,10 @@
 // deduced from personal color;
 // personal/season colors: dub.sh/ellaiskin-seasonal-color
 
+// HOW TO USE:
+// gitlab.com/rhizodonts/dev-labs/-/blob/main/%40color-modes-switcher/README.md
+// OR: rhealm > assets > colour-converter > colour-converter.md
+
 /*---------- TURN HEX TO RGB ----------*/
 window.HEX_TO_RGB = function(hex){
 	let r, g, b;
@@ -51,7 +55,7 @@ window.RGB_TO_HEX = function(rgb, withHash){
 /*---------- TURN RGB TO HSL ----------*/
 // CREDIT: John Kantner @ css-tricks
 // css-tricks.com/converting-color-spaces-in-javascript
-window.RGB_TO_HSL = function(rgb){
+window.RGB_TO_HSL = function(rgb, format){
 	rgb = rgb.replaceAll(" ","");
 	let arr = rgb.split(",");
 	let r = arr[0];
@@ -99,8 +103,10 @@ window.RGB_TO_HSL = function(rgb){
 	// Multiply l and s by 100
 	s = +(s * 100).toFixed(1);
 	l = +(l * 100).toFixed(1);
+	
+	let res = format && format.trim() == "raw" ? `${h}, ${s}, ${l}` : `${h}deg, ${s}%, ${l}%`;
 
-	return `${h}deg, ${s}%, ${l}%`
+	return res
 }
 
 /*---------- TURN HSL TO RGB ----------*/
@@ -110,8 +116,10 @@ window.HSL_TO_RGB = function(hsl){
   hsl = hsl.trim().replaceAll(", ",",");
   let hsl_arr = hsl.split(",");
   
+  // go through H, S, L
+  // strip them of units if there are any
   // change human-readable HSL inputs into smaller units
-  let newHSLstr = hsl_arr.map((v) => {
+  let newHSLstr = hsl_arr.map((v, i) => {
     if(v.endsWith("%")){
 	  return parseFloat(v) / 100
 	}
@@ -121,7 +129,7 @@ window.HSL_TO_RGB = function(hsl){
 	}
 	
 	else {
-	  v = parseFloat(v)
+	  return parseFloat(v)
 	}
   });
   
@@ -193,9 +201,9 @@ window.HSL_TO_HEX = function(hsl, withHash){
 
 /*---------- TURN HEX TO HSL ----------*/
 // HEX to RGB and then from RGB to HSL
-window.HEX_TO_HSL = function(hex){
+window.HEX_TO_HSL = function(hex, format){
 	let getRGB = HEX_TO_RGB(hex);
-	let res = RGB_TO_HSL(getRGB);
+	let res = RGB_TO_HSL(getRGB, format);
 	return res
 }
 
