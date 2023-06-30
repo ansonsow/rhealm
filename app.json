@@ -16,7 +16,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.colourfit.rhealm"
+      "bundleIdentifier": "com.colourfit.rhealm",
     },
     "android": {
       "package": "com.colourfit.rhealm",
@@ -30,6 +30,7 @@
     },
     "plugins": [
       "@react-native-google-signin/google-signin"
-    ]
+    ],
+    "scheme": "googleLogin"
   }
 }
