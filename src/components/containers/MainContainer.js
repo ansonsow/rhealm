@@ -1,5 +1,5 @@
 import { Container, Text } from "native-base";
-import { StyleSheet,Button } from "react-native";
+import { StyleSheet, Button } from "react-native";
 import { Heading } from "../layout/Heading";
 import { useState } from "react";
 import { Menu } from "../layout/Menu";
@@ -13,12 +13,13 @@ export const MainContainer = () => {
     const [menu, setMenu] = useState(false);
 
     const openMenu = () => {
-        setMenu(true);
+        setMenu(!menu);
         // console.log("Menu btn was clicked.")
     }
 
     const closeMenu = () => {
-        setMenu(false);
+        setMenu(!menu);
+        console.log("Closed")
     }
 
     const CameraBtn = () => {

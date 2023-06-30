@@ -1,7 +1,6 @@
-import { Container, Text } from "native-base";
+import { Button, Container, Text } from "native-base";
 import { LoginForm } from "../forms/LoginForm";
-import { useState } from "react";
-import { BACKEND } from "@env";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -9,6 +8,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { CameraContainer } from "../containers/CameraContainer"
 
+import { OAUTH_CLIENT_ID_ANDROID, OAUTH_CLIENT_ID_IOS, OAUTH_CLIENT_ID, EXPO_CLIENT_ID, BACKEND } from "@env";
+import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google";
+
+WebBrowser.maybeCompleteAuthSession();
 
 export const LoginContainer = () => {
 
@@ -17,6 +21,8 @@ export const LoginContainer = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+
+    const [userInfo, setUserInfo] = useState(null);
 
     const handleEmailChange = (email) => {
         setEmail(email);
@@ -31,13 +37,12 @@ export const LoginContainer = () => {
 
     const storeData = async (value) => {
         try {
-          const jsonValue = JSON.stringify(value);
-          await AsyncStorage.setItem('user', jsonValue);
+            const jsonValue = JSON.stringify(value);
+            await AsyncStorage.setItem('user', jsonValue);
         } catch (e) {
-          // saving error
+            // saving error
         }
     };
-
 
     const login = () => {
         if (email === "" && password === "") {
@@ -69,6 +74,70 @@ export const LoginContainer = () => {
         navigation.navigate("ColourMatch");
     }
 
+
+    // const [request, response, promptAsync] = Google.useAuthRequest({
+    //     androidClientId: OAUTH_CLIENT_ID_ANDROID,
+    //     iosClientId: OAUTH_CLIENT_ID_IOS,
+    //     webClientId: OAUTH_CLIENT_ID,
+    //     expoClientId: EXPO_CLIENT_ID
+    // });
+
+    // useEffect(() => {
+    //     handleWebSignIn();
+    // }, [response]);
+
+    // const handleWebSignIn = async () => {
+    //     const user = await AsyncStorage.getItem("@user");
+
+    //     if (!user) {
+    //         if (response?.type === "success") {
+    //             await getUserInfo(response.authentication.accessToken);
+    //         }
+    //     } else {
+    //         setUserInfo(JSON.parse(user));
+    //     }
+    // }
+
+    // const getUserInfo = async (token) => {
+    //     if (!token) return;
+    //     try {
+    //         const response = await fetch(
+    //             "https://www.googleapis.com/userinfo/v2/me", {
+    //             headers: { Authorization: `Bearer ${token}` },
+    //         })
+    //         const user = await response.json();
+    //         await AsyncStorage.setItem("@user", JSON.stringify(user));
+    //         setUserInfo(user);
+
+    //         // Add to the db
+    //         axios.post(`${BACKEND}/register/oauth`, {
+    //             name: user.name,
+    //             email: user.email,
+    //             profilePhoto: user.picture
+    //         }).then((res) => {
+    //             console.log("Res: ", res.data);
+    //             navigation.navigate("Instruction");
+    //         })
+
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
+
+
+
+
+    // const loginGoogle = () => {
+    //     axios.post(`${BACKEND}/login/oauth`, {
+    //         email: email
+    //     }).then((res) => {
+    //         // console.log("Res: ", res);
+    //         storeData(res.data)
+    //         navigation.navigate("Main");
+    //     })
+    // }
+
     return (
         <Container>
             {/* <CameraContainer/> */}
@@ -94,6 +163,11 @@ export const LoginContainer = () => {
             >
                 Check Colours
             </Text>
+            <Button
+                onPress={() => promptAsync()}
+            >
+                Google
+            </Button>
         </Container>
     )
 }
