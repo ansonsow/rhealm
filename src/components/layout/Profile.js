@@ -1,10 +1,32 @@
 import { Container, Text, Button, Icon, View } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
+import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Profile = props => {
 
-    const { closeMenu, openEdit } = props;
+    const [user, setUser] = useState("");
+
+    const { backToMenu, openEdit } = props;
+
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem("user");
+
+            if (jsonValue != null) {
+                setUser(JSON.parse(jsonValue).data)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // console.log(user);
+
+    useEffect(() => {
+        getData();
+    }, [])
 
     return (
         <Container style={styles.container}>
@@ -12,7 +34,7 @@ export const Profile = props => {
                 <View style={styles.headingMenu}>
                     <Icon
                         as={<AntDesign name="left" size={30} />}
-                        onPress={closeMenu}
+                        onPress={backToMenu}
                     />
                     <Text
                         style={styles.heading}
@@ -34,7 +56,7 @@ export const Profile = props => {
             <Text
                 style={styles.text}
             >
-                Marina
+                {user != undefined ? user.name : "Marina"}
             </Text>
             <Text
                 style={styles.subheading}
@@ -44,7 +66,7 @@ export const Profile = props => {
             <Text
                 style={styles.text}
             >
-                email@gmail.com
+                {user != undefined ? user.email : "email@gmail.com"}
             </Text>
             {/* <Text
                 style={styles.subheading}
