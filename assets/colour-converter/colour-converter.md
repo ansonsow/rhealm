@@ -23,20 +23,36 @@
 ---
 
 ### Basic installation
-Either:
+**Option 1 – Online:**
 ```
 <script src="//rhizodonts.gitlab.io/dev-labs/@color-modes-switcher/use.js"></script>
 <script src="//rhizo.gitlab.io/random/name-that-color.js"></script>
 ```
 
-Or call the functions from the `colour-converter.js` file:
+**Option 2 – Local / VSCode:**
 
-![](https://cdn.glitch.global/f202da4e-f9f2-4703-9a01-471c490e991b/d59da473-87b3-4910-8bac-37d75f85f3a1.image.png)
+The color conversion file has already been included, and you do not need to call the function where you need to use it, because it uses `window.FUNCTION_NAME`.  
 
-And install [this](https://www.npmjs.com/package/@yatiac/name-that-color) dependency (for color naming):
+Here's an example of how you would use it:
 ```
+<Text>{HEX_TO_RGB("#bdced0")}</Text> {/* outputs 189, 206, 208 */}
+```
+
+Lastly, install [this](https://www.npmjs.com/package/@yatiac/name-that-color) dependency (for color naming):
+```zsh
 npm install @yatiac/name-that-color
 ```
+
+Example usage of getting the name of that color:
+```javascript
+const ntc = require('@yatiac/name-that-color');
+
+let sample = ntc("#bdced0").colorName;
+console.log(sample);
+```
+:point_up_2: in addition to `.colorName`, you can also do:
+- `.exactMatch` – returns true/false boolean
+- `.closestColor` – returns the hex of the closest matching color from the curator's list
 ---
 
 ### HEX to RGB
