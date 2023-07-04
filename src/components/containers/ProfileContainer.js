@@ -6,17 +6,19 @@ export const ProfileContainer = () => {
 
     const navigation = useNavigation();
 
-    // const { closeMenu } = props;
-
     const openEdit = () => {
         console.log("Go to Edit Page");
-        navigation.navigate("");
+        navigation.navigate("ProfileEdit");
+    }
+
+    const backToMenu = () => {
+        navigation.navigate("Main");
     }
 
     return (
         <Container>
             <Profile
-                // backToMenu={backToMenu}
+                backToMenu={backToMenu}
                 openEdit={openEdit}
             />
         </Container>
