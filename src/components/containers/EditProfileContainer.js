@@ -1,21 +1,22 @@
 import { EditProfileForm } from "../forms/EditProfileForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PopUp } from "../layout/PopUp";
 import { Text, Button, Container } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native-web";
-
+import { BACKEND } from "@env";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const EditProfileContainer = () => {
 
     const navigation = useNavigation();
 
     const [error, setError] = useState("");
-
-
     const [popOne, setPopOne] = useState(false);
     const [popTwo, setPopTwo] = useState(false);
-
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
 
     const backToMenu = () => {
         navigation.navigate("Profile");
@@ -44,7 +45,40 @@ export const EditProfileContainer = () => {
     }
 
     const confirmChanges = () => {
-        console.log("Working")
+        getData();
+    }
+
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem("user");
+            if (jsonValue !== null) {
+                if (name === "" && email === "") {
+                    setError("Please include valid data");
+                } else {
+                    axios.put(`${BACKEND}/user`, {
+                        name: name,
+                        email: email
+                    })
+                        .then((res) => {
+                            console.log("Res: ", res);
+                        })
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // useEffect(() => {
+
+    // })
+
+    const handleNameChange = (name) => {
+        setName(name);
+    }
+
+    const handleEmailChange = (email) => {
+        setEmail(email);
     }
 
     return (
@@ -55,6 +89,8 @@ export const EditProfileContainer = () => {
                 onSubmit={onSubmit}
                 backToProfile={backToProfile}
                 confirmChanges={confirmChanges}
+                onNameChange={handleNameChange}
+                onEmailChange={handleEmailChange}
             />
 
             {popOne ? (<PopUp

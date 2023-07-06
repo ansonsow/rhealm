@@ -8,7 +8,7 @@ import { svgConfirmIcon, svgLeftIcon } from "../../../assets/images/svgs";
 
 export const EditProfileForm = props => {
 
-    const { backToMenu, error, onSubmit, backToProfile, confirmChanges } = props;
+    const { backToMenu, error, onSubmit, backToProfile, confirmChanges, onNameChange, onEmailChange } = props;
 
     const [user, setUser] = useState("");
 
@@ -71,11 +71,14 @@ export const EditProfileForm = props => {
                         <Input
                             // placeholder="Name"
                             // style={styles.input}
-                            value={user != undefined ? user.name : "Name"}
+                            placeholder={user != undefined ? user.name : "Name"}
                             width="100%"
                             px={3}
                             marginBottom={5}
                             autoCapitalize="none"
+                            onChangeText={value => {
+                                onNameChange(value)
+                            }}
                         />
                     </HStack>
                 </FormControl>
@@ -89,11 +92,14 @@ export const EditProfileForm = props => {
                     >
                         <Input
                             // style={styles.input}
-                            value={user != undefined ? user.email : "email@gmail.com"}
+                            placeholder={user != undefined ? user.email : "email@gmail.com"}
                             width="100%"
                             px={3}
                             marginBottom={5}
                             autoCapitalize="none"
+                            onChangeText={value => {
+                                onEmailChange(value)
+                            }}
                         />
                     </HStack>
                 </FormControl>
