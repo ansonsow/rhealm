@@ -16,7 +16,7 @@ export const OnboardingTwo = () => {
     }
 
     const cancelBtn = () => {
-        setPop(!popOne);
+        setPopOne(!popOne);
     }
 
     const confirmBtn = () => {
