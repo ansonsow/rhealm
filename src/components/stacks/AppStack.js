@@ -16,6 +16,7 @@ import { ClothingsContainer } from "../containers/ClothingsContainer"
 import { ClothingContainer } from "../containers/ClothingContainer"
 import { EditProfileContainer } from "../containers/EditProfileContainer";
 // import { Menu } from "../layout/Menu";
+import { ClothingInstructionContainer } from "../containers/ClothingInstructionContainer";
 
 const Stack = createNativeStackNavigator();
 // const Stack = createStackNavigator();
@@ -88,13 +89,15 @@ export const AppStack = () => {
                 <Stack.Screen
                     name="ProfileEdit"
                     component={EditProfileContainer}
-
-
                 />
                 {/* <Stack.Screen
                     name="Menu"
                     component={Menu}
                 /> */}
+                <Stack.Screen
+                    name="ClothingInstructions"
+                    component={ClothingInstructionContainer}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     )
