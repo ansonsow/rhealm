@@ -1,4 +1,4 @@
-import { Container, Image, Text } from "native-base";
+import { Container, Image, Text, View } from "native-base";
 import axios from "axios";
 import { WEATHER_API_ACCESS_KEY } from "@env";
 import { useEffect, useState } from "react";
@@ -48,11 +48,15 @@ export const Weather = () => {
             } */}
             {weather &&
                 <>
-                    <Image
-                        alt="Weather Icon"
-                        source={{ uri: `https://openweathermap.org/img/wn/${weather.data.weather[0].icon}@2x.png` }}
-                        style={styles.icon}
-                    />
+                    <View
+                        style={styles.imageCont}
+                    >
+                        <Image
+                            alt="Weather Icon"
+                            source={{ uri: `https://openweathermap.org/img/wn/${weather.data.weather[0].icon}@2x.png` }}
+                            style={styles.icon}
+                        />
+                    </View>
                     <Text>
                         {Math.round(weather.data.main.temp)}&deg;C
                     </Text>
@@ -70,7 +74,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         gap: 3,
-        backgroundColor: "#fff",
+        backgroundColor: "lightgray",
         borderRadius: "15px",
         shadowColor: "#000",
         shadowOpacity: 0.1,
@@ -85,7 +89,12 @@ const styles = StyleSheet.create({
     },
     icon: {
         width: 30,
-        height: 30,
-        borderRadius: "50%"
+        height: 30
+    },
+    imageCont: {
+        // width: 30,
+        // height: 30,
+        // borderRadius: "50%",
+        // backgroundColor: "gray"
     }
 })
