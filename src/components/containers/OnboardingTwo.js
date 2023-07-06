@@ -8,23 +8,27 @@ export const OnboardingTwo = () => {
 
     const navigation = useNavigation();
 
-    const [pop, setPop] = useState(false);
+    const [popOne, setPopOne] = useState(false);
+    const [popTwo, setPopTwo] = useState(false);
 
-    const instructions = () => {
-        setPop(true);
+    const skipSetup = () => {
+        setPopOne(!popOne);
     }
 
     const cancelBtn = () => {
-        setPop(false);
+        setPopOne(!popOne);
     }
 
     const confirmBtn = () => {
         // console.log("Go to Details Page")
-        navigation.navigate("OnboardingOne");
+        navigation.navigate("Main");
     }
 
     const saveSetup = () => {
-        // console.log("Save the setup")
+        setPopTwo(!popTwo);
+    }
+
+    const goToMain = () => {
         navigation.navigate("Main");
     }
 
@@ -46,15 +50,12 @@ export const OnboardingTwo = () => {
                 onPress={saveSetup}
                 style={styles.btn}
             >
-                Save
+                Next
             </Button>
-            <Button
-                onPress={instructions}
-                style={styles.btn}
-            >
-                Back
-            </Button>
-            {pop ? (<PopUp
+
+            <Text>Don't want to decide now? <Text style={styles.pressable} onPress={skipSetup}>Skip!</Text></Text>
+
+            {popOne ? (<PopUp
                 content={
                     <>
                         <Text
@@ -68,20 +69,39 @@ export const OnboardingTwo = () => {
                             Your data will be lost.
                         </Text>
                         <Button
-                            onPress={confirmBtn}
-                            style={styles.btn}
-                        >
-                            Confirm
-                        </Button>
-                        <Button
                             onPress={cancelBtn}
                             style={styles.btn}
                         >
                             Cancel
                         </Button>
+                        <Button
+                            onPress={confirmBtn}
+                            style={styles.btn}
+                        >
+                            Confirm
+                        </Button>
                     </>
                 }
             />) : (console.log("Closed"))}
+
+            {popTwo ? (<PopUp
+                content={
+                    <>
+                        <Text
+                            style={styles.text}
+                        >
+                            You have created an account.
+                        </Text>
+                        <Button
+                            onPress={goToMain}
+                            style={styles.btn}
+                        >
+                            Go to Main
+                        </Button>
+                    </>
+                }
+            />) : (console.log("Closed"))}
+
         </Container >
     )
 }
@@ -109,5 +129,9 @@ const styles = StyleSheet.create({
     headingPop: {
         fontWeight: "bold",
         fontSize: 20
-    }
+    },
+    pressable: {
+        color: "#411E94",
+        fontWeight: "bold"
+    },
 })

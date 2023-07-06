@@ -4,6 +4,7 @@ import axios from "axios";
 import { StyleSheet } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react'
+import { Weather } from "./Weather";
 
 export const Heading = props => {
     const [user, setUser] = useState('')
@@ -27,7 +28,7 @@ export const Heading = props => {
     };
 
     useEffect(() => {
-        getData()
+        getData();
     }, [])
 
     return (
@@ -37,16 +38,14 @@ export const Heading = props => {
                 onPress={menu}
             >
                 <Image
-                    source={{ uri: "https://images.unsplash.com/photo-1472457897821-70d3819a0e24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c21hbGx8ZW58MHx8MHx8fDA%3D&w=1000&q=80" }}
-                    alt={"name"}
+                    source={require("../../../assets/images/ImageHolderMain.png")}
+                    alt="Image Holder"
                     style={styles.profilePhoto}
-
                 />
             </Pressable>
             <View style={styles.headingContent}>
                 <Text
-                    style={styles.text}
-
+                    style={styles.heading}
                 >
                     Hello {user != undefined ? user.name : "Marina"}!
                 </Text>
@@ -55,6 +54,7 @@ export const Heading = props => {
                 >
                     It's sunny outside.
                 </Text>
+                <Weather />
             </View>
         </Container>
     )
@@ -62,11 +62,11 @@ export const Heading = props => {
 
 const styles = StyleSheet.create({
     profilePhoto: {
-        maxWidth: "50%",
-        maxHeight: "50%"
+        maxWidth: "100%",
+        maxHeight: "100%"
     },
     container: {
-        backgroundColor: "lightgray",
+        // backgroundColor: "lightgray",
         width: "100%",
         padding: 5,
         display: "flex",
@@ -84,5 +84,9 @@ const styles = StyleSheet.create({
         height: 80,
         borderRadius: 50,
         padding: 10
+    },
+    heading: {
+        fontSize: "20px",
+        fontWeight: "bold"
     }
 })

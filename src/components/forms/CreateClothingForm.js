@@ -5,12 +5,18 @@ import { BACKEND } from "@env";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
+import { SvgXml } from "react-native-svg";
+import { TouchableOpacity } from "react-native";
+import { svgLeftIcon } from "../../../assets/images/svgs";
+import { useNavigation } from "@react-navigation/native";
 
 const CreateClothingForm = props => {
+    const navigation = useNavigation();
+
     const [name, setName] = useState('')
     const [color, setColor] = useState('')
     const [type, setType] = useState('')
-    const [texture,setTexture] = useState('')
+    const [texture, setTexture] = useState('')
 
     const handleNameChange = (n) => {
         setName(n)
@@ -43,15 +49,21 @@ const CreateClothingForm = props => {
         })
     }
 
-
-
-
-
+    const backToInstructions = () => {
+        navigation.navigate("ClothingInstructions");
+    }
 
     return (
         <Container>
+            <TouchableOpacity
+                onPress={backToInstructions}
+            >
+                <SvgXml
+                    xml={svgLeftIcon}
+                />
+            </TouchableOpacity>
             <VStack width="100%">
-            <FormControl isRequired>
+                <FormControl isRequired>
                     <FormControl.Label>Name</FormControl.Label>
                     <HStack width="100%">
                         <Input
@@ -63,24 +75,24 @@ const CreateClothingForm = props => {
                                 handleNameChange(value)
                             }}
                         />
-                        
+
                     </HStack>
                 </FormControl>
 
                 <FormControl isRequired>
                     <FormControl.Label>Color</FormControl.Label>
                     <HStack width="100%">
-                    <Select  minWidth="200" 
-                             accessibilityLabel="Choose Color" 
-                             placeholder="Choose Color" 
-                             _selectedItem={{
-                                 bg: "purple",
-                             }} mt={1} 
-                             onValueChange={itemValue => handleColorChange(itemValue)}
-                            >
-                                <Select.Item label="Black" value="black" />
-                                <Select.Item label="White" value="white" />
-                                {/* <Select.Item label="Gray" value="gray" />
+                        <Select minWidth="200"
+                            accessibilityLabel="Choose Color"
+                            placeholder="Choose Color"
+                            _selectedItem={{
+                                bg: "purple",
+                            }} mt={1}
+                            onValueChange={itemValue => handleColorChange(itemValue)}
+                        >
+                            <Select.Item label="Black" value="black" />
+                            <Select.Item label="White" value="white" />
+                            {/* <Select.Item label="Gray" value="gray" />
                                 <Select.Item label="Navy blue" value="navy blue" />
                                 <Select.Item label="Royal blue" value="royal blue" />
                                 <Select.Item label="Sky blue" value="sky blue" />
@@ -124,19 +136,19 @@ const CreateClothingForm = props => {
                 <FormControl isRequired>
                     <FormControl.Label>Texture</FormControl.Label>
                     <HStack width="100%">
-                    <Select  minWidth="200" 
-                             accessibilityLabel="Choose Texture" 
-                             placeholder="Choose Texture" 
-                             _selectedItem={{
-                                 bg: "purple",
-                             }} mt={1} 
-                             onValueChange={itemValue => handleTextureChange(itemValue)}
-                            >
-                                <Select.Item label="Cotton" value="cotton" />
-                                <Select.Item label="Knit" value="knit" />
-                                <Select.Item label="Polyester" value="polyester" />
-                                <Select.Item label="Chiffon" value="chiffon" />
-                                {/* <Select.Item label="Silk" value="silk" />
+                        <Select minWidth="200"
+                            accessibilityLabel="Choose Texture"
+                            placeholder="Choose Texture"
+                            _selectedItem={{
+                                bg: "purple",
+                            }} mt={1}
+                            onValueChange={itemValue => handleTextureChange(itemValue)}
+                        >
+                            <Select.Item label="Cotton" value="cotton" />
+                            <Select.Item label="Knit" value="knit" />
+                            <Select.Item label="Polyester" value="polyester" />
+                            <Select.Item label="Chiffon" value="chiffon" />
+                            {/* <Select.Item label="Silk" value="silk" />
                                 <Select.Item label="Satin" value="satin" />
                                 <Select.Item label="Wool" value="wool" />
                                 <Select.Item label="Down" value="down" />
@@ -153,7 +165,7 @@ const CreateClothingForm = props => {
                                 <Select.Item label="Rayon" value="rayon" />
                                 <Select.Item label="Suede" value="suede" /> */}
 
-                            </Select>
+                        </Select>
                     </HStack>
                 </FormControl>
 
@@ -161,19 +173,19 @@ const CreateClothingForm = props => {
                 <FormControl isRequired>
                     <FormControl.Label>Type</FormControl.Label>
                     <HStack width="100%">
-                    <Select  minWidth="200" 
-                             accessibilityLabel="Choose Type" 
-                             placeholder="Choose Type" 
-                             _selectedItem={{
-                                 bg: "purple",
-                             }} mt={1} 
-                             onValueChange={itemValue => handleTypeChange(itemValue)}
-                            >
-                                <Select.Item label="T-shirt" value="tshirt" />
-                                <Select.Item label="Pants" value="pants" />
-                                <Select.Item label="Shirt" value="shirt" />
-                                <Select.Item label="Jeans" value="jeans" />
-                                {/* <Select.Item label="Blouse" value="blouse" />
+                        <Select minWidth="200"
+                            accessibilityLabel="Choose Type"
+                            placeholder="Choose Type"
+                            _selectedItem={{
+                                bg: "purple",
+                            }} mt={1}
+                            onValueChange={itemValue => handleTypeChange(itemValue)}
+                        >
+                            <Select.Item label="T-shirt" value="tshirt" />
+                            <Select.Item label="Pants" value="pants" />
+                            <Select.Item label="Shirt" value="shirt" />
+                            <Select.Item label="Jeans" value="jeans" />
+                            {/* <Select.Item label="Blouse" value="blouse" />
                                 <Select.Item label="Shorts" value="shorts" />
                                 <Select.Item label="Sweater" value="sweater" />
                                 <Select.Item label="Leggings" value="leggings" />
@@ -202,14 +214,14 @@ const CreateClothingForm = props => {
                                 <Select.Item label="Cape" value="cape" />
                                 <Select.Item label="Tunic" value="tunic" /> */}
 
-                            </Select>
+                        </Select>
                     </HStack>
                 </FormControl>
 
                 <Button onPress={handleClicked}>
                     Add
                 </Button>
-                
+
             </VStack>
         </Container>
     )

@@ -7,6 +7,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { OAUTH_CLIENT_ID_ANDROID, OAUTH_CLIENT_ID_IOS, OAUTH_CLIENT_ID, EXPO_CLIENT_ID, BACKEND } from "@env";
 import axios from "axios";
+import { SvgXml } from "react-native-svg";
+import { svgLogo } from "../../../assets/images/svgs";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -86,6 +88,10 @@ export const WelcomeScreen = () => {
 
     return (
         <Container>
+            <SvgXml
+                xml={svgLogo}
+                style={styles.image}
+            />
             <Text style={styles.heading} >Welcome to ColourFit</Text>
             <Text>
                 {JSON.stringify(userInfo, null, 2)}
@@ -104,7 +110,6 @@ export const WelcomeScreen = () => {
                 />
                 <Text
                     style={styles.lineText}
-                    alignSelf="center"
                 >
                     or
                 </Text>
@@ -154,5 +159,9 @@ const styles = StyleSheet.create({
     lineText: {
         fontSize: 16,
         marginTop: 20
+    },
+    image: {
+        alignSelf: "center",
+        margin: 5
     }
 })

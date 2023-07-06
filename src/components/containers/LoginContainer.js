@@ -1,10 +1,12 @@
-import { Button, Container, Text } from "native-base";
+import { Button, Container, Text, Image, View } from "native-base";
 import { LoginForm } from "../forms/LoginForm";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SvgXml } from "react-native-svg";
+import { svgLogo } from "../../../assets/images/svgs";
 
 import { CameraContainer } from "../containers/CameraContainer"
 
@@ -45,8 +47,8 @@ export const LoginContainer = () => {
     };
 
     const login = () => {
-        if (email === "" && password === "") {
-            setError("Credentials don't match, please check your credentials");
+        if (email === "" || password === "") {
+            setError("Please check your email or password.");
         } else {
             axios.post(`${BACKEND}/login`, {
                 email: email,
@@ -140,11 +142,15 @@ export const LoginContainer = () => {
 
     return (
         <Container>
+            <SvgXml
+                xml={svgLogo}
+                style={styles.image}
+            />
             {/* <CameraContainer/> */}
             <Text
                 style={styles.heading}
             >
-                Login
+                Welcome to Colourfit
             </Text>
             <LoginForm
                 onEmailChange={handleEmailChange}
@@ -154,20 +160,42 @@ export const LoginContainer = () => {
                 error={error}
             />
             <Text
-                onPress={signUp}
-            >
-                Don't have an account? Sign up!
-            </Text>
-            <Text
                 onPress={goColourMatch}
             >
                 Check Colours
             </Text>
+
+            <View
+                style={styles.lines}
+            >
+                <View
+                    style={styles.line}
+                />
+                <Text
+                    style={styles.lineText}
+                >
+                    or sign in with
+                </Text>
+                <View
+                    style={styles.line}
+                />
+            </View>
+
+
             <Button
                 onPress={() => promptAsync()}
             >
                 Google
             </Button>
+            <Text>
+                Don't have an account?&nbsp;
+                <Text
+                    onPress={signUp}
+                    style={styles.pressable}
+                >
+                    Sign up!
+                </Text>
+            </Text>
         </Container>
     )
 }
@@ -177,5 +205,28 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 20,
         marginBottom: 20
-    }
+    },
+    image: {
+        alignSelf: "center",
+        margin: 5
+    },
+    pressable: {
+        color: "#411E94",
+        fontWeight: "bold"
+    },
+    lines: {
+        display: "flex",
+        flexDirection: "row",
+        alignSelf: "center",
+        marginBottom: 20
+    },
+    line: {
+        borderBottomWidth: 1,
+        width: 100
+    },
+    lineText: {
+        fontSize: 16,
+        marginTop: 20,
+        alignSelf: "center",
+    },
 })

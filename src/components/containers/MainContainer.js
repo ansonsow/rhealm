@@ -32,38 +32,50 @@ export const MainContainer = () => {
         navigation.navigate("ClothingsContainer");
     }
 
+    const openInstructions = () => {
+        navigation.navigate("ClothingInstructions");
+    }
+
     return (
         <SafeAreaProvider style={styles.safeArea}>
             <Container style={styles.container}>
-                <Text>Home</Text>
-                <Heading menu={openMenu}/>
+
+                <Heading menu={openMenu} />
+
+                <Button
+                    onPress={openInstructions}
+                    title="Detect Item Colour"
+                />
 
                 <Text style={styles.heading}>
                     Trending Now!
                 </Text>
+                <TrendingSlider />
 
-                <TrendingSlider/>
+
+                <Button title="camera" onPress={CameraBtn}>Camera</Button>
+                <Button title="clothings" onPress={ClothingsBtn}>Clothings</Button>
+
+
+
             </Container>
-
-            <Button title="camera" onPress={CameraBtn}>Camera</Button>
-            <Button title="clothings" onPress={ClothingsBtn}>Clothings</Button>
-
 
             {menu ? (<Menu
                 closeMenu={closeMenu}
             />) : (console.log("Closed"))}
+
         </SafeAreaProvider>
     )
 }
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    
+    // safeArea: {
+    //     flex: 1,
+    //     backgroundColor: '#fff',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    // },
+
     container: {
         width: "100%"
     },
