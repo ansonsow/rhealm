@@ -17,7 +17,7 @@ export const InstructionContainer = () => {
 
     const inputSkinTone = () => {
         setPopUp(!popUp);
-        navigation.navigate("OnboardingTwo");
+        // navigation.navigate("OnboardingTwo");
     }
 
     const confirmBtn = () => {
