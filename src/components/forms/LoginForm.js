@@ -1,4 +1,4 @@
-import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text } from "native-base";
+import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text, WarningOutlineIcon } from "native-base";
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -19,6 +19,7 @@ export const LoginForm = props => {
                             width="100%"
                             px={3}
                             marginBottom={5}
+                            autoCapitalize="none"
                             onChangeText={value => {
                                 onEmailChange(value)
                             }}
@@ -33,6 +34,7 @@ export const LoginForm = props => {
                             width="100%"
                             px={3}
                             marginBottom={5}
+                            autoCapitalize="none"
                             type={show ? "text" : "password"}
                             InputRightElement={
                                 <Pressable onPress={() => setShow(!show)} paddingRight={1}>
@@ -46,6 +48,11 @@ export const LoginForm = props => {
                         />
                     </HStack>
                 </FormControl>
+                {/* <FormControl.ErrorMessage
+                    leftIcon={<WarningOutlineIcon size="xs" />}
+                >
+                    {error}
+                </FormControl.ErrorMessage> */}
                 <Text color="red.500">{error}</Text>
                 <Text
                     onPress={forgotPsw}
