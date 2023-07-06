@@ -110,7 +110,6 @@ export const WelcomeScreen = () => {
                 />
                 <Text
                     style={styles.lineText}
-                    alignSelf="center"
                 >
                     or
                 </Text>

@@ -1,6 +1,9 @@
-import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text, WarningOutlineIcon } from "native-base";
+import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text, WarningOutlineIcon, View } from "native-base";
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
+import { SvgXml } from "react-native-svg";
+import { svgAlertIcon } from "../../../assets/images/svgs";
+import { StyleSheet } from "react-native";
 
 export const LoginForm = props => {
 
@@ -11,6 +14,13 @@ export const LoginForm = props => {
     return (
         <Container>
             <VStack width="100%">
+                {error &&
+                    <View style={styles.alert}>
+                        <SvgXml
+                            xml={svgAlertIcon}
+                        />
+                        <Text color="#942100">{error}</Text>
+                    </View>}
                 <FormControl isRequired>
                     <FormControl.Label>Email</FormControl.Label>
                     <HStack width="100%">
@@ -53,7 +63,6 @@ export const LoginForm = props => {
                 >
                     {error}
                 </FormControl.ErrorMessage> */}
-                <Text color="red.500">{error}</Text>
                 <Text
                     onPress={forgotPsw}
                 >Forgot Password?</Text>
@@ -68,3 +77,16 @@ export const LoginForm = props => {
         </Container>
     )
 }
+
+const styles = StyleSheet.create({
+    alert: {
+        display: "flex",
+        flexDirection: "row",
+        gap: 10,
+        backgroundColor: "#f7dbd2",
+        // width: "100%"
+        borderRadius: "10px",
+        alignContent: "center",
+        alignItems: "center"
+    }
+})
