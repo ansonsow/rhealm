@@ -1,10 +1,14 @@
 import { Text, Button, Container } from "native-base"
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { PopUp } from "../layout/PopUp";
 
 export const InstructionContainer = () => {
 
     const navigation = useNavigation();
+
+    const [popUp, setPopUp] = useState(false);
 
     const onNext = () => {
         // console.log("Next Working");
@@ -12,8 +16,17 @@ export const InstructionContainer = () => {
     }
 
     const inputSkinTone = () => {
-        // console.log("Input Skin Tone Working")
+        setPopUp(!popUp);
         navigation.navigate("OnboardingTwo");
+    }
+
+    const confirmBtn = () => {
+        // console.log("Go to Details Page")
+        navigation.navigate("OnboardingTwo");
+    }
+
+    const cancelBtn = () => {
+        setPopUp(!popUp);
     }
 
     return (
@@ -21,7 +34,7 @@ export const InstructionContainer = () => {
             <Text
                 style={styles.heading}
             >
-                Instruction
+                Instructions
             </Text>
             <Text
                 style={styles.subheading}
@@ -44,12 +57,46 @@ export const InstructionContainer = () => {
             >
                 Next
             </Button>
-            <Button
-                onPress={inputSkinTone}
-                style={styles.btn}
-            >
-                I know my skin tone already!
-            </Button>
+            <Text>
+                Already know your skin tone?&nbsp;
+                <Text
+                    onPress={inputSkinTone}
+                    style={styles.pressable}
+                >
+                    Skip!
+                </Text>
+            </Text>
+
+            {popUp ? (<PopUp
+                content={
+                    <>
+                        <Text
+                            style={styles.headingPop}
+                        >
+                            No worries!
+                        </Text>
+                        <Text
+                            style={styles.text}
+                        >
+                            To provide you with more personalized recommendations, you can retake your selfie later on the <Text style={styles.textHighlight}>Profile</Text> page.
+                        </Text>
+                        <Button
+                            onPress={cancelBtn}
+                            style={styles.btn}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onPress={confirmBtn}
+                            style={styles.btn}
+                        >
+                            Confirm
+                        </Button>
+
+                    </>
+                }
+            />) : (console.log("Closed"))}
+
         </Container>
     )
 }
@@ -71,5 +118,16 @@ const styles = StyleSheet.create({
     btn: {
         marginTop: 10,
         width: 250
+    },
+    pressable: {
+        color: "#411E94",
+        fontWeight: "bold"
+    },
+    textHighlight: {
+        fontWeight: "bold"
+    },
+    headingPop: {
+        fontWeight: "bold",
+        fontSize: 20
     }
 })
