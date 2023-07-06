@@ -1,10 +1,12 @@
-import { Button, Container, Text } from "native-base";
+import { Button, Container, Text, Image } from "native-base";
 import { LoginForm } from "../forms/LoginForm";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SvgXml } from "react-native-svg";
+import { svgLogo } from "../../../assets/images/svgs";
 
 import { CameraContainer } from "../containers/CameraContainer"
 
@@ -140,11 +142,15 @@ export const LoginContainer = () => {
 
     return (
         <Container>
+            <SvgXml
+                xml={svgLogo}
+                style={styles.image}
+            />
             {/* <CameraContainer/> */}
             <Text
                 style={styles.heading}
             >
-                Login
+                Welcome to Colourfit
             </Text>
             <LoginForm
                 onEmailChange={handleEmailChange}
@@ -153,11 +159,6 @@ export const LoginContainer = () => {
                 forgotPsw={forgotPsw}
                 error={error}
             />
-            <Text
-                onPress={signUp}
-            >
-                Don't have an account? Sign up!
-            </Text>
             <Text
                 onPress={goColourMatch}
             >
@@ -168,6 +169,15 @@ export const LoginContainer = () => {
             >
                 Google
             </Button>
+            <Text>
+                Don't have an account?&nbsp;
+                <Text
+                    onPress={signUp}
+                    style={styles.pressable}
+                >
+                    Sign up!
+                </Text>
+            </Text>
         </Container>
     )
 }
@@ -177,5 +187,13 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 20,
         marginBottom: 20
+    },
+    image: {
+        alignSelf: "center",
+        margin: 5
+    },
+    pressable: {
+        color: "#411E94",
+        fontWeight: "bold"
     }
 })
