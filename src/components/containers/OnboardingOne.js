@@ -3,40 +3,32 @@ import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { PopUp } from "../layout/PopUp";
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
+import { CameraContainer } from "./CameraContainer";
 
 export const OnboardingOne = () => {
 
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
 
     const [popOne, setPopOne] = useState(false);
-    const [popTwo, setPopTwo] = useState(false);
+    // const [popTwo, setPopTwo] = useState(false);
 
-    const skipSetup = () => {
-        // console.log("Skip the Setup")
-        setPopTwo(true);
-    }
+    // const skipSetup = () => {
+    //     // console.log("Skip the Setup")
+    //     setPopTwo(true);
+    // }
 
-    const instructions = () => {
-        // console.log("Back to Instructions")
-        navigation.navigate("Instruction");
-    }
+    // const instructions = () => {
+    //     // console.log("Back to Instructions")
+    //     navigation.navigate("Instruction");
+    // }
 
     const openPop = () => {
-        setPopOne(true);
+        setPopOne(!popOne);
     }
 
     const closePop = () => {
-        setPopOne(false);
-    }
-
-    const cancelBtn = () => {
-        setPopTwo(false);
-    }
-
-    const confirmBtn = () => {
-        // console.log("Go to Details Page")
-        navigation.navigate("OnboardingTwo");
+        setPopOne(!popOne);
     }
 
     return (
@@ -47,7 +39,8 @@ export const OnboardingOne = () => {
                 <Icon as={<AntDesign name="left" size={24} color="black" />} />
                 <Icon onPress={openPop} as={<AntDesign name="questioncircleo" size={24} color="black" />} />
             </View>
-            <Text
+            <CameraContainer />
+            {/* <Text
                 style={styles.heading}
             >
                 Validate your skin tone
@@ -63,7 +56,8 @@ export const OnboardingOne = () => {
                 style={styles.btn}
             >
                 Back
-            </Button>
+            </Button> */}
+
             {popOne ? (<PopUp
                 content={
                     <>
@@ -78,38 +72,10 @@ export const OnboardingOne = () => {
                         >
                             2. Please take a photo of your neck or arm.
                         </Text>
+                    </>
+                }
+            />) : (console.log("Closed"))}
 
-                    </>
-                }
-            />) : (console.log("Closed"))}
-            {popTwo ? (<PopUp
-                content={
-                    <>
-                        <Text
-                            style={styles.headingPop}
-                        >
-                            No worries!
-                        </Text>
-                        <Text
-                            style={styles.text}
-                        >
-                            To provide you with more personalized recommendations, you can retake your selfie later on the Profile page.
-                        </Text>
-                        <Button
-                            onPress={confirmBtn}
-                            style={styles.btn}
-                        >
-                            Confirm
-                        </Button>
-                        <Button
-                            onPress={cancelBtn}
-                            style={styles.btn}
-                        >
-                            Cancel
-                        </Button>
-                    </>
-                }
-            />) : (console.log("Closed"))}
         </Container >
     )
 }

@@ -6,6 +6,8 @@ import { BACKEND } from "@env";
 import { PopUp } from "../layout/PopUp";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { SvgXml } from "react-native-svg";
+import { svgLogo } from "../../../assets/images/svgs";
 
 export const SignUpContainer = () => {
 
@@ -74,10 +76,14 @@ export const SignUpContainer = () => {
 
     return (
         <Container>
+            <SvgXml
+                xml={svgLogo}
+                style={styles.image}
+            />
             <Text
                 style={styles.heading}
             >
-                Sign Up
+                Welcome to Colourfit
             </Text>
             <SignUpForm
                 onNameChange={handleNameChange}
@@ -88,6 +94,7 @@ export const SignUpContainer = () => {
                 error={error}
                 backToSplash={backToSplash}
             />
+
             {popOne ? (<PopUp
                 content={
                     <>
@@ -116,6 +123,7 @@ export const SignUpContainer = () => {
                     </>
                 }
             />) : (console.log("Closed"))}
+
             {popTwo ? (<PopUp
                 content={
                     <>
@@ -138,6 +146,7 @@ export const SignUpContainer = () => {
                     </>
                 }
             />) : (console.log("Closed"))}
+
         </Container>
     )
 }
@@ -158,5 +167,9 @@ const styles = StyleSheet.create({
     btn: {
         marginTop: 10,
         width: 250
+    },
+    image: {
+        alignSelf: "center",
+        margin: 5
     }
 })

@@ -1,8 +1,11 @@
-import { Container, Text, Button, Icon, View } from "native-base";
+import { Container, Text, Button, Icon, View, Image } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SvgXml } from "react-native-svg";
+import { svgEditIcon } from "../../../assets/images/svgs";
+import { svgLeftIcon } from "../../../assets/images/svgs";
 
 export const Profile = props => {
 
@@ -32,21 +35,26 @@ export const Profile = props => {
         <Container style={styles.container}>
             <View style={styles.headingMenuCont}>
                 <View style={styles.headingMenu}>
-                    <Icon
-                        as={<AntDesign name="left" size={30} />}
+                    <TouchableOpacity
                         onPress={backToMenu}
-                    />
+                    >
+                        <SvgXml
+                            xml={svgLeftIcon}
+                        />
+                    </TouchableOpacity>
                     <Text
                         style={styles.heading}
                     >
                         Profile
                     </Text>
+                    <TouchableOpacity
+                        onPress={openEdit}
+                    >
+                        <SvgXml
+                            xml={svgEditIcon}
+                        />
+                    </TouchableOpacity>
                 </View>
-                <Button
-                    onPress={openEdit}
-                >
-                    Edit
-                </Button>
             </View>
             <Text
                 style={styles.subheading}
@@ -56,7 +64,7 @@ export const Profile = props => {
             <Text
                 style={styles.text}
             >
-                {user != undefined ? user.name : "Marina"}
+                {user != undefined ? user.name : "User"}
             </Text>
             <Text
                 style={styles.subheading}
@@ -106,7 +114,8 @@ const styles = StyleSheet.create({
     headingMenu: {
         display: "flex",
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "space-around"
     },
     heading: {
         fontWeight: "bold",
@@ -117,7 +126,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-around"
     },
     subheading: {
         fontWeight: "bold",

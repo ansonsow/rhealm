@@ -1,64 +1,84 @@
 import { AntDesign } from "@expo/vector-icons";
-import { Container, FormControl, VStack, View, Icon, Text, HStack, Input, Button } from "native-base";
-import { StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { PopUp } from "../layout/PopUp";
+import { Container, FormControl, VStack, View, Icon, Text, HStack, Input, Button, WarningOutlineIcon } from "native-base";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SvgXml } from "react-native-svg";
+import { svgConfirmIcon, svgLeftIcon } from "../../../assets/images/svgs";
 
+export const EditProfileForm = props => {
 
-export const EditProfileForm = () => {
-    const navigation = useNavigation();
+    const { backToMenu, error, onSubmit, backToProfile, confirmChanges, onNameChange, onEmailChange } = props;
 
-    const [popOne, setPopOne] = useState(false);
-    const [popTwo, setPopTwo] = useState(false);
+    const [user, setUser] = useState("");
 
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem("user");
 
-    const backToMenu = () => {
-        navigation.navigate("Profile");
+            if (jsonValue != null) {
+                setUser(JSON.parse(jsonValue).data);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    const onSubmit = () => {
-        setPopTwo(!popTwo);
-    }
+    useEffect(() => {
+        getData();
+    }, []);
 
-    const backToProfile = () => {
-        setPopOne(!popOne);
-    }
-
-    const cancelBtn = () => {
-        setPopOne(false);
-    }
-
-    const nextBtn = () => {
-        navigation.navigate("Profile");
-    }
-
-    const confirmBtn = () => {
-        navigation.navigate("Profile");
-    }
+    // console.log(user);
 
     return (
         <Container>
             <VStack style={styles.container}>
-                <View style={styles.headingMenu}>
-                    <Icon
+                <View style={styles.headingMenuCont}>
+                    <View style={styles.headingMenu}>
+                        <TouchableOpacity
+                            onPress={backToMenu}
+                        >
+                            <SvgXml
+                                xml={svgLeftIcon}
+                            />
+                        </TouchableOpacity>
+                        {/* <Icon
                         as={<AntDesign name="left" size={30} />}
                         onPress={backToMenu}
-                    />
-                    <Text
-                        style={styles.heading}
+                    /> */}
+                        <Text
+                            style={styles.heading}
+                        >
+                            Edit Profile
+                        </Text>
+                    </View>
+                    <TouchableOpacity
+                        onPress={confirmChanges}
                     >
-                        Edit Profile
-                    </Text>
+                        <SvgXml
+                            xml={svgConfirmIcon}
+                        />
+                    </TouchableOpacity>
                 </View>
                 <FormControl>
                     <FormControl.Label>
                         Name
                     </FormControl.Label>
-                    <HStack style={styles.subcontainer}>
+                    <HStack
+                    // style={styles.subcontainer}
+                    // width="100%"
+                    >
                         <Input
-                            placeholder="Name"
-                            style={styles.input}
+                            // placeholder="Name"
+                            // style={styles.input}
+                            placeholder={user != undefined ? user.name : "Name"}
+                            width="100%"
+                            px={3}
+                            marginBottom={5}
+                            autoCapitalize="none"
+                            onChangeText={value => {
+                                onNameChange(value)
+                            }}
                         />
                     </HStack>
                 </FormControl>
@@ -66,10 +86,20 @@ export const EditProfileForm = () => {
                     <FormControl.Label>
                         Email
                     </FormControl.Label>
-                    <HStack style={styles.subcontainer}>
+                    <HStack
+                    // style={styles.subcontainer}
+                    // width="100%"
+                    >
                         <Input
-                            placeholder="Email"
-                            style={styles.input}
+                            // style={styles.input}
+                            placeholder={user != undefined ? user.email : "email@gmail.com"}
+                            width="100%"
+                            px={3}
+                            marginBottom={5}
+                            autoCapitalize="none"
+                            onChangeText={value => {
+                                onEmailChange(value)
+                            }}
                         />
                     </HStack>
                 </FormControl>
@@ -77,10 +107,16 @@ export const EditProfileForm = () => {
                     <FormControl.Label>
                         Password
                     </FormControl.Label>
-                    <HStack style={styles.subcontainer}>
+                    <HStack
+                    // style={styles.subcontainer}
+                    >
                         <Input
                             placeholder="Password"
-                            style={styles.input}
+                            // style={styles.input}
+                            width="100%"
+                            px={3}
+                            marginBottom={5}
+                            autoCapitalize="none"
                         />
                     </HStack>
                 </FormControl>
@@ -91,7 +127,11 @@ export const EditProfileForm = () => {
                     <HStack style={styles.subcontainer}>
                         <Input
                             placeholder="Skin Tone"
-                            style={styles.input}
+                            // style={styles.input}
+                            width="100%"
+                            px={3}
+                            marginBottom={5}
+                            autoCapitalize="none"
                         />
                     </HStack>
                 </FormControl>
@@ -102,10 +142,20 @@ export const EditProfileForm = () => {
                     <HStack style={styles.subcontainer}>
                         <Input
                             placeholder="Hair Colour"
-                            style={styles.input}
+                            // style={styles.input}
+                            width="100%"
+                            px={3}
+                            marginBottom={5}
+                            autoCapitalize="none"
                         />
                     </HStack>
                 </FormControl>
+                {/* <FormControl.ErrorMessage
+                    leftIcon={<WarningOutlineIcon size="xs" />}
+                >
+                    {error}
+                </FormControl.ErrorMessage> */}
+                <Text color="red.500">{error}</Text>
                 <Button
                     onPress={onSubmit}
                     style={styles.btn}
@@ -119,100 +169,38 @@ export const EditProfileForm = () => {
                     Back
                 </Button>
             </VStack>
-
-            {popOne ? (<PopUp
-                content={
-                    <>
-                        <Text
-                            style={styles.headingPop}
-                        >
-                            Are you sure?
-                        </Text>
-                        <Text
-                            style={styles.text}
-                        >
-                            Your changes will be lost.
-                        </Text>
-                        <Button
-                            onPress={cancelBtn}
-                            style={styles.btn}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            onPress={confirmBtn}
-                            style={styles.btn}
-                        >
-                            Leave
-                        </Button>
-                    </>
-                }
-            />) : (console.log("Closed"))}
-            {popTwo ? (<PopUp
-                content={
-                    <>
-                        <Text
-                            style={styles.headingPop}
-                        >
-                            Saved!
-                        </Text>
-                        <Text
-                            style={styles.text}
-                        >
-                            Your changes have been saved.
-                        </Text>
-                        <Button
-                            onPress={nextBtn}
-                            style={styles.btn}
-                        >
-                            Back to Profile
-                        </Button>
-                    </>
-                }
-            />) : (console.log("Closed"))}
-
-
-
         </Container>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        width: "100%"
+    },
+    subcontainer: {
+        width: "100%",
+    },
+    headingMenuCont: {
+        display: "flex",
+        flexDirection: "row",
+        // alignItems: "center",
+        justifyContent: "space-around"
+    },
     headingMenu: {
         display: "flex",
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        // justifyContent: "space-around"
     },
     heading: {
         fontWeight: "bold",
         fontSize: 20,
         paddingLeft: 10
     },
-    // headingMenuCont: {
-    //     display: "flex",
-    //     flexDirection: "row",
-    //     alignItems: "center",
-    //     justifyContent: "space-between"
+    // input: {
+    //     width: "100%",
+    //     marginBottom: 5
     // },
-    // subheading: {
-    //     fontWeight: "bold",
-    //     fontSize: 16,
-    //     paddingTop: 15
-    // },
-    // text: {
-    //     fontSize: 16,
-    //     paddingTop: 15
-    // },
-    container: {
-        width: "100%"
-    },
-    subcontainer: {
-        width: "100%"
-    },
-    input: {
-        width: 200,
-        marginBottom: 5
-    },
     headingPop: {
         fontWeight: "bold",
         fontSize: 20
