@@ -1,4 +1,4 @@
-import { Button, Container, Text, Image } from "native-base";
+import { Button, Container, Text, Image, View } from "native-base";
 import { LoginForm } from "../forms/LoginForm";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -47,8 +47,8 @@ export const LoginContainer = () => {
     };
 
     const login = () => {
-        if (email === "" && password === "") {
-            setError("Credentials don't match, please check your credentials");
+        if (email === "" || password === "") {
+            setError("Please check your email or password.");
         } else {
             axios.post(`${BACKEND}/login`, {
                 email: email,
@@ -164,6 +164,24 @@ export const LoginContainer = () => {
             >
                 Check Colours
             </Text>
+
+            <View
+                style={styles.lines}
+            >
+                <View
+                    style={styles.line}
+                />
+                <Text
+                    style={styles.lineText}
+                >
+                    or sign in with
+                </Text>
+                <View
+                    style={styles.line}
+                />
+            </View>
+
+
             <Button
                 onPress={() => promptAsync()}
             >
@@ -195,5 +213,20 @@ const styles = StyleSheet.create({
     pressable: {
         color: "#411E94",
         fontWeight: "bold"
-    }
+    },
+    lines: {
+        display: "flex",
+        flexDirection: "row",
+        alignSelf: "center",
+        marginBottom: 20
+    },
+    line: {
+        borderBottomWidth: 1,
+        width: 100
+    },
+    lineText: {
+        fontSize: 16,
+        marginTop: 20,
+        alignSelf: "center",
+    },
 })
