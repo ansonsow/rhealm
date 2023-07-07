@@ -1,90 +1,45 @@
 import React from 'react';
+import { StyleSheet, Button, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Container, View, Text, TouchableHighlight, StyleSheet } from 'react-native';
-import { useState } from "react";
-import { Feather } from '@expo/vector-icons';
 
 export const BottomBar = () => {
     const navigation = useNavigation();
 
-    const homePage = () => {
-        navigation.navigate("Login");
+    const goToMainScreen = () => {
+        navigation.navigate("Main");
     }
 
-    const cameraPage = () => {
-        navigation.navigate("CameraContainer");
-    }
-
-    const closetPage = () => {
-        // navigation.navigate("Closet");
-    }
-
-    /*------ GRID LAYOUT ------*/
-    const Row = ({ children }) => (
-        <View style={styles.gridRow}>{children}</View>
-    )
-
-    const Col = ({ children }) => {
-        return  (
-            <View style={styles.gridCol}>{children}</View>
-        )
+    const goToClosetScreen = () => {
+        navigation.navigate("ClosetScreen");
     }
 
     return (
-        <View style={styles.barContainer}>
-            <View style={styles.gridParent}>
-                <Row>
-                    <Col style={styles.leftIconWrap} onPress={homePage}>
-                        <Feather name="box" size={24} color="black" />
-                    </Col>
-
-                    <Col onPress={cameraPage}>
-                        <Feather name="aperture" size={24} color="black" />
-                    </Col>
-
-                    <Col style={styles.rightIconWrap} onPress={closetPage}>
-                        <Feather name="briefcase" size={24} color="black" />
-                    </Col>
-                </Row>
-            </View>
+        <View style={styles.bottomBar}>
+            <Button title="Scan" />
+            <Button title="Home" onPress={goToMainScreen}/>
+            <Button title="Closet" onPress={goToClosetScreen}/>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    barContainer: {
-        alignItems: "center"
-    },
+    bottomBar: {
+        width: '100%',
+        height: '10%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0,
+        backgroundColor: '#FFFFFF',
+        // shadow settings
+        shadowOffsetX: 8,
+        shadowOffsetY: 8,
+        shadowSize: 20, // aka "spread"
+        shadowBlur: 15, // aka "blur"
+        shadowStrength: 0.4,
 
-    gridParent: {
-        flex: 3, // total columns
-        marginHorizontal: "auto"
-    },
-
-    gridRow: {
-        flexDirection: "row",
-        flexShrink: 1,
-        flexGrow: 1,
-        flex: 1,
-        gap: 15,
-        alignItems: "center"
-    },
-
-    gridCol: {
-        flex: 1
-    },
-
-    leftIconWrap: {
-        flexDirection: "row",
-        flexShrink: 1,
-        flexGrow: 1,
-        justifyContent: "flex-start"
-    },
-
-    rightIconWrap: {
-        flexDirection: "row",
-        flexShrink: 1,
-        flexGrow: 1,
-        justifyContent: "flex-end"
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
     }
-})
+});

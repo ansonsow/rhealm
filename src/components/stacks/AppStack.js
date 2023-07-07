@@ -15,8 +15,12 @@ import { CameraContainer } from "../containers/CameraContainer"
 import { ClothingsContainer } from "../containers/ClothingsContainer"
 import { ClothingContainer } from "../containers/ClothingContainer"
 import { EditProfileContainer } from "../containers/EditProfileContainer";
+import { ClosetScreen } from '../screens/ClosetScreen';
+import { CreateClosetContainer } from '../containers/CreateClosetContainer';
+import { ClosetDetail } from '../containers/ClosetDetail'
 // import { Menu } from "../layout/Menu";
 import { ClothingInstructionContainer } from "../containers/ClothingInstructionContainer";
+import { AddClothingToCloset } from '../containers/AddClothingToCloset';
 
 const Stack = createNativeStackNavigator();
 // const Stack = createStackNavigator();
@@ -97,6 +101,22 @@ export const AppStack = () => {
                 <Stack.Screen
                     name="ClothingInstructions"
                     component={ClothingInstructionContainer}
+                />
+                <Stack.Screen
+                    name="ClosetScreen"
+                    component={ClosetScreen}
+                />
+                <Stack.Screen
+                    name="CreateCloset"
+                    component={CreateClosetContainer}
+                />
+                <Stack.Screen
+                    name="ClosetDetail"
+                    component={ClosetDetail}
+                />
+                <Stack.Screen
+                    name="AddClothingToCloset"
+                    component={AddClothingToCloset}
                 />
             </Stack.Navigator>
         </NavigationContainer>
