@@ -20,6 +20,7 @@ import { CreateClosetContainer } from '../containers/CreateClosetContainer';
 import { ClosetDetail } from '../containers/ClosetDetail'
 // import { Menu } from "../layout/Menu";
 import { ClothingInstructionContainer } from "../containers/ClothingInstructionContainer";
+import { AddClothingToCloset } from '../containers/AddClothingToCloset';
 
 const Stack = createNativeStackNavigator();
 // const Stack = createStackNavigator();
@@ -112,6 +113,10 @@ export const AppStack = () => {
                 <Stack.Screen
                     name="ClosetDetail"
                     component={ClosetDetail}
+                />
+                <Stack.Screen
+                    name="AddClothingToCloset"
+                    component={AddClothingToCloset}
                 />
             </Stack.Navigator>
         </NavigationContainer>

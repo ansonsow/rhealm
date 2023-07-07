@@ -46,7 +46,7 @@ export const ClothingsContainer = () => {
             }
         ).catch(
             (err) => {
-                console.log("err")
+                console.log(err)
             }
         )
 
