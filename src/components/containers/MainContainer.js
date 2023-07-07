@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Menu } from "../layout/Menu";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { BottomBar } from '../layout/BottomBar';
 
 import TrendingSlider from "./trending-slider/TrendingSlider";
 
@@ -37,7 +38,7 @@ export const MainContainer = () => {
     }
 
     return (
-        <SafeAreaProvider style={styles.safeArea}>
+        <SafeAreaProvider style={styles.safeArea}>            
             <Container style={styles.container}>
 
                 <Heading menu={openMenu} />
@@ -56,6 +57,7 @@ export const MainContainer = () => {
                 <Button title="camera" onPress={CameraBtn}>Camera</Button>
                 <Button title="clothings" onPress={ClothingsBtn}>Clothings</Button>
 
+                
 
 
             </Container>
@@ -63,6 +65,8 @@ export const MainContainer = () => {
             {menu ? (<Menu
                 closeMenu={closeMenu}
             />) : (console.log("Closed"))}
+
+            <BottomBar />
 
         </SafeAreaProvider>
     )
