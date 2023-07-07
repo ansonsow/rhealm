@@ -62,6 +62,11 @@ const Closets = () => {
         navigation.navigate("CreateCloset");
     };
 
+    const goToClosetDetail = (closet) => {
+        navigation.navigate("ClosetDetail", { closet });
+    };
+
+
     return (
         <View style={styles.tabContainer}>
             <TouchableOpacity
@@ -71,10 +76,10 @@ const Closets = () => {
                 <Text>Create Closet</Text>
             </TouchableOpacity>
             {closets.map(closet => (
-                <View key={closet.id} style={styles.closetContainer}>
+                <TouchableOpacity key={closet.id} style={styles.closetContainer} onPress={() => goToClosetDetail(closet)}>
                     <Text>{closet.name}</Text>
                     <Text>{closet.occasion}</Text>
-                </View>
+                </TouchableOpacity>
             ))}
         </View>
     );
