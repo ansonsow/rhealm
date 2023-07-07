@@ -11,7 +11,9 @@ The front-end and back-end is connected If you see a "wat" in the middle of the 
 
 ## IMPORTANT LIBRARIES TO BE INSTALLED
 
-Please update this in case of new libraries
+For Tab navigation:
+npm install @react-navigation/native @react-navigation/stack @react-navigation/bottom-tabs
+
 
 ### NPM INSTALL
 Execute the following command for update libraries installed:
