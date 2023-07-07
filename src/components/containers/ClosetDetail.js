@@ -35,13 +35,14 @@ export const ClosetDetail = () => {
     };
     
     const getClothingData = () => {
-        axios.get(`${BACKEND}/clothing/user/${user._id}`).then(
+        axios.get(`${BACKEND}/clothing/closet/${closet._id}`).then(
             (res) => {
-                setClothings(res.data.data)
+                setClothings(res.data)
+                console.log(res.data)
             }
         ).catch(
             (err) => {
-                console.log("err")
+                console.log(err)
             }
         )
     }
@@ -57,6 +58,17 @@ export const ClosetDetail = () => {
             console.error(error);
         });
     };
+
+    const addItem = () => {
+        navigation.navigate("AddClothingToCloset", { closet });
+
+
+    }
+
+    useEffect(() => {
+        getClothingData()
+        setUpdate(!update)
+    }, [])
 
     useEffect(() => {
         if (user !== '') {
@@ -75,10 +87,11 @@ export const ClosetDetail = () => {
             <Text style={styles.title}>Description:</Text>
             <Text style={styles.information}>{closet.occasion}</Text>
 
-            {clothings.length > 0 ? (
+            {clothings&&clothings.length > 0 ? (
                 clothings.map((item, index) => <Text key={index}>{item.name}</Text>)
             ) : <Text>No Clothing found</Text>}
 
+            <Button onPress={addItem}>+</Button>
             <Button onPress={deleteCloset}>Delete Closet</Button>
             <Button onPress={goToClosetMain}>Back</Button>
         </View>
