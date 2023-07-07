@@ -15,6 +15,7 @@ import { CameraContainer } from "../containers/CameraContainer"
 import { ClothingsContainer } from "../containers/ClothingsContainer"
 import { ClothingContainer } from "../containers/ClothingContainer"
 import { EditProfileContainer } from "../containers/EditProfileContainer";
+import { ClosetScreen } from '../screens/ClosetScreen';
 // import { Menu } from "../layout/Menu";
 import { ClothingInstructionContainer } from "../containers/ClothingInstructionContainer";
 
@@ -97,6 +98,10 @@ export const AppStack = () => {
                 <Stack.Screen
                     name="ClothingInstructions"
                     component={ClothingInstructionContainer}
+                />
+                <Stack.Screen
+                    name="ClosetScreen"
+                    component={ClosetScreen}
                 />
             </Stack.Navigator>
         </NavigationContainer>

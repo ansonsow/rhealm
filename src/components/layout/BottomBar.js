@@ -1,12 +1,23 @@
 import React from 'react';
 import { StyleSheet, Button, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export const BottomBar = () => {
+    const navigation = useNavigation();
+
+    const goToMainScreen = () => {
+        navigation.navigate("Main");
+    }
+
+    const goToClosetScreen = () => {
+        navigation.navigate("ClosetScreen");
+    }
+
     return (
         <View style={styles.bottomBar}>
             <Button title="Scan" />
-            <Button title="Home" />
-            <Button title="Closet" />
+            <Button title="Home" onPress={goToMainScreen}/>
+            <Button title="Closet" onPress={goToClosetScreen}/>
         </View>
     );
 };
