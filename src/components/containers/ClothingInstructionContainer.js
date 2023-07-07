@@ -15,11 +15,7 @@ export const ClothingInstructionContainer = () => {
 
     const onCamera = () => {
         console.log("Add camera feature");
-        navigation.navigate("ClothingsContainer");
-    }
-
-    const test = () => {
-        alert("Testing");
+        navigation.navigate("Testing");
     }
 
     return (
