@@ -55,7 +55,7 @@ export const MainContainer = () => {
 
 
                 <Button title="camera" onPress={CameraBtn}>Camera</Button>
-                <Button title="clothings" onPress={ClothingsBtn}>Clothings</Button>
+                <Button title="" onPress={ClothingsBtn}>Clothings</Button>
 
                 
 
