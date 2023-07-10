@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View, Text } from "react-native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 
 import SliderLogic from "./SliderLogic";
@@ -38,7 +38,11 @@ css.shadowPseudoPaddingLeft = css.shadowBlur;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white"
+        backgroundColor: "#fff",
+        borderRadius: "15px",
+        shadowColor: "#000",
+        shadowOpacity: 0.2,
+        shadowRadius: 2.1,
     },
 
     sliderBG: {
@@ -54,11 +58,16 @@ const styles = StyleSheet.create({
         marginLeft: css.sidePadding,
         marginRight: -css.sidePadding
     },
-    
+
     rowWrap: {
         flexDirection: "row",
         // marginLeft: css.itemsSpacing
-    }
+    },
+    heading: {
+        fontWeight: "bold",
+        fontSize: 20,
+        color: "#000"
+    },
 });
 
 
@@ -67,7 +76,7 @@ const groupBy = 3;
 let moduloSort = [];
 
 // sort items into threes
-for(let i=0; i<SliderData.length; i += groupBy){
+for (let i = 0; i < SliderData.length; i += groupBy) {
     const group = SliderData.slice(i, i + groupBy);
     moduloSort.push(group);
 }
@@ -75,31 +84,34 @@ for(let i=0; i<SliderData.length; i += groupBy){
 const TrendingSlider = () => (
     <SafeAreaView>
         <View style={styles.container}>
+            <Text style={styles.heading}>
+                Trending Now!
+            </Text>
             <View style={styles.sliderBG}>
-            <SwiperFlatList
-                data={SliderLogic}
-                renderItem={({ sld, index }) => (
-                    <View key={index} style={styles.sliderInner}>
-                        {/* loop through main array */}
-                        {/* this array has nested arrays inside it */}
-                        {moduloSort.map((group, groupIndex) => (
-                            <View key={groupIndex} style={styles.rowWrap}>
-                                {groupIndex === index ? group.map((item, itemIndex) => (
-                                    <SliderItem
-                                        key={itemIndex}
-                                        img={item.image ? item.image : undefined}
-                                        colors={item.colors ? item.colors : undefined}
-                                        css={css}
-                                    />
-                                )) : "" }
-                            </View>
-                        ))}
-                </View>
-                )}
-            />
+                <SwiperFlatList
+                    data={SliderLogic}
+                    renderItem={({ sld, index }) => (
+                        <View key={index} style={styles.sliderInner}>
+                            {/* loop through main array */}
+                            {/* this array has nested arrays inside it */}
+                            {moduloSort.map((group, groupIndex) => (
+                                <View key={groupIndex} style={styles.rowWrap}>
+                                    {groupIndex === index ? group.map((item, itemIndex) => (
+                                        <SliderItem
+                                            key={itemIndex}
+                                            img={item.image ? item.image : undefined}
+                                            colors={item.colors ? item.colors : undefined}
+                                            css={css}
+                                        />
+                                    )) : ""}
+                                </View>
+                            ))}
+                        </View>
+                    )}
+                />
             </View>
         </View>
-    </SafeAreaView>
+    </SafeAreaView >
 );
 
 export default TrendingSlider;
