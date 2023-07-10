@@ -1,13 +1,12 @@
-import { Container, Center, Text, Button } from "native-base";
+import { Center, Text, Pressable, View, ScrollView, Modal } from "native-base";
 import SignUpForm from "../forms/SignUpForm";
 import { useState } from "react";
 import axios from "axios";
 import { BACKEND } from "@env";
-import { PopUp } from "../layout/PopUp";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SvgXml } from "react-native-svg";
-import { svgLogo } from "../../../assets/images/svgs";
+import { svgConfirmIcon, svgLogo } from "../../../assets/images/svgs";
 
 export const SignUpContainer = () => {
 
@@ -67,7 +66,7 @@ export const SignUpContainer = () => {
     }
 
     const nextBtn = () => {
-        navigation.navigate("Instruction");
+        navigation.navigate("SignUpTwo");
     }
 
     const confirmBtn = () => {
@@ -75,101 +74,189 @@ export const SignUpContainer = () => {
     }
 
     return (
-        <Container>
-            <SvgXml
-                xml={svgLogo}
-                style={styles.image}
-            />
-            <Text
-                style={styles.heading}
-            >
-                Welcome to Colourfit
-            </Text>
-            <SignUpForm
-                onNameChange={handleNameChange}
-                onEmailChange={handleEmailChange}
-                onPswChange={handlePswChange}
-                onConfPswChange={handlePswConf}
-                onSubmit={savePrimary}
-                error={error}
-                backToSplash={backToSplash}
-            />
+        <Center>
+            <View>
+                <SvgXml
+                    xml={svgLogo}
+                    style={styles.logo}
+                />
+                <View
+                    style={styles.headingCont}
+                >
+                    <Text
+                        style={styles.heading}
+                    >
+                        Welcome to
+                    </Text>
+                    <Text
+                        style={styles.boldHeading}
+                    >
+                        Colourfit
+                    </Text>
+                </View>
+                <SignUpForm
+                    onNameChange={handleNameChange}
+                    onEmailChange={handleEmailChange}
+                    onPswChange={handlePswChange}
+                    onConfPswChange={handlePswConf}
+                    onSubmit={savePrimary}
+                    error={error}
+                    backToSplash={backToSplash}
+                />
 
-            {popOne ? (<PopUp
-                content={
-                    <>
-                        <Text
-                            style={styles.headingPop}
-                        >
-                            Are you sure?
-                        </Text>
-                        <Text
-                            style={styles.text}
-                        >
-                            Your changes will be lost.
-                        </Text>
-                        <Button
-                            onPress={cancelBtn}
-                            style={styles.btn}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            onPress={confirmBtn}
-                            style={styles.btn}
-                        >
-                            Leave
-                        </Button>
-                    </>
-                }
-            />) : (console.log("Closed"))}
+                {popOne ? (
+                    <Modal
+                        isOpen={popOne}
+                        width="100%"
+                    >
+                        <Modal.Content>
+                            <View style={styles.popCont}>
+                                <Text
+                                    style={styles.headingPop}
+                                >
+                                    Are you sure?
+                                </Text>
+                                <Text
+                                    style={styles.textPop}
+                                >
+                                    Your changes will be lost.
+                                </Text>
 
-            {popTwo ? (<PopUp
-                content={
-                    <>
-                        <Text
-                            style={styles.headingPop}
-                        >
-                            Saved!
-                        </Text>
-                        <Text
-                            style={styles.text}
-                        >
-                            Your information has been saved.
-                        </Text>
-                        <Button
-                            onPress={nextBtn}
-                            style={styles.btn}
-                        >
-                            Next
-                        </Button>
-                    </>
-                }
-            />) : (console.log("Closed"))}
+                                <View
+                                    style={styles.btnPopCont}
+                                >
+                                    <Pressable
+                                        onPress={confirmBtn}
+                                        style={styles.btnPopNAction}
+                                    >
+                                        <Text style={styles.btnTextPopNAction}>Leave</Text>
+                                    </Pressable>
+                                    <Pressable
+                                        onPress={cancelBtn}
+                                        style={styles.btnPopPAction}
+                                    >
+                                        <Text style={styles.btnTextPopPAction}>Cancel</Text>
+                                    </Pressable>
+                                </View>
+                            </View>
+                        </Modal.Content>
+                    </Modal>
+                ) : (console.log("Closed"))}
 
-        </Container>
+                {popTwo ? (
+                    <Modal
+                        isOpen={popTwo}
+                        width="100%"
+                    >
+                        <Modal.Content>
+                            <View style={styles.popCont}>
+                                <SvgXml
+                                    xml={svgConfirmIcon}
+                                    style={styles.svg}
+                                />
+                                <Text
+                                    style={styles.textPop}
+                                >
+                                    Your information has been saved.
+                                </Text>
+
+                                <View style={styles.btnPopCont}>
+                                    <Pressable
+                                        onPress={nextBtn}
+                                        style={styles.btnPopNextAction}
+                                    >
+                                        <Text style={styles.btnTextPopNexAction}>Next</Text>
+                                    </Pressable>
+                                </View>
+                            </View>
+                        </Modal.Content>
+                    </Modal>
+                ) : (console.log("Closed"))}
+            </View>
+        </Center>
     )
 }
 
 const styles = StyleSheet.create({
+    // HEADING LOGO
     heading: {
         fontWeight: "bold",
-        fontSize: 20,
-        marginBottom: 20
+        fontSize: 24,
+        // marginBottom: 20
     },
-    headingPop: {
-        fontWeight: "bold",
-        fontSize: 20
+    boldHeading: {
+        // fontFamily: "indivisible-semibold",
+        fontSize: 36,
+        paddingTop: 15
     },
-    text: {
-        fontSize: 16
+    headingCont: {
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        alignItems: "center",
+        alignSelf: "center",
+        gap: 10,
+        marginTop: 20,
+        marginBottom: 10
     },
-    btn: {
-        marginTop: 10,
-        width: 250
-    },
-    image: {
+
+    // LOGO
+    logo: {
         alignSelf: "center",
         margin: 5
-    }
+    },
+
+    // POPUP
+    headingPop: {
+        fontWeight: "bold",
+        fontSize: 16,
+        // fontFamily: "indivisible-semibold",
+    },
+    textPop: {
+        fontSize: 16,
+        paddingTop: 10,
+    },
+    btnPopNAction: {
+        backgroundColor: "transparent",
+        width: 100,
+        alignItems: "center"
+    },
+    btnTextPopNAction: {
+        fontSize: 14,
+    },
+    btnPopPAction: {
+        backgroundColor: "#D33D12",
+        borderRadius: "15px",
+        width: 100,
+        alignItems: "center"
+    },
+    btnTextPopPAction: {
+        fontSize: 14,
+        color: "#fff",
+    },
+    btnPopNextAction: {
+        // backgroundColor: "#D33D12",
+        borderRadius: "15px",
+        width: 100,
+        alignItems: "center"
+    },
+    btnTextPopNexAction: {
+        fontSize: 14,
+        color: "#fff",
+    },
+    btnPopCont: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        alignContent: "flex-end"
+    },
+    popCont: {
+        padding: 20
+    },
+
+    // SVG - this is necessary to change considering every SVG we need to alter
+    svg: {
+        color: "#000",
+    },
 })
