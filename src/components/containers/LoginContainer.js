@@ -1,8 +1,8 @@
-import { Button, Container, Text, Image, View } from "native-base";
+import { Button, Container, Text, Image, View, Center, Box } from "native-base";
 import { LoginForm } from "../forms/LoginForm";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { StyleSheet } from "react-native";
+import { StyleSheet, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SvgXml } from "react-native-svg";
@@ -25,7 +25,7 @@ export const LoginContainer = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const [userInfo, setUserInfo] = useState(null);
+    // const [userInfo, setUserInfo] = useState(null);
 
     const handleEmailChange = (email) => {
         setEmail(email);
@@ -72,10 +72,10 @@ export const LoginContainer = () => {
         navigation.navigate("Index");
     }
 
-    const goColourMatch = () => {
-        // console.log("Sign Up Clicked!")
-        navigation.navigate("ColourMatch");
-    }
+    // const goColourMatch = () => {
+    //     // console.log("Sign Up Clicked!")
+    //     navigation.navigate("ColourMatch");
+    // }
 
 
     // const [request, response, promptAsync] = Google.useAuthRequest({
@@ -142,17 +142,30 @@ export const LoginContainer = () => {
     // }
 
     return (
-        <Container>
+        <Center>
             <SvgXml
                 xml={svgLogo}
-                style={styles.image}
+                style={styles.logo}
             />
-            {/* <CameraContainer/> */}
-            <Text
-                style={styles.heading}
+            <View
+                style={styles.headingCont}
             >
-                Welcome to Colourfit
-            </Text>
+                <Text
+                    style={styles.heading}
+                >
+                    Welcome to
+                </Text>
+                <Text
+                    style={styles.boldHeading}
+                >
+                    Colourfit
+                </Text>
+            </View>
+
+            <View>
+
+            </View>
+
             <LoginForm
                 onEmailChange={handleEmailChange}
                 onPswChange={handlePswChange}
@@ -160,11 +173,11 @@ export const LoginContainer = () => {
                 forgotPsw={forgotPsw}
                 error={error}
             />
-            <Text
+            {/* <Text
                 onPress={goColourMatch}
             >
                 Check Colours
-            </Text>
+            </Text> */}
 
             <View
                 style={styles.lines}
@@ -182,52 +195,92 @@ export const LoginContainer = () => {
                 />
             </View>
 
-
             <Button
                 onPress={() => promptAsync()}
             >
                 Google
             </Button>
-            <Text>
-                Don't have an account?&nbsp;
+            <View style={styles.oneLiner}>
                 <Text
-                    onPress={signUp}
-                    style={styles.pressable}
+                    style={styles.addText}
                 >
-                    Sign up!
+                    Don't have an account?&nbsp;
+                    <Text
+                        onPress={signUp}
+                        style={styles.pressable}
+                    >
+                        Sign up!
+                    </Text>
                 </Text>
-            </Text>
-        </Container>
+            </View>
+        </Center>
     )
 }
 
 const styles = StyleSheet.create({
+    // HEADING LOGO
     heading: {
         fontWeight: "bold",
-        fontSize: 20,
-        marginBottom: 20
+        fontSize: 24,
+        // marginBottom: 20
     },
-    image: {
+    boldHeading: {
+        // fontFamily: "indivisible-semibold",
+        fontSize: 36,
+        paddingTop: 15
+    },
+    headingCont: {
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        alignItems: "center",
+        alignSelf: "center",
+        gap: 10,
+        marginTop: 20,
+        marginBottom: 10
+    },
+
+    // LOGO
+    logo: {
         alignSelf: "center",
         margin: 5
     },
-    pressable: {
-        color: "#411E94",
-        fontWeight: "bold"
-    },
+
+    // LINES
     lines: {
         display: "flex",
         flexDirection: "row",
-        alignSelf: "center",
-        marginBottom: 20
+        // alignSelf: "center",
+        justifyContent: "center",
+        // alignItems: "center",
     },
     line: {
         borderBottomWidth: 1,
-        width: 100
+        width: 90,
+        borderColor: "#969AA8",
+        // flex: 1
+        marginHorizontal: 10,
+        // marginTop: 20
     },
     lineText: {
-        fontSize: 16,
-        marginTop: 20,
+        fontSize: 12,
+        // marginTop: 20,
         alignSelf: "center",
+        color: "#969AA8",
+    },
+
+    // TEXT LINE - different from other texts
+    addText: {
+        color: "#515151"
+    },
+    oneLiner: {
+        alignItems: "center",
+        paddingTop: 15
+    },
+
+    // PRESSABLE TEXT
+    pressable: {
+        color: "#411E94",
+        fontWeight: "bold"
     },
 })
