@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     },
     btnPopPAction: {
         backgroundColor: "#D33D12",
-        borderRadius: "15px",
+        borderRadius: 15,
         width: 100,
         alignItems: "center"
     },
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     },
     btnPopNextAction: {
         // backgroundColor: "#D33D12",
-        borderRadius: "15px",
+        borderRadius: 15,
         width: 100,
         alignItems: "center"
     },

@@ -102,7 +102,7 @@ const CreateClothingForm = props => {
                                             backgroundColor: colour.hexValue,
                                             width: 20,
                                             height: 20,
-                                            borderRadius: "50%",
+                                            borderRadius: 20 / 2,
                                         }}
                                     >
                                     </View>
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
     colorCont: {
         // borderColor: "#000",
         borderBottomWidth: 1,
-        // borderRadius: "15px",
+        // borderRadius: 15,
         borderBottomColor: "#E9E9E9",
         width: "100%",
         flexDirection: "row",
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
         padding: 5,
         borderColor: "#515151",
         borderWidth: 1,
-        borderRadius: "15px",
+        borderRadius: 15,
         margin: 5,
         // flex: 1
     },

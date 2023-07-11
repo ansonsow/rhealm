@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     },
     activeItem: {
         borderColor: "#000",
-        borderRadius: "50%",
+        borderRadius: 60 / 2,
         borderWidth: 1,
         width: 60,
         height: 60
