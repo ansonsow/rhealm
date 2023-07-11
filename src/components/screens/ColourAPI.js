@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Container, Button, Input, Image, View } from "native-base";
+import { Container, Button, Input, Image, View, Pressable, Center } from "native-base";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { SvgXml } from "react-native-svg";
 import { svgLeftIcon } from "../../../assets/images/svgs";
@@ -7,7 +7,7 @@ import { XIMILAR_AI_ACCESS_KEY } from "@env";
 import { useState } from "react";
 import axios from "axios";
 
-export const Testing = () => {
+export const ColourAPI = () => {
 
     const navigation = useNavigation();
     const [imageSelection, setImageSelection] = useState(null);
@@ -18,19 +18,20 @@ export const Testing = () => {
         navigation.navigate("ClothingInstructions");
     }
 
-    const clothingAdd = () => {
-        navigation.navigate("ClothingsContainer");
-    }
-
-    // curl -H "Content-Type: application/json" -H "Authorization: Token ${XIMILAR_AI_ACCESS_KEY}" https://api.ximilar.com/dom_colors/generic/v2/dominantcolor -d '{"color_names": true, "records":[{"_url":"${imageSelection}"}]}'
+    // const clothingAdd = () => {
+    //     navigation.navigate("ClothingsContainer", {
+    //         coloursHex: coloursHex,
+    //         coloursNaming: coloursNaming
+    //     })
+    // }
 
     const onImageChange = (image) => {
         setImageSelection(image);
     }
 
-    console.log(imageSelection);
+    // console.log(imageSelection);
 
-    const getColours = () => {
+    const clothingAdd = () => {
         axios.post("https://api.ximilar.com/dom_colors/generic/v2/dominantcolor", {
             "color_names": true,
             "records": [
@@ -55,19 +56,26 @@ export const Testing = () => {
                 const hexColours = colours.rgb_hex_colors;
                 const coloursNames = colours.color_names_pantone;
                 // console.log(hexColours);
-                setColoursHex(hexColours);
-                setColoursNaming(coloursNames);
+                // setColoursHex(hexColours);
+                // setColoursNaming(coloursNames);
+                navigation.navigate("ClothingsContainer", {
+                    // coloursHex: coloursHex,
+                    // coloursNaming: coloursNaming
+                    coloursHex: hexColours,
+                    coloursNaming: coloursNames,
+                    imageSelection: imageSelection
+                })
             })
             .catch((error) => {
                 console.log("E: ", error.response);
             })
     }
 
-    console.log(coloursHex);
-    console.log(coloursNaming);
+    // console.log(coloursHex);
+    // console.log(coloursNaming);
 
     return (
-        <Container>
+        <Center>
             <TouchableOpacity
                 onPress={backToInstructions}
             >
@@ -86,20 +94,19 @@ export const Testing = () => {
 
             {imageSelection && <Image
                 source={{ uri: imageSelection }}
-                alt="Testing"
+                alt="Image"
                 // style={styles.image}
                 width={200}
                 height={200}
-                style={{ backgroundColor: "#000" }}
             />}
 
-            <Button
+            {/* <Pressable
                 onPress={getColours}
             >
-                Get Colours List
-            </Button>
+                <Text style={styles.btnText}>Get Colours List</Text>
+            </Pressable> */}
 
-            {coloursHex && coloursHex.map((hexValue, index) => (
+            {/* {coloursHex && coloursHex.map((hexValue, index) => (
                 <View style={styles.colourContainer}>
                     <View
                         key={index}
@@ -115,15 +122,16 @@ export const Testing = () => {
                     // key={coloursNaming[index]}
                     >{coloursNaming && coloursNaming[index]}</Text>
                 </View>
-            ))}
+            ))} */}
 
-            <Button
+            <Pressable
                 onPress={clothingAdd}
-                style={styles.btn}
             >
-                Next
-            </Button>
-        </Container>
+                <Text style={styles.btnText}>Next</Text>
+            </Pressable>
+
+
+        </Center>
 
     )
 }
@@ -150,4 +158,12 @@ const styles = StyleSheet.create({
     //     height: 200,
     //     backgroundColor: "transparent"
     // }
+
+    // BTN TEXT
+    btnText: {
+        color: "#fff",
+        textAlign: "center",
+        fontWeight: "bold"
+        // fontFamily: "indivisible-semibold"
+    },
 })

@@ -8,7 +8,7 @@ import { svgConfirmIcon, svgLeftIcon } from "../../../assets/images/svgs";
 
 export const EditProfileForm = props => {
 
-    const { backToMenu, error, onSubmit, backToProfile, confirmChanges, onNameChange, onEmailChange } = props;
+    const { backToMenu, error, deleteAccount, confirmChanges, onNameChange, onEmailChange } = props;
 
     const [user, setUser] = useState("");
 
@@ -28,7 +28,7 @@ export const EditProfileForm = props => {
         getData();
     }, []);
 
-    // console.log(user);
+    console.log(user);
 
     return (
         <Container>
@@ -49,7 +49,7 @@ export const EditProfileForm = props => {
                         <Text
                             style={styles.heading}
                         >
-                            Edit Profile
+                            Profile
                         </Text>
                     </View>
                     <TouchableOpacity
@@ -57,6 +57,7 @@ export const EditProfileForm = props => {
                     >
                         <SvgXml
                             xml={svgConfirmIcon}
+                            style={styles.svg}
                         />
                     </TouchableOpacity>
                 </View>
@@ -72,10 +73,6 @@ export const EditProfileForm = props => {
                             // placeholder="Name"
                             // style={styles.input}
                             placeholder={user != undefined ? user.name : "Name"}
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            autoCapitalize="none"
                             onChangeText={value => {
                                 onNameChange(value)
                             }}
@@ -93,10 +90,6 @@ export const EditProfileForm = props => {
                         <Input
                             // style={styles.input}
                             placeholder={user != undefined ? user.email : "email@gmail.com"}
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            autoCapitalize="none"
                             onChangeText={value => {
                                 onEmailChange(value)
                             }}
@@ -112,11 +105,7 @@ export const EditProfileForm = props => {
                     >
                         <Input
                             placeholder="Password"
-                            // style={styles.input}
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            autoCapitalize="none"
+                        // style={styles.input}
                         />
                     </HStack>
                 </FormControl>
@@ -127,11 +116,7 @@ export const EditProfileForm = props => {
                     <HStack style={styles.subcontainer}>
                         <Input
                             placeholder="Skin Tone"
-                            // style={styles.input}
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            autoCapitalize="none"
+                        // style={styles.input}
                         />
                     </HStack>
                 </FormControl>
@@ -142,32 +127,17 @@ export const EditProfileForm = props => {
                     <HStack style={styles.subcontainer}>
                         <Input
                             placeholder="Hair Colour"
-                            // style={styles.input}
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            autoCapitalize="none"
+                        // style={styles.input}
                         />
                     </HStack>
                 </FormControl>
-                {/* <FormControl.ErrorMessage
-                    leftIcon={<WarningOutlineIcon size="xs" />}
-                >
-                    {error}
-                </FormControl.ErrorMessage> */}
                 <Text color="red.500">{error}</Text>
-                <Button
-                    onPress={onSubmit}
-                    style={styles.btn}
+                <Text
+                    onPress={deleteAccount}
+                    style={styles.delete}
                 >
-                    Save
-                </Button>
-                <Button
-                    onPress={backToProfile}
-                    style={styles.btn}
-                >
-                    Back
-                </Button>
+                    Delete Account
+                </Text>
             </VStack>
         </Container>
     )
@@ -184,17 +154,17 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         // alignItems: "center",
-        justifyContent: "space-around"
+        justifyContent: "space-between"
     },
     headingMenu: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        // justifyContent: "space-around"
+        // justifyContent: "space-between"
     },
     heading: {
         fontWeight: "bold",
-        fontSize: 20,
+        fontSize: 16,
         paddingLeft: 10
     },
     // input: {
@@ -211,5 +181,17 @@ const styles = StyleSheet.create({
     btn: {
         marginTop: 10,
         width: 250
+    },
+
+    // SVG - this is necessary to change considering every SVG we need to alter
+    svg: {
+        color: "#000"
+    },
+
+    // DELETE ACCOUNT
+    delete: {
+        color: "#D33D12",
+        fontSize: 12,
+        textDecorationLine: "underline"
     }
 })

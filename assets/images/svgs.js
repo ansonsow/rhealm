@@ -17,8 +17,8 @@ export const svgClosetIcon = `
 export const svgConfirmIcon = `
 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_204_3839)">
-<path d="M18.1504 10C18.1504 14.8156 14.3727 18.7217 9.71067 18.7217C5.04865 18.7217 1.271 14.8156 1.271 10C1.271 5.18447 5.04865 1.27832 9.71067 1.27832" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M4.74072 8.44974C6.2103 9.96842 7.67987 11.4871 9.14945 13.0058C12.3419 9.70666 15.5343 6.40753 18.7268 3.1084" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.1504 10C18.1504 14.8156 14.3727 18.7217 9.71067 18.7217C5.04865 18.7217 1.271 14.8156 1.271 10C1.271 5.18447 5.04865 1.27832 9.71067 1.27832" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.74072 8.44974C6.2103 9.96842 7.67987 11.4871 9.14945 13.0058C12.3419 9.70666 15.5343 6.40753 18.7268 3.1084" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <defs>
 <clipPath id="clip0_204_3839">

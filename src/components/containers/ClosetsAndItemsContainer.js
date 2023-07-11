@@ -75,7 +75,7 @@ const Closets = () => {
             >
                 <Text>Create Closet</Text>
             </TouchableOpacity>
-            {closets.map(closet => (
+            {closets === undefined ? (console.log("No closets available")) : closets.map(closet => (
                 <TouchableOpacity key={closet.id} style={styles.closetContainer} onPress={() => goToClosetDetail(closet)}>
                     <Text>{closet.name}</Text>
                     <Text>{closet.occasion}</Text>
@@ -90,15 +90,15 @@ const Tab = createBottomTabNavigator();
 const ContainerWithTabs = () => {
     return (
         <VStack style={styles.container}>
-            <Tab.Navigator 
-            screenOptions={{
-                "tabBarLabelStyle": { "fontSize": 14 },
-            }}>
+            <Tab.Navigator
+                screenOptions={{
+                    "tabBarLabelStyle": { "fontSize": 14 },
+                }}>
                 <Tab.Screen name="Closets" component={Closets} />
                 <Tab.Screen name="Items" component={Items} />
             </Tab.Navigator>
         </VStack>
-        
+
     );
 };
 

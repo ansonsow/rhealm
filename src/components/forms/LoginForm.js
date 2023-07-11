@@ -1,9 +1,9 @@
-import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text, WarningOutlineIcon, View } from "native-base";
+import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text, WarningOutlineIcon, View, Center } from "native-base";
 import { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { SvgXml } from "react-native-svg";
 import { svgAlertIcon } from "../../../assets/images/svgs";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 export const LoginForm = props => {
 
@@ -12,8 +12,8 @@ export const LoginForm = props => {
     const [show, setShow] = useState(false);
 
     return (
-        <Container>
-            <VStack width="100%">
+        <Container style={styles.formCont}>
+            <VStack>
                 {error &&
                     <View style={styles.alert}>
                         <SvgXml
@@ -22,14 +22,12 @@ export const LoginForm = props => {
                         <Text color="#942100">{error}</Text>
                     </View>}
                 <FormControl isRequired>
-                    <FormControl.Label>Email</FormControl.Label>
-                    <HStack width="100%">
+                    <FormControl.Label
+                    // color="#f4f"
+                    >Email</FormControl.Label>
+                    <HStack>
                         <Input
-                            placeholder="johndoe@gmail.com"
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            autoCapitalize="none"
+                            placeholder="Email"
                             onChangeText={value => {
                                 onEmailChange(value)
                             }}
@@ -40,17 +38,19 @@ export const LoginForm = props => {
                     <FormControl.Label>Password</FormControl.Label>
                     <HStack width="100%">
                         <Input
-                            placeholder="************"
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            autoCapitalize="none"
+                            placeholder="Password"
                             type={show ? "text" : "password"}
                             InputRightElement={
-                                <Pressable onPress={() => setShow(!show)} paddingRight={1}>
+                                <TouchableOpacity onPress={() => setShow(!show)} paddingRight={1} style={styles.eye}>
                                     <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} size={10} color="muted.400" />} />
-                                </Pressable>
+                                </TouchableOpacity>
                             }
+                            // InputLeftElement={
+                            //     <Icon
+                            //         as={<SimpleLineIcons name="lock" />}
+                            //         style={styles.leftIcons}
+                            //     />
+                            // }
                             onChangeText={value => {
                                 onPswChange(value)
                                 password = value;
@@ -58,35 +58,55 @@ export const LoginForm = props => {
                         />
                     </HStack>
                 </FormControl>
-                {/* <FormControl.ErrorMessage
-                    leftIcon={<WarningOutlineIcon size="xs" />}
-                >
-                    {error}
-                </FormControl.ErrorMessage> */}
                 <Text
                     onPress={forgotPsw}
+                    style={styles.forgot}
                 >Forgot Password?</Text>
-                <Button
+                <Pressable
                     onPress={onSubmit}
-                    marginTop={10}
-                    width={250}
                 >
-                    Login
-                </Button>
+                    <Text style={styles.btnText}>Sign In</Text>
+                </Pressable>
             </VStack>
         </Container>
     )
 }
 
 const styles = StyleSheet.create({
+    // FORM CONTAINER
+    formCont: {
+        marginTop: 20,
+        marginLeft: 10
+    },
+    forgot: {
+        textAlign: "right",
+        fontSize: 14
+    },
+
+    // ALERTS
     alert: {
         display: "flex",
         flexDirection: "row",
         gap: 10,
         backgroundColor: "#f7dbd2",
+        padding: 10,
+        marginBottom: 10,
         // width: "100%"
         borderRadius: "10px",
         alignContent: "center",
         alignItems: "center"
-    }
+    },
+
+    // FORMS ICON
+    eye: {
+        paddingRight: 10
+    },
+
+    // BTN TEXT
+    btnText: {
+        color: "#fff",
+        textAlign: "center",
+        fontWeight: "bold"
+        // fontFamily: "indivisible-semibold"
+    },
 })
