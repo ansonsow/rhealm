@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button, Center, Container, Text, View, Pressable } from "native-base";
+import { Center, Container, Text, View, Pressable } from "native-base";
 import { StyleSheet } from "react-native";
 
 

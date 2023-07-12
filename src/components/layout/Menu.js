@@ -1,10 +1,11 @@
-import { Container, Text, Icon, View, Image, Center } from "native-base";
-import { AntDesign } from "@expo/vector-icons";
+import { Container, Text, View, Image, Center } from "native-base";
 import { StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SvgXml } from "react-native-svg";
 import { svgDarkModeIcon, svgLeftIcon, svgNotificationIcon, svgPrivacyIcon, svgProfileIcon, svgRightArrow, svgSignOutIcon, svgTermsIcon } from "../../../assets/images/svgs";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebaseConfig";
 
 export const Menu = props => {
 
@@ -28,9 +29,11 @@ export const Menu = props => {
         navigation.navigate("Profile");
     }
 
-    const signOut = () => {
+    const signOutFunc = async () => {
+        await signOut(auth);
         removeUser();
         navigation.navigate("Login");
+        console.log("User has been signed out!");
     }
 
     return (
@@ -181,7 +184,7 @@ export const Menu = props => {
 
                 <View style={styles.menuItem}>
                     <TouchableOpacity
-                        onPress={signOut}
+                        onPress={signOutFunc}
                         style={styles.menuSubItem}
                     >
                         <View style={styles.menuSubItemHeading}>
@@ -230,7 +233,7 @@ const styles = StyleSheet.create({
     },
     menuContainer: {
         backgroundColor: "#F9FAFB",
-        borderRadius: "12px",
+        borderRadius: 12,
         width: "90%",
         justifyContent: "center",
         alignSelf: "center",

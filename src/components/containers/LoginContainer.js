@@ -1,31 +1,35 @@
-import { Button, Container, Text, Image, View, Center, Box } from "native-base";
+import { Container, Text, Image, View, Center, Box, Pressable } from "native-base";
 import { LoginForm } from "../forms/LoginForm";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SvgXml } from "react-native-svg";
-import { svgLogo } from "../../../assets/images/svgs";
+import { svgFacebookIcon, svgGoogleIcon, svgLogo } from "../../../assets/images/svgs";
 
 import { CameraContainer } from "../containers/CameraContainer"
 
-import { OAUTH_CLIENT_ID_ANDROID, OAUTH_CLIENT_ID_IOS, OAUTH_CLIENT_ID, EXPO_CLIENT_ID, BACKEND } from "@env";
+import { OAUTH_CLIENT_ID_ANDROID, OAUTH_CLIENT_ID_IOS, EXPO_CLIENT_ID, BACKEND } from "@env";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
+import {
+    GoogleAuthProvider,
+    onAuthStateChanged,
+    signInWithCredential
+} from "firebase/auth";
+import { auth } from "../../../firebaseConfig";
+
+import { HairColourSelection } from "../layout/HairColour";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export const LoginContainer = () => {
-
-
     const navigation = useNavigation();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-
-    // const [userInfo, setUserInfo] = useState(null);
 
     const handleEmailChange = (email) => {
         setEmail(email);
@@ -77,69 +81,41 @@ export const LoginContainer = () => {
     //     navigation.navigate("ColourMatch");
     // }
 
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        iosClientId: `${OAUTH_CLIENT_ID_IOS}`,
+        androidClientId: `${OAUTH_CLIENT_ID_ANDROID}`,
+        expoClientId: `${EXPO_CLIENT_ID}`
+    })
 
-    // const [request, response, promptAsync] = Google.useAuthRequest({
-    //     androidClientId: OAUTH_CLIENT_ID_ANDROID,
-    //     iosClientId: OAUTH_CLIENT_ID_IOS,
-    //     webClientId: OAUTH_CLIENT_ID,
-    //     expoClientId: EXPO_CLIENT_ID
-    // });
+    // Saving the user in the Firebase
+    useEffect(() => {
+        if (response?.type == "success") {
+            const { id_token } = response.params;
+            const credential = GoogleAuthProvider.credential(id_token);
+            signInWithCredential(auth, credential);
+        }
+    }, [response]);
 
-    // useEffect(() => {
-    //     handleWebSignIn();
-    // }, [response]);
+    useEffect(() => {
+        const unsub = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const { email } = user;
 
-    // const handleWebSignIn = async () => {
-    //     const user = await AsyncStorage.getItem("@user");
-
-    //     if (!user) {
-    //         if (response?.type === "success") {
-    //             await getUserInfo(response.authentication.accessToken);
-    //         }
-    //     } else {
-    //         setUserInfo(JSON.parse(user));
-    //     }
-    // }
-
-    // const getUserInfo = async (token) => {
-    //     if (!token) return;
-    //     try {
-    //         const response = await fetch(
-    //             "https://www.googleapis.com/userinfo/v2/me", {
-    //             headers: { Authorization: `Bearer ${token}` },
-    //         })
-    //         const user = await response.json();
-    //         await AsyncStorage.setItem("@user", JSON.stringify(user));
-    //         setUserInfo(user);
-
-    //         // Add to the db
-    //         axios.post(`${BACKEND}/register/oauth`, {
-    //             name: user.name,
-    //             email: user.email,
-    //             profilePhoto: user.picture
-    //         }).then((res) => {
-    //             console.log("Res: ", res.data);
-    //             navigation.navigate("Instruction");
-    //         })
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-
-
-
-
-    // const loginGoogle = () => {
-    //     axios.post(`${BACKEND}/login/oauth`, {
-    //         email: email
-    //     }).then((res) => {
-    //         // console.log("Res: ", res);
-    //         storeData(res.data)
-    //         navigation.navigate("Main");
-    //     })
-    // }
+                axios.post(`${BACKEND}/login/oauth`, {
+                    email: email,
+                })
+                    .then(async (res) => {
+                        console.log("Res: ", res);
+                        storeData(res.data);
+                        navigation.navigate("Main");
+                    })
+                    .catch((error) => {
+                        console.log("E: ", error);
+                    })
+            }
+        })
+        return () => unsub();
+    }, []);
 
     return (
         <Center>
@@ -163,7 +139,7 @@ export const LoginContainer = () => {
             </View>
 
             <View>
-
+                <HairColourSelection />
             </View>
 
             <LoginForm
@@ -194,22 +170,34 @@ export const LoginContainer = () => {
                     style={styles.line}
                 />
             </View>
-
-            <Button
-                onPress={() => promptAsync()}
-            >
-                Google
-            </Button>
+            <View style={styles.socialBtns}>
+                <TouchableOpacity
+                    onPress={() => promptAsync()}
+                >
+                    <SvgXml
+                        xml={svgGoogleIcon}
+                    />
+                    {/* <Text style={styles.btnText}>Google</Text> */}
+                </TouchableOpacity>
+                <TouchableOpacity
+                // onPress={() => promptAsync()}
+                >
+                    <SvgXml
+                        xml={svgFacebookIcon}
+                    />
+                    {/* <Text style={styles.btnText}>Google</Text> */}
+                </TouchableOpacity>
+            </View>
             <View style={styles.oneLiner}>
                 <Text
                     style={styles.addText}
                 >
-                    Don't have an account?&nbsp;
+                    Don't Have an Account?&nbsp;
                     <Text
                         onPress={signUp}
                         style={styles.pressable}
                     >
-                        Sign up!
+                        Sign Up!
                     </Text>
                 </Text>
             </View>
@@ -283,4 +271,18 @@ const styles = StyleSheet.create({
         color: "#411E94",
         fontWeight: "bold"
     },
+
+    // BTN
+    btnText: {
+        color: "#fff",
+        textAlign: "center",
+        fontWeight: "bold"
+        // fontFamily: "indivisible-semibold"
+    },
+    socialBtns: {
+        display: "flex",
+        flexDirection: "row",
+        padding: 20,
+        gap: 20
+    }
 })
