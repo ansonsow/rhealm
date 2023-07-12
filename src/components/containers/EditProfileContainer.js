@@ -1,12 +1,13 @@
 import { EditProfileForm } from "../forms/EditProfileForm";
 import { useEffect, useState } from "react";
-import { PopUp } from "../layout/PopUp";
-import { Text, Button, Container, Modal, Center } from "native-base";
+import { Text, Container, Modal, Center } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native-web";
 import { BACKEND } from "@env";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SvgXml } from "react-native-svg";
+import { svgConfirmIcon } from "../../../assets/images/svgs";
 
 export const EditProfileContainer = () => {
 
@@ -116,7 +117,7 @@ export const EditProfileContainer = () => {
         <Center>
             <EditProfileForm
                 backToMenu={backToMenu}
-                error={error}
+                errorMsg={error}
                 onSubmit={onSubmit}
                 backToProfile={backToProfile}
                 confirmChanges={confirmChanges}
@@ -166,7 +167,7 @@ export const EditProfileContainer = () => {
 
             {popTwo ? (
                 <Modal
-                    isOpen={popFour}
+                    isOpen={popTwo}
                     width="100%"
                 >
                     <Modal.Content>

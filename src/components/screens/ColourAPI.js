@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Container, Button, Input, Image, View, Pressable, Center } from "native-base";
+import { Container, Input, Image, View, Pressable, Center } from "native-base";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { SvgXml } from "react-native-svg";
 import { svgLeftIcon } from "../../../assets/images/svgs";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Button, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, Text } from 'native-base';
 import { SvgXml } from 'react-native-svg';
