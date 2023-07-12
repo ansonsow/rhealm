@@ -1,5 +1,7 @@
+
 import { Container, Text, View, Center, ScrollView } from "native-base";
 import { StyleSheet, Button, TouchableOpacity } from "react-native";
+
 import { Heading } from "../layout/Heading";
 import { useState, useEffect } from "react";
 import { BACKEND } from "@env";
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
         padding: 5,
         borderColor: "#515151",
         borderWidth: 1,
-        borderRadius: "15px",
+        borderRadius: 15,
         margin: 5
     }
 })

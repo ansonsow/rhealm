@@ -31,7 +31,7 @@
     "plugins": [
       "@react-native-google-signin/google-signin"
     ],
-    "scheme": "com.colourfit.rhealm",
+    "scheme": "rhealm",
     "extra": {
       "eas": {
         "projectId": "00589a7b-0f2e-4092-8ef0-688366774b16"

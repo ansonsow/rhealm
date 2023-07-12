@@ -1,5 +1,4 @@
-import { Container, Text, Button, Icon, View, Image, Center, Box } from "native-base";
-import { AntDesign } from "@expo/vector-icons";
+import { Container, Text, View, Image, Center, Box } from "native-base";
 import { StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -32,7 +31,7 @@ export const Profile = props => {
     }, [])
 
     return (
-        <Box padding={5}>
+        <Center padding={5}>
             <SafeAreaView style={styles.container}>
                 <View style={styles.headingMenu}>
                     <TouchableOpacity
@@ -54,6 +53,34 @@ export const Profile = props => {
                             xml={svgEditIcon}
                         />
                     </TouchableOpacity>
+                </View>
+                <View style={styles.photoContainer}>
+                    <View style={styles.photoCircle}>
+                        {user.profilePhoto ?
+                            (<Image
+                                source={{ uri: `${user.profilePhoto}` }}
+                                alt="Image Holder"
+                                style={styles.profilePhoto}
+                            />)
+                            :
+                            (<Image
+                                source={require("../../../assets/images/ImageHolderMain.png")}
+                                alt="Image Holder"
+                                style={styles.profilePhoto}
+                            />)
+                        }
+                    </View>
+                    <Text style={styles.counting}>{user.name}</Text>
+                    <View style={styles.countingCont}>
+                        <View style={styles.countingItemCont}>
+                            <Text style={styles.counting}>Closet Count</Text>
+                            <Text style={styles.countingText}>Closets</Text>
+                        </View>
+                        <View style={styles.countingItemCont}>
+                            <Text style={styles.counting}>Item Count</Text>
+                            <Text style={styles.countingText}>Items</Text>
+                        </View>
+                    </View>
                 </View>
                 <View style={styles.profileItem}>
                     <Text
@@ -125,7 +152,7 @@ export const Profile = props => {
             </Text> */}
 
             </SafeAreaView>
-        </Box>
+        </Center>
     )
 }
 
@@ -133,6 +160,7 @@ const styles = StyleSheet.create({
     // PROFILE HEADING
     container: {
         width: "100%",
+        height: "100%"
     },
     headingMenu: {
         display: "flex",
@@ -161,6 +189,10 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         color: "#77757E"
     },
+    profileCont: {
+        backgroundColor: "#F7F7F7",
+        padding: 10,
+    },
 
     // LINES
     line: {
@@ -172,4 +204,43 @@ const styles = StyleSheet.create({
         // marginRight: 5,
         paddingTop: 5
     },
+
+    // PHOTO CONTAINER
+    photoContainer: {
+        backgroundColor: "#fff",
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        alignContent: "center",
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "center"
+    },
+    photoCircle: {
+        backgroundColor: "#000",
+        width: 80,
+        height: 80,
+        borderRadius: 50,
+        alignContent: "center",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+
+    // COUNTING
+    countingCont: {
+        display: "flex",
+        flexDirection: "row",
+        // padding: 10
+    },
+    countingItemCont: {
+
+    },
+    counting: {
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+    countingText: {
+        color: "#77757E",
+        fontSize: 14
+    }
 })

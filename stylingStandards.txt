@@ -62,7 +62,7 @@ Besides this file we have a themes.js file with sets up "root" styling for the n
     },
     btnPopPAction: {
         backgroundColor: "#D33D12",
-        borderRadius: "15px",
+        borderRadius: 15,
         width: 100,
         alignItems: "center"
     }, 
@@ -72,7 +72,7 @@ Besides this file we have a themes.js file with sets up "root" styling for the n
     },
     btnPopNextAction: {
         backgroundColor: "#D33D12",
-        borderRadius: "15px",  
+        borderRadius: 15,  
         width: 100,
         alignItems: "center"  
     },

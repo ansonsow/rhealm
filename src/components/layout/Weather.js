@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         gap: 3,
         backgroundColor: "lightgray",
-        borderRadius: "15px",
+        borderRadius: 15,
         shadowColor: "#000",
         shadowOpacity: 0.1,
         elevation: 4,

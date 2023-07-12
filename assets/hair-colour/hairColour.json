@@ -1,0 +1,122 @@
+[
+    {
+        "name": "Jet Black",
+        "hexValue": "#010101"
+    },
+    {
+        "name": "Natural Black",
+        "hexValue": "#0B0B0B"
+    },
+    {
+        "name": "Blue-Black",
+        "hexValue": "#0F1C3D"
+    },
+    {
+        "name": "Ebony",
+        "hexValue": "#555D66"
+    },
+    {
+        "name": "Raven Black",
+        "hexValue": "#080808"
+    },
+    {
+        "name": "Dark Brown",
+        "hexValue": "#654321"
+    },
+    {
+        "name": "Chestnut Brown",
+        "hexValue": "#8B572A"
+    },
+    {
+        "name": "Chocolate Brown",
+        "hexValue": "#3D1C02"
+    },
+    {
+        "name": "Auburn Brown",
+        "hexValue": "#803813"
+    },
+    {
+        "name": "Mahogany Brown",
+        "hexValue": "#4C1B01"
+    },
+    {
+        "name": "Light Blonde",
+        "hexValue": "#FFFACD"
+    },
+    {
+        "name": "Ash Blonde",
+        "hexValue": "#B2BEB5"
+    },
+    {
+        "name": "Golden Blonde",
+        "hexValue": "#FFD700"
+    },
+    {
+        "name": "Honey Blonde",
+        "hexValue": "#E1A95F"
+    },
+    {
+        "name": "Strawberry Blonde",
+        "hexValue": "#FFB347"
+    },
+    {
+        "name": "Fiery Red",
+        "hexValue": "#FF2400"
+    },
+    {
+        "name": "Copper Red",
+        "hexValue": "#B87333"
+    },
+    {
+        "name": "Auburn Red",
+        "hexValue": "#A52A2A"
+    },
+    {
+        "name": "Burgundy Red",
+        "hexValue": "#800020"
+    },
+    {
+        "name": "Ginger Red",
+        "hexValue": "#B06500"
+    },
+    {
+        "name": "Pink",
+        "hexValue": "#FFC0CB"
+    },
+    {
+        "name": "Blue",
+        "hexValue": "#0000FF"
+    },
+    {
+        "name": "Purple",
+        "hexValue": "#800080"
+    },
+    {
+        "name": "Green",
+        "hexValue": "#008000"
+    },
+    {
+        "name": "Silver/Gray",
+        "hexValue": "#C0C0C0"
+    },
+    {
+        "name": "Pastel Pink",
+        "hexValue": "#FFD1DC"
+    },
+    {
+        "name": "Lavender",
+        "hexValue": "#E6E6FA"
+    },
+    {
+        "name": "Teal",
+        "hexValue": "#008080"
+    },
+    {
+        "name": "Rose Gold",
+        "hexValue": "#B76E79"
+    },
+    {
+        "name": "Lilac",
+        "hexValue": "#C8A2C8"
+    }
+]

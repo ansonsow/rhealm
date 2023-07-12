@@ -1,4 +1,4 @@
-import { Container, VStack, FormControl, HStack, Input, Button, Pressable, Text, View } from "native-base";
+import { Container, VStack, FormControl, HStack, Input, Pressable, Text, View } from "native-base";
 import { useState } from "react";
 import { SvgXml } from "react-native-svg";
 import { svgAlertIcon, svgConfirmIcon } from "../../../assets/images/svgs";
@@ -25,13 +25,14 @@ export const ForgotPswForm = props => {
                             // fill="currentColor"
                             style={styles.svg}
                         />
-                        <Text color="#0c6e01">{success}</Text>
+                        <Text color="#345B00">{success}</Text>
                     </View>}
                 <FormControl isRequired>
                     <FormControl.Label>Name</FormControl.Label>
                     <HStack>
                         <Input
                             placeholder="Name"
+                            variant="underlined"
                             onChangeText={value => {
                                 onNameChange(value)
                             }}
@@ -43,6 +44,7 @@ export const ForgotPswForm = props => {
                     <HStack>
                         <Input
                             placeholder="Email"
+                            variant="underlined"
                             onChangeText={value => {
                                 onEmailChange(value)
                             }}
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
         // width: "100%"
-        borderRadius: "10px",
+        borderRadius: 10,
         alignContent: "center",
         alignItems: "center"
     },
@@ -82,11 +84,12 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         gap: 10,
-        backgroundColor: "#95cf8f",
+        backgroundColor: "#84C42C",
+        opacity: 0.2,
         padding: 10,
         marginBottom: 10,
         maxWidth: "100%",
-        borderRadius: "10px",
+        borderRadius: 10,
         alignContent: "center",
         alignItems: "center",
     },
@@ -101,6 +104,6 @@ const styles = StyleSheet.create({
 
     // SVG - this is necessary to change considering every SVG we need to alter
     svg: {
-        color: "#0c6e01"
+        color: "#345B00"
     },
 })

@@ -38,7 +38,7 @@ export const ClosetDetail = () => {
         axios.get(`${BACKEND}/clothing/closet/${closet._id}`).then(
             (res) => {
                 setClothings(res.data)
-                console.log(res.data)
+                // console.log(res.data)
             }
         ).catch(
             (err) => {
@@ -68,6 +68,7 @@ export const ClosetDetail = () => {
     useEffect(() => {
         getClothingData()
         setUpdate(!update)
+        console.log("USEEFECT FIRED")
     }, [])
 
     useEffect(() => {
@@ -78,6 +79,8 @@ export const ClosetDetail = () => {
 
     useEffect(() => {
         getData()
+        getClothingData()
+
     }, [update, haveData])
 
     return (

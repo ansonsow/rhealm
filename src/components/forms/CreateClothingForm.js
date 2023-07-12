@@ -1,7 +1,6 @@
-import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text, Select, Center, View, Image } from "native-base";
+import { Container, VStack, FormControl, HStack, Input, Pressable, Text, Select, Center, View, Image } from "native-base";
 import { useState } from "react";
 import { BACKEND } from "@env";
-import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
 import { SvgXml } from "react-native-svg";
 import { TouchableOpacity, StyleSheet } from "react-native";
@@ -51,7 +50,11 @@ const CreateClothingForm = props => {
             texture: texture,
             photo: imageSelection
         }).then((res) => {
+
             props.forceUpdate()
+        }).catch((err)=>{
+
+            console.log(err)
         })
     }
 
@@ -83,6 +86,7 @@ const CreateClothingForm = props => {
                     <HStack>
                         <Input
                             placeholder="Cool shirt"
+                            variant="underlined"
                             onChangeText={value => {
                                 handleNameChange(value)
                             }}
@@ -102,7 +106,7 @@ const CreateClothingForm = props => {
                                             backgroundColor: colour.hexValue,
                                             width: 20,
                                             height: 20,
-                                            borderRadius: "50%",
+                                            borderRadius: 20 / 2,
                                         }}
                                     >
                                     </View>
@@ -111,23 +115,6 @@ const CreateClothingForm = props => {
                                     >{colour.name}</Text>
                                 </View>
                             ))}
-                            {/* {coloursHex && coloursHex.map((hexValue, index) => (
-                                <View style={styles.colourContainer}>
-                                    <View
-                                        key={index}
-                                        style={{
-                                            backgroundColor: hexValue,
-                                            width: 20,
-                                            height: 20,
-                                            borderRadius: "50%",
-                                        }}
-                                    >
-                                    </View>
-                                    <Text
-                                    // key={coloursNaming[index]}
-                                    >{coloursNaming && coloursNaming[index]}</Text>
-                                </View>
-                            ))} */}
                         </View>
 
                         {/* <Select minWidth={200}
@@ -266,9 +253,11 @@ const CreateClothingForm = props => {
                     </HStack>
                 </FormControl> */}
 
-                <Button onPress={handleClicked}>
-                    Add
-                </Button>
+                <Pressable
+                    onPress={handleClicked}
+                >
+                    <Text style={styles.btnText}>Add Item</Text>
+                </Pressable>
 
             </VStack>
         </View>
@@ -282,7 +271,7 @@ const styles = StyleSheet.create({
     colorCont: {
         // borderColor: "#000",
         borderBottomWidth: 1,
-        // borderRadius: "15px",
+        // borderRadius: 15,
         borderBottomColor: "#E9E9E9",
         width: "100%",
         flexDirection: "row",
@@ -298,9 +287,17 @@ const styles = StyleSheet.create({
         padding: 5,
         borderColor: "#515151",
         borderWidth: 1,
-        borderRadius: "15px",
+        borderRadius: 15,
         margin: 5,
         // flex: 1
+    },
+
+    // BTN
+    btnText: {
+        color: "#fff",
+        textAlign: "center",
+        fontWeight: "bold"
+        // fontFamily: "indivisible-semibold"
     },
 })
 
