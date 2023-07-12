@@ -53,9 +53,7 @@ export const CreateClosetForm = props => {
                     <HStack width="100%">
                         <Input
                             placeholder="Sweter Group"
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
+                            variant="underlined"
                             onChangeText={value => {
                                 handleNameChange(value)
                             }}
@@ -68,9 +66,7 @@ export const CreateClosetForm = props => {
                     <HStack width="100%">
                         <Input
                             placeholder="Sweter Group for Winter"
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
+                            variant="underlined"
                             onChangeText={value => {
                                 handleOccasionChange(value)
                             }}
