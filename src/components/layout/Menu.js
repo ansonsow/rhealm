@@ -1,5 +1,4 @@
-import { Container, Text, Icon, View, Image, Center } from "native-base";
-import { AntDesign } from "@expo/vector-icons";
+import { Container, Text, View, Image, Center } from "native-base";
 import { StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";

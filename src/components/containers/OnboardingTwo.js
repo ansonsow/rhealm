@@ -1,4 +1,4 @@
-import { Container, Text, Icon, View, Modal, Pressable } from "native-base";
+import { Container, Text, View, Modal, Pressable } from "native-base";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";

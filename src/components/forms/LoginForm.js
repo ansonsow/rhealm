@@ -1,4 +1,4 @@
-import { Container, VStack, FormControl, HStack, Input, Icon, Pressable, Text, WarningOutlineIcon, View, Center } from "native-base";
+import { Container, VStack, FormControl, HStack, Input, Icon, Pressable, Text, View, Center } from "native-base";
 import { useState } from "react";
 import { MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { SvgXml } from "react-native-svg";

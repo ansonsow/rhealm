@@ -1,5 +1,4 @@
-import { AntDesign } from "@expo/vector-icons";
-import { Container, FormControl, VStack, View, Icon, Text, HStack, Input, Image } from "native-base";
+import { Container, FormControl, VStack, View, Text, HStack, Input, Image } from "native-base";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -42,10 +41,6 @@ export const EditProfileForm = props => {
                                 xml={svgLeftIcon}
                             />
                         </TouchableOpacity>
-                        {/* <Icon
-                        as={<AntDesign name="left" size={30} />}
-                        onPress={backToMenu}
-                    /> */}
                         <Text
                             style={styles.heading}
                         >

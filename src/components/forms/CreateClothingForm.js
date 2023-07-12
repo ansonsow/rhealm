@@ -1,7 +1,6 @@
-import { Container, VStack, FormControl, HStack, Input, Icon, Pressable, Text, Select, Center, View, Image } from "native-base";
+import { Container, VStack, FormControl, HStack, Input, Pressable, Text, Select, Center, View, Image } from "native-base";
 import { useState } from "react";
 import { BACKEND } from "@env";
-import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
 import { SvgXml } from "react-native-svg";
 import { TouchableOpacity, StyleSheet } from "react-native";
