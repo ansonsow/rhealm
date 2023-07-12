@@ -1,0 +1,235 @@
+**STYLING STANDARDS**
+
+INSTRUCTIONS
+Please follow with the same naming convention (see other files for reference) and Ctrl+C/Ctrl+V with the headings, that way makes it easier to know which element it's being styled.
+Besides this file we have a themes.js file with sets up "root" styling for the native-base components. If you need to adjust those components for a particular thing, then add specific styling in the document that you need to edit.
+
+// HEADING LOGO
+    heading: {
+        fontWeight: "bold",
+        fontSize: 24,
+        // marginBottom: 20
+    },
+    boldHeading: {
+        // fontFamily: "indivisible-semibold",
+        fontSize: 36,
+        paddingTop: 15
+    },
+    headingCont: {
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        alignItems: "center",
+        alignSelf: "center",
+        gap: 10,
+        marginTop: 20,
+        marginBottom: 10
+    },
+
+
+// SUBHEADING
+    subheading: {
+        fontSize: 16,
+        fontWeight: "bold"
+// fontFamily: "indivisible-semibold",
+    },
+
+
+// LOGO
+    logo: {
+        alignSelf: "center",
+        margin: 5
+    },
+
+
+// POPUP
+    headingPop: {
+        fontWeight: "bold",
+        fontSize: 16,
+        paddingBottom: 10,
+// fontFamily: "indivisible-semibold",
+    },
+    textPop: {
+        fontSize: 16,
+    },
+    btnPopNAction: {
+        backgroundColor: "transparent",
+        width: 100,
+        alignItems: "center"
+    },
+    btnTextPopNAction: {
+        fontSize: 14,
+    },
+    btnPopPAction: {
+        backgroundColor: "#D33D12",
+        borderRadius: "15px",
+        width: 100,
+        alignItems: "center"
+    }, 
+    btnTextPopPAction: {
+        fontSize: 14,
+        color: "#fff",
+    },
+    btnPopNextAction: {
+        backgroundColor: "#D33D12",
+        borderRadius: "15px",  
+        width: 100,
+        alignItems: "center"  
+    },
+    btnTextPopNexAction: {
+        fontSize: 14,
+        color: "#fff",
+    },
+    btnPopCont: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        alignContent: "flex-end"
+    },
+    popCont: {
+        padding: 20
+    },
+
+
+// CONTAINER
+
+
+
+
+
+// TEXT
+
+
+
+
+
+// ALERTS
+    alert: {
+        display: "flex",
+        flexDirection: "row",
+        gap: 10,
+        backgroundColor: "#f7dbd2",
+        padding: 10,
+        marginBottom: 10,
+        // width: "100%"
+        borderRadius: "10px",
+        alignContent: "center",
+        alignItems: "center"
+    },
+    success: {
+        display: "flex",
+        flexDirection: "row",
+        gap: 10,
+        backgroundColor: "#95cf8f",
+        padding: 10,
+        marginBottom: 10,
+        maxWidth: "100%",
+        borderRadius: "10px",
+        alignContent: "center",
+        alignItems: "center",
+    },
+
+
+// BTN TEXT
+    btnText: {
+        color: "#fff",
+        textAlign: "center",
+        fontWeight: "bold"
+        // fontFamily: "indivisible-semibold"
+    },
+
+
+// SVG - this is necessary to change considering every SVG we need to alter
+    svg: {
+        color: "#0c6e01"
+    },
+
+
+// LINES
+    lines: {
+        display: "flex",
+        flexDirection: "row",
+        alignSelf: "center",
+        marginBottom: 20,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    line: {
+        borderBottomWidth: 1,
+        width: 90,
+        borderColor: "#969AA8",
+        // flex: 1
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 20
+    },
+    lineText: {
+        fontSize: 12,
+        marginTop: 20,
+        alignSelf: "center",
+        color: "#969AA8",
+    },
+
+
+// TEXT LINE - different from other texts
+    addText: {
+        color: "#515151"
+    },
+    oneLiner: {
+        alignItems: "center",
+        paddingTop: 15
+    },
+
+
+// PRESSABLE TEXT
+    pressable: {
+        color: "#411E94",
+        fontWeight: "bold"
+    },
+
+
+// FORMS ICON
+    eye: {
+        paddingRight: 10
+    },
+
+
+// FORM CONTAINER
+    formCont: {
+        marginTop: 20
+    },
+    forgot: {
+        textAlign: "right",
+        fontSize: 14
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<Pressable
+    onPress={fbSignUp}
+>
+    <Text style={styles.btnText}>Facebook</Text>
+</Pressable>

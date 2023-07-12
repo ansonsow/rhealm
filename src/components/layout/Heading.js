@@ -1,5 +1,5 @@
-import { Container, Text, View, Pressable } from "native-base";
-import { Image } from "react-native";
+import { Container, Text, View, Pressable, Center } from "native-base";
+import { Image, TouchableOpacity } from "react-native";
 import axios from "axios";
 import { StyleSheet } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -32,58 +32,79 @@ export const Heading = props => {
     }, [])
 
     return (
-        <Container style={styles.container} >
-            <Pressable
-                style={styles.photoContainer}
-                onPress={menu}
-            >
-                <Image
-                    source={require("../../../assets/images/ImageHolderMain.png")}
-                    alt="Image Holder"
-                    style={styles.profilePhoto}
-                />
-            </Pressable>
-            <View style={styles.headingContent}>
-                <Text
-                    style={styles.heading}
+        <View>
+            {/* <Center> */}
+            <Container style={styles.headingCont}>
+                <TouchableOpacity
+                    style={styles.photoContainer}
+                    onPress={menu}
                 >
-                    Hello {user != undefined ? user.name : "Marina"}!
-                </Text>
-                <Text
-                    style={styles.text}
-                >
-                    It's sunny outside.
-                </Text>
-                <Weather />
-            </View>
-        </Container>
+                    <View style={styles.photoCircle}>
+                        <Image
+                            source={require("../../../assets/images/ImageHolderMain.png")}
+                            alt="Image Holder"
+                            style={styles.profilePhoto}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <View style={styles.headingContent}>
+                    <Text
+                        style={styles.heading}
+                    >
+                        Hello {user != undefined ? user.name : "Marina"}!
+                    </Text>
+                    <Text
+                        style={styles.text}
+                    >
+                        It's sunny outside.
+                    </Text>
+                    <Weather />
+                </View>
+            </Container>
+            {/* </Center> */}
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    // HEADING MENU
+    headingCont: {
+        backgroundColor: "lightgray",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        alignContent: "center",
+        paddingVertical: 10,
+        paddingHorizontal: 10
+    },
+    photoContainer: {
+        backgroundColor: "#fff",
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        alignContent: "center",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    photoCircle: {
+        backgroundColor: "#000",
+        width: 80,
+        height: 80,
+        borderRadius: 50,
+        alignContent: "center",
+        justifyContent: "center",
+        alignItems: "center"
+    },
     profilePhoto: {
         maxWidth: "100%",
         maxHeight: "100%"
     },
-    container: {
-        // backgroundColor: "lightgray",
-        width: "100%",
-        padding: 5,
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        borderBottomLeftRadius: 50,
-        borderTopLeftRadius: 50
-    },
     headingContent: {
-        padding: 10
-    },
-    photoContainer: {
-        backgroundColor: "white",
-        width: 80,
-        height: 80,
-        borderRadius: 50,
-        padding: 10
+        padding: 10,
+        justifyContent: "center",
+        alignContent: "center",
+        alignSelf: "center"
+        // alignItems: "center"
     },
     heading: {
         fontSize: 20,
