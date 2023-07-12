@@ -51,7 +51,11 @@ const CreateClothingForm = props => {
             texture: texture,
             photo: imageSelection
         }).then((res) => {
+
             props.forceUpdate()
+        }).catch((err)=>{
+
+            console.log(err)
         })
     }
 
