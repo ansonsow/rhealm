@@ -1,5 +1,5 @@
 import { Container, Text } from "native-base";
-import { StyleSheet, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, Button, TouchableOpacity, ScrollView } from "react-native";
 import { Heading } from "../layout/Heading";
 import { useState, useEffect } from "react";
 import { BACKEND } from "@env";
@@ -79,9 +79,13 @@ export const ClothingsContainer = () => {
         <>
             <Container style={styles.container}>
                 <CreateClothingForm forceUpdate={forceUpdate} user={user} />
+                <ScrollView>
+
                 {clothings.length > 0 ? (
                     clothings.map((item, index) => <Button title={item.name} onPress={() => { handlePress(item) }} key={index}>{item.name}</Button>)
                 ) : <Text>No Clothing found</Text>}
+                </ScrollView>
+
 
             </Container>
         </>

@@ -45,7 +45,11 @@ const CreateClothingForm = props => {
             type: type,
             texture: texture
         }).then((res) => {
+
             props.forceUpdate()
+        }).catch((err)=>{
+
+            console.log(err)
         })
     }
 
