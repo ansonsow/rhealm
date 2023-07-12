@@ -3,13 +3,15 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useRoute } from "@react-navigation/native";
 import { useState, useEffect } from "react";
 import { Button } from 'native-base';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { BACKEND } from "@env";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import axios from "axios";
 
 
 export const ClosetDetail = () => {
+    const isFocused = useIsFocused();
     const route = useRoute();
     const { closet } = route.params;
     const navigation = useNavigation();
@@ -35,6 +37,8 @@ export const ClosetDetail = () => {
     };
     
     const getClothingData = () => {
+        // console.log("GET CLOTHINGS")
+        console.log(closet._id)
         axios.get(`${BACKEND}/clothing/closet/${closet._id}`).then(
             (res) => {
                 setClothings(res.data)
@@ -68,8 +72,9 @@ export const ClosetDetail = () => {
     useEffect(() => {
         getClothingData()
         setUpdate(!update)
-        console.log("USEEFECT FIRED")
-    }, [])
+        // console.log("USEEFECT FIRED")
+        // console.log(closet)
+    }, [isFocused])
 
     useEffect(() => {
         if (user !== '') {
