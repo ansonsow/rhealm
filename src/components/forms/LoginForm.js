@@ -1,4 +1,4 @@
-import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text, WarningOutlineIcon, View, Center } from "native-base";
+import { Container, VStack, FormControl, HStack, Input, Icon, Pressable, Text, WarningOutlineIcon, View, Center } from "native-base";
 import { useState } from "react";
 import { MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
 import { SvgXml } from "react-native-svg";
@@ -28,6 +28,7 @@ export const LoginForm = props => {
                     <HStack>
                         <Input
                             placeholder="Email"
+                            variant="underlined"
                             onChangeText={value => {
                                 onEmailChange(value)
                             }}
@@ -39,6 +40,7 @@ export const LoginForm = props => {
                     <HStack width="100%">
                         <Input
                             placeholder="Password"
+                            variant="underlined"
                             type={show ? "text" : "password"}
                             InputRightElement={
                                 <TouchableOpacity onPress={() => setShow(!show)} paddingRight={1} style={styles.eye}>
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
         // width: "100%"
-        borderRadius: "10px",
+        borderRadius: 10,
         alignContent: "center",
         alignItems: "center"
     },
