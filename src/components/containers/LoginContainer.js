@@ -1,12 +1,12 @@
-import { Button, Container, Text, Image, View, Center, Box, Pressable } from "native-base";
+import { Container, Text, Image, View, Center, Box, Pressable } from "native-base";
 import { LoginForm } from "../forms/LoginForm";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SvgXml } from "react-native-svg";
-import { svgLogo } from "../../../assets/images/svgs";
+import { svgFacebookIcon, svgGoogleIcon, svgLogo } from "../../../assets/images/svgs";
 
 import { CameraContainer } from "../containers/CameraContainer"
 
@@ -19,6 +19,8 @@ import {
     signInWithCredential
 } from "firebase/auth";
 import { auth } from "../../../firebaseConfig";
+
+import { HairColourSelection } from "../layout/HairColour";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -137,7 +139,7 @@ export const LoginContainer = () => {
             </View>
 
             <View>
-
+                <HairColourSelection />
             </View>
 
             <LoginForm
@@ -168,23 +170,34 @@ export const LoginContainer = () => {
                     style={styles.line}
                 />
             </View>
-
-            <Pressable
-                onPress={() => promptAsync()}
-                style={styles.googleBtn}
-            >
-                <Text style={styles.btnText}>Google</Text>
-            </Pressable>
+            <View style={styles.socialBtns}>
+                <TouchableOpacity
+                    onPress={() => promptAsync()}
+                >
+                    <SvgXml
+                        xml={svgGoogleIcon}
+                    />
+                    {/* <Text style={styles.btnText}>Google</Text> */}
+                </TouchableOpacity>
+                <TouchableOpacity
+                // onPress={() => promptAsync()}
+                >
+                    <SvgXml
+                        xml={svgFacebookIcon}
+                    />
+                    {/* <Text style={styles.btnText}>Google</Text> */}
+                </TouchableOpacity>
+            </View>
             <View style={styles.oneLiner}>
                 <Text
                     style={styles.addText}
                 >
-                    Don't have an account?&nbsp;
+                    Don't Have an Account?&nbsp;
                     <Text
                         onPress={signUp}
                         style={styles.pressable}
                     >
-                        Sign up!
+                        Sign Up!
                     </Text>
                 </Text>
             </View>
@@ -259,11 +272,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
 
-    // BTNS
-    googleBtn: {
-        backgroundColor: "#D33D12"
-    },
-
     // BTN
     btnText: {
         color: "#fff",
@@ -271,4 +279,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
         // fontFamily: "indivisible-semibold"
     },
+    socialBtns: {
+        display: "flex",
+        flexDirection: "row",
+        padding: 20,
+        gap: 20
+    }
 })

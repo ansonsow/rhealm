@@ -1,8 +1,8 @@
-import { Container, Text, Button, View, Center, Pressable } from "native-base";
+import { Container, Text, View, Center, Pressable } from "native-base";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SvgXml } from "react-native-svg";
-import { svgLogo } from "../../../assets/images/svgs";
+import { svgFacebookIcon, svgGoogleIcon, svgLogo } from "../../../assets/images/svgs";
 
 import { useEffect, useState } from "react";
 import * as Google from "expo-auth-session/providers/google";
@@ -85,6 +85,10 @@ export const WelcomeScreen = () => {
         console.log("For now will be a signout button");
     }
 
+    const login = () => {
+        navigation.navigate("Login");
+    }
+
     return (
         <Center>
             <View>
@@ -128,21 +132,40 @@ export const WelcomeScreen = () => {
                         style={styles.line}
                     />
                 </View>
-
                 <Pressable
                     // onPress={googleSignUp}
                     onPress={() => promptAsync()}
                     style={styles.googleBtn}
                 >
-                    <Text style={styles.btnText}>Google</Text>
+                    <Text style={styles.btnText}>Sign In With Google</Text>
+                    <SvgXml
+                        xml={svgGoogleIcon}
+                        style={styles.btnIcon}
+                    />
                 </Pressable>
-
                 <Pressable
                     // onPress={fbSignUp}
                     onPress={async () => await signOut(auth)}
+                    style={styles.fbBtn}
                 >
-                    <Text style={styles.btnText}>Facebook</Text>
+                    <Text style={styles.btnText}>Sign In With Facebook</Text>
+                    <SvgXml
+                        xml={svgFacebookIcon}
+                    />
                 </Pressable>
+            </View>
+            <View style={styles.oneLiner}>
+                <Text
+                    style={styles.addText}
+                >
+                    Already Have an Account?&nbsp;
+                    <Text
+                        onPress={login}
+                        style={styles.pressable}
+                    >
+                        Sign In!
+                    </Text>
+                </Text>
             </View>
         </Center>
     )
@@ -212,6 +235,38 @@ const styles = StyleSheet.create({
 
     // BTNS
     googleBtn: {
-        backgroundColor: "#D33D12"
-    }
+        backgroundColor: "#DB4437",
+        display: "flex",
+        flexDirection: "row-reverse",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10
+    },
+    fbBtn: {
+        backgroundColor: "#4267B2",
+        display: "flex",
+        flexDirection: "row-reverse",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10
+    },
+    // btnIcon: {
+    //     width: 10,
+    //     height: 10
+    // },
+
+    // TEXT LINE - different from other texts
+    addText: {
+        color: "#515151"
+    },
+    oneLiner: {
+        alignItems: "center",
+        paddingTop: 15
+    },
+
+    // PRESSABLE TEXT
+    pressable: {
+        color: "#411E94",
+        fontWeight: "bold"
+    },
 })
