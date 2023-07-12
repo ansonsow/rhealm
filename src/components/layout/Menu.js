@@ -1,6 +1,6 @@
-import { Container, Text, Icon, View, Image } from "native-base";
+import { Container, Text, Icon, View, Image, Center } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SvgXml } from "react-native-svg";
@@ -34,7 +34,7 @@ export const Menu = props => {
     }
 
     return (
-        <Container style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.headingMenu}>
                 <TouchableOpacity
                     onPress={closeMenu}
@@ -44,7 +44,7 @@ export const Menu = props => {
                     />
                 </TouchableOpacity>
                 <Text
-                    style={styles.heading}
+                    style={styles.subheading}
                 >
                     Settings
                 </Text>
@@ -74,6 +74,10 @@ export const Menu = props => {
                     </TouchableOpacity>
                 </View>
 
+                <View
+                    style={styles.line}
+                />
+
                 <View style={styles.menuItem}>
                     <TouchableOpacity
                         onPress={""}
@@ -96,6 +100,10 @@ export const Menu = props => {
                     </TouchableOpacity>
                 </View>
 
+                <View
+                    style={styles.line}
+                />
+
                 <View style={styles.menuItem}>
                     <TouchableOpacity
                         onPress={""}
@@ -116,6 +124,10 @@ export const Menu = props => {
                         /> */}
                     </TouchableOpacity>
                 </View>
+
+                <View
+                    style={styles.line}
+                />
 
                 <View style={styles.menuItem}>
                     <TouchableOpacity
@@ -138,6 +150,10 @@ export const Menu = props => {
                     </TouchableOpacity>
                 </View>
 
+                <View
+                    style={styles.line}
+                />
+
                 <View style={styles.menuItem}>
                     <TouchableOpacity
                         onPress={""}
@@ -158,6 +174,10 @@ export const Menu = props => {
                         />
                     </TouchableOpacity>
                 </View>
+
+                <View
+                    style={styles.line}
+                />
 
                 <View style={styles.menuItem}>
                     <TouchableOpacity
@@ -181,31 +201,32 @@ export const Menu = props => {
                 </View>
 
             </View>
-        </Container >
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
-    heading: {
-        fontWeight: "bold",
+    // SUBHEADING
+    subheading: {
         fontSize: 16,
+        fontWeight: "bold",
+        // fontFamily: "indivisible-semibold",
         paddingLeft: 10,
     },
-    container: {
-        position: "absolute",
-        zIndex: 100,
+
+    // LINES
+    line: {
+        borderBottomWidth: 1,
         width: "100%",
-        height: "100%",
-        backgroundColor: "#fff",
-        paddingTop: 30,
+        borderColor: "#EAECF0",
+        // flex: 1
+        marginLeft: 5,
+        marginRight: 5,
     },
-    headingMenu: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center"
-    },
+
+    // SETTINGS
     text: {
-        marginTop: 10
+        // marginTop: 10
     },
     menuContainer: {
         backgroundColor: "#F9FAFB",
@@ -227,7 +248,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         alignSelf: "center",
         justifyContent: "space-between",
-        margin: 7
+        marginVertical: 10
     },
     menuSubItem: {
         gap: 5,
@@ -242,9 +263,31 @@ const styles = StyleSheet.create({
         gap: 5,
         display: "flex",
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
     },
     image: {
         marginRight: 10
-    }
+    },
+    heading: {
+        fontWeight: "bold",
+        fontSize: 16,
+    },
+    container: {
+        position: "absolute",
+        zIndex: 100,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#fff",
+        // paddingTop: 40,
+        // top: 0
+    },
+    headingMenu: {
+        display: "flex",
+        paddingLeft: 25,
+        flexDirection: "row",
+        alignItems: "center",
+        alignContent: "space-between",
+        // alignSelf: "center",
+        // justifyContent: "space-evenly"
+    },
 })

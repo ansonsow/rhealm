@@ -21,7 +21,8 @@ import { ClosetDetail } from '../containers/ClosetDetail'
 // import { Menu } from "../layout/Menu";
 import { ClothingInstructionContainer } from "../containers/ClothingInstructionContainer";
 import { AddClothingToCloset } from '../containers/AddClothingToCloset';
-import { Testing } from "../screens/Testing";
+import { SignUpContainerSec } from "../containers/SignUpContainerSec";
+import { ColourAPI } from "../screens/ColourAPI";
 
 const Stack = createNativeStackNavigator();
 // const Stack = createStackNavigator();
@@ -120,8 +121,12 @@ export const AppStack = () => {
                     component={AddClothingToCloset}
                 />
                 <Stack.Screen
-                    name="Testing"
-                    component={Testing}
+                    name="SignUpTwo"
+                    component={SignUpContainerSec}
+                />
+                <Stack.Screen
+                    name="ColourAPI"
+                    component={ColourAPI}
                 />
             </Stack.Navigator>
         </NavigationContainer>

@@ -1,17 +1,17 @@
-import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text, Select } from "native-base";
+import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text, Select, Center, View, Image } from "native-base";
 import { useState } from "react";
 import { BACKEND } from "@env";
-
-
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
 import { SvgXml } from "react-native-svg";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import { svgLeftIcon } from "../../../assets/images/svgs";
 import { useNavigation } from "@react-navigation/native";
 
 const CreateClothingForm = props => {
     const navigation = useNavigation();
+
+    const { coloursHex, coloursNaming, imageSelection } = props;
 
     const [name, setName] = useState('')
     const [color, setColor] = useState('')
@@ -34,6 +34,11 @@ const CreateClothingForm = props => {
         setTexture(t)
     }
 
+    const combinedColours = coloursHex.map((hexValue, index) => ({
+        hexValue,
+        name: coloursNaming[index]
+    }));
+
     const handleClicked = () => {
         const uid = props.user._id
 
@@ -41,9 +46,10 @@ const CreateClothingForm = props => {
         axios.post(`${BACKEND}/clothing`, {
             userId: uid,
             name: name,
-            colour: color,
+            colour: combinedColours,
             type: type,
-            texture: texture
+            texture: texture,
+            photo: imageSelection
         }).then((res) => {
             props.forceUpdate()
         })
@@ -53,8 +59,10 @@ const CreateClothingForm = props => {
         navigation.navigate("ClothingInstructions");
     }
 
+    console.log(combinedColours);
+
     return (
-        <Container>
+        <View>
             <TouchableOpacity
                 onPress={backToInstructions}
             >
@@ -62,27 +70,67 @@ const CreateClothingForm = props => {
                     xml={svgLeftIcon}
                 />
             </TouchableOpacity>
-            <VStack width="100%">
+            <VStack>
+                {imageSelection && <Image
+                    source={{ uri: imageSelection }}
+                    alt="Image"
+                    // style={styles.image}
+                    width={100}
+                    height={100}
+                />}
                 <FormControl isRequired>
                     <FormControl.Label>Name</FormControl.Label>
-                    <HStack width="100%">
+                    <HStack>
                         <Input
                             placeholder="Cool shirt"
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
                             onChangeText={value => {
                                 handleNameChange(value)
                             }}
                         />
-
                     </HStack>
                 </FormControl>
 
                 <FormControl isRequired>
                     <FormControl.Label>Color</FormControl.Label>
-                    <HStack width="100%">
-                        <Select minWidth="200"
+                    <HStack>
+                        <View style={styles.colorCont}>
+                            {combinedColours && combinedColours.map((colour, index) => (
+                                <View style={styles.colourContainer}>
+                                    <View
+                                        key={index}
+                                        style={{
+                                            backgroundColor: colour.hexValue,
+                                            width: 20,
+                                            height: 20,
+                                            borderRadius: "50%",
+                                        }}
+                                    >
+                                    </View>
+                                    <Text
+                                    // key={coloursNaming[index]}
+                                    >{colour.name}</Text>
+                                </View>
+                            ))}
+                            {/* {coloursHex && coloursHex.map((hexValue, index) => (
+                                <View style={styles.colourContainer}>
+                                    <View
+                                        key={index}
+                                        style={{
+                                            backgroundColor: hexValue,
+                                            width: 20,
+                                            height: 20,
+                                            borderRadius: "50%",
+                                        }}
+                                    >
+                                    </View>
+                                    <Text
+                                    // key={coloursNaming[index]}
+                                    >{coloursNaming && coloursNaming[index]}</Text>
+                                </View>
+                            ))} */}
+                        </View>
+
+                        {/* <Select minWidth={200}
                             accessibilityLabel="Choose Color"
                             placeholder="Choose Color"
                             _selectedItem={{
@@ -90,9 +138,9 @@ const CreateClothingForm = props => {
                             }} mt={1}
                             onValueChange={itemValue => handleColorChange(itemValue)}
                         >
-                            <Select.Item label="Black" value="black" />
-                            <Select.Item label="White" value="white" />
-                            {/* <Select.Item label="Gray" value="gray" />
+                            <Select.Item label="Black" value="black" style={styles.selectItem} />
+                            <Select.Item label="White" value="white" /> */}
+                        {/* <Select.Item label="Gray" value="gray" />
                                 <Select.Item label="Navy blue" value="navy blue" />
                                 <Select.Item label="Royal blue" value="royal blue" />
                                 <Select.Item label="Sky blue" value="sky blue" />
@@ -129,7 +177,7 @@ const CreateClothingForm = props => {
                                 <Select.Item label="Off-white" value="off-white" />
                                 <Select.Item label="Turquoise" value="turquoise" />
                                 <Select.Item label="Mint green" value="mint green" /> */}
-                        </Select>
+                        {/* </Select> */}
                     </HStack>
                 </FormControl>
 
@@ -170,7 +218,7 @@ const CreateClothingForm = props => {
                 </FormControl>
 
 
-                <FormControl isRequired>
+                {/* <FormControl isRequired>
                     <FormControl.Label>Type</FormControl.Label>
                     <HStack width="100%">
                         <Select minWidth="200"
@@ -184,8 +232,8 @@ const CreateClothingForm = props => {
                             <Select.Item label="T-shirt" value="tshirt" />
                             <Select.Item label="Pants" value="pants" />
                             <Select.Item label="Shirt" value="shirt" />
-                            <Select.Item label="Jeans" value="jeans" />
-                            {/* <Select.Item label="Blouse" value="blouse" />
+                            <Select.Item label="Jeans" value="jeans" /> */}
+                {/* <Select.Item label="Blouse" value="blouse" />
                                 <Select.Item label="Shorts" value="shorts" />
                                 <Select.Item label="Sweater" value="sweater" />
                                 <Select.Item label="Leggings" value="leggings" />
@@ -214,17 +262,46 @@ const CreateClothingForm = props => {
                                 <Select.Item label="Cape" value="cape" />
                                 <Select.Item label="Tunic" value="tunic" /> */}
 
-                        </Select>
+                {/* </Select>
                     </HStack>
-                </FormControl>
+                </FormControl> */}
 
                 <Button onPress={handleClicked}>
                     Add
                 </Button>
 
             </VStack>
-        </Container>
+        </View>
     )
 }
 
-export default CreateClothingForm
+const styles = StyleSheet.create({
+    // selectItem: {
+    //     backgroundColor: "#fff"
+    // }
+    colorCont: {
+        // borderColor: "#000",
+        borderBottomWidth: 1,
+        // borderRadius: "15px",
+        borderBottomColor: "#E9E9E9",
+        width: "100%",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "flex-start",
+    },
+    colourContainer: {
+        display: "flex",
+        flexDirection: "row",
+        alignContent: "center",
+        alignItems: "center",
+        gap: 5,
+        padding: 5,
+        borderColor: "#515151",
+        borderWidth: 1,
+        borderRadius: "15px",
+        margin: 5,
+        // flex: 1
+    },
+})
+
+export default CreateClothingForm;

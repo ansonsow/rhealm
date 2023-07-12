@@ -1,12 +1,9 @@
-import { Container, Text } from "native-base";
+import { Container, Text, View, Center, ScrollView } from "native-base";
 import { StyleSheet, Button, TouchableOpacity } from "react-native";
 import { Heading } from "../layout/Heading";
 import { useState, useEffect } from "react";
 import { BACKEND } from "@env";
 import CreateClothingForm from '../forms/CreateClothingForm'
-
-
-import { Menu } from "../layout/Menu";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios"
@@ -14,14 +11,15 @@ import axios from "axios"
 
 
 
-export const ClothingsContainer = () => {
+export const ClothingsContainer = ({ route }) => {
     const navigation = useNavigation();
-
 
     const [user, setUser] = useState('');
     const [haveData, setHaveData] = useState(false)
     const [clothings, setClothings] = useState([])
     const [update, setUpdate] = useState(false)
+
+    const { coloursHex, coloursNaming, imageSelection } = route.params;
 
     const getData = async () => {
         try {
@@ -39,10 +37,8 @@ export const ClothingsContainer = () => {
         // console.log(user._id)
         axios.get(`${BACKEND}/clothing/user/${user._id}`).then(
             (res) => {
-
                 setClothings(res.data.data)
                 // console.log(clothings)
-
             }
         ).catch(
             (err) => {
@@ -75,22 +71,45 @@ export const ClothingsContainer = () => {
         navigation.navigate("ClothingContainer", item = i);
     }
 
+    // console.log(coloursHex);
+    // console.log(coloursNaming);
+    // console.log(imageSelection);
+    // console.log(clothings);
+
     return (
-        <>
-            <Container style={styles.container}>
-                <CreateClothingForm forceUpdate={forceUpdate} user={user} />
+        <Center>
+            <View style={styles.container}>
+                <CreateClothingForm
+                    forceUpdate={forceUpdate}
+                    user={user}
+                    coloursHex={coloursHex}
+                    coloursNaming={coloursNaming}
+                    imageSelection={imageSelection}
+                />
+                {/* <ScrollView> */}
                 {clothings.length > 0 ? (
                     clothings.map((item, index) => <Button title={item.name} onPress={() => { handlePress(item) }} key={index}>{item.name}</Button>)
                 ) : <Text>No Clothing found</Text>}
-
-            </Container>
-        </>
+                {/* </ScrollView> */}
+            </View>
+        </Center>
     )
-
 }
 
 const styles = StyleSheet.create({
     container: {
         width: "100%"
+    },
+    colourContainer: {
+        display: "flex",
+        flexDirection: "row",
+        alignContent: "center",
+        alignItems: "center",
+        gap: 5,
+        padding: 5,
+        borderColor: "#515151",
+        borderWidth: 1,
+        borderRadius: "15px",
+        margin: 5
     }
 })

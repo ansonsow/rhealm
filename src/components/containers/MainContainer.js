@@ -1,4 +1,4 @@
-import { Container, Text } from "native-base";
+import { Container, Text, Center, View, ScrollView } from "native-base";
 import { StyleSheet, Button } from "react-native";
 import { Heading } from "../layout/Heading";
 import { useState } from "react";
@@ -38,37 +38,25 @@ export const MainContainer = () => {
     }
 
     return (
-        <SafeAreaProvider style={styles.safeArea}>            
-            <Container style={styles.container}>
+        <Center>
+            <ScrollView style={styles.container}>
+                <SafeAreaProvider style={styles.safeArea}>
+                    <Heading menu={openMenu} />
 
-                <Heading menu={openMenu} />
+                    <TrendingSlider />
 
-                <Button
-                    onPress={openInstructions}
-                    title="Detect Item Colour"
-                />
+                    <Button title="camera" onPress={CameraBtn}>Camera</Button>
+                    <Button title="" onPress={ClothingsBtn}>Clothings</Button>
 
-                <Text style={styles.heading}>
-                    Trending Now!
-                </Text>
-                <TrendingSlider />
-
-
-                <Button title="camera" onPress={CameraBtn}>Camera</Button>
-                <Button title="" onPress={ClothingsBtn}>Clothings</Button>
-
-                
-
-
-            </Container>
-
-            {menu ? (<Menu
-                closeMenu={closeMenu}
-            />) : (console.log("Closed"))}
-
+                </SafeAreaProvider>
+            </ScrollView>
             <BottomBar />
-
-        </SafeAreaProvider>
+            {
+                menu ? (<Menu
+                    closeMenu={closeMenu}
+                />) : (console.log("Closed"))
+            }
+        </Center>
     )
 }
 

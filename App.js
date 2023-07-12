@@ -1,24 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-// import { useState } from 'react'
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { useState, useEffect } from 'react'
 // import axios from 'axios';
 import { NativeBaseProvider } from 'native-base';
 import { AppStack } from './src/components/stacks/AppStack';
+// import { useFonts } from "expo-font";
+// import * as SplashScreen from "expo-splash-screen";
+// import { useCallback } from 'react';
+import { theme } from './themes';
+// import * as Font from "expo-font";
+import "expo-dev-client";
+
+// SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  // const [wa, setWa] = useState("")
-  // axios.get("http://localhost:8000/api/v1/test").then((response) => {
-  //   setWa(response.data[0].name)
-  // })
 
   return (
-    <NativeBaseProvider>
-      <View style={styles.container}>
-        {/* <Text>{wa}</Text> */}
+    <SafeAreaView
+      style={styles.container}
+    >
+      <NativeBaseProvider
+        theme={theme}
+      >
         <AppStack />
         <StatusBar style="auto" />
-      </View>
-    </NativeBaseProvider>
+      </NativeBaseProvider>
+    </SafeAreaView>
   );
 }
 
@@ -26,7 +33,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    paddingLeft: 20,
-    paddingTop: 50,
+    height: "100%",
+    // paddingLeft: 20,
+    // paddingTop: 50,
+    backgroundColor: "#fff",
+    // alignItems: "center",
+    // justifyContent: "center"
   },
 });
