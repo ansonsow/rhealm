@@ -47,18 +47,21 @@ export const ClosetDetail = () => {
         )
     }
 
-    const deleteCloset = () => {
-        axios.delete(`${BACKEND}/closet`, { 
-            closetId: closet._id 
-        }).then(() => {
-            console.log("Closet deleted");
-            navigation.navigate("ClosetScreen"); // Navigate to the closets screen after deletion
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    };
 
+    const deleteCloset = () => {
+        axios
+            .delete(`${BACKEND}/closet`, {
+                data: { closetId: closet._id }, // Send the closetId in the request body
+            })
+            .then(() => {
+                console.log("Closet deleted");
+                navigation.navigate("ClosetScreen"); // Navigate to the closets screen after deletion
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+    
     const addItem = () => {
         navigation.navigate("AddClothingToCloset", { closet });
 
