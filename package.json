@@ -21,8 +21,10 @@
     "expo": "~48.0.18",
     "expo-auth-session": "~4.0.3",
     "expo-camera": "~13.2.1",
+    "expo-crypto": "~12.2.1",
     "expo-dev-client": "~2.2.1",
     "expo-font": "~11.1.1",
+    "expo-image-manipulator": "~11.1.1",
     "expo-random": "~13.1.1",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
@@ -40,8 +42,7 @@
     "react-native-svg": "13.4.0",
     "react-native-swiper-flatlist": "^3.2.3",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-web": "~0.18.10",
-    "expo-crypto": "~12.2.1"
+    "react-native-web": "~0.18.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
