@@ -52,6 +52,15 @@ export const EditProfileContainer = () => {
         navigation.navigate("Main");
     }
 
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value);
+            await AsyncStorage.setItem('user', jsonValue);
+        } catch (e) {
+            // saving error
+        }
+    };
+
     const getData = async () => {
         try {
             const jsonValue = await AsyncStorage.getItem("user");
@@ -69,9 +78,15 @@ export const EditProfileContainer = () => {
                     })
                         .then(async (res) => {
                             console.log("Res: ", res);
+                            // console.log(JSON.stringify(res, null, 2));
+                            storeData(res.config.data);
+                            // console.log(res.config.data);
                             // const user = JSON.parse(jsonValue);
+                            // user.name = name;
+                            // user.email = email;
                             // const updatedValue = JSON.stringify(user);
                             // await AsyncStorage.setItem("user", updatedValue);
+                            // console.log(updatedValue);
 
                             // MISSING UPDATING THE USER IN ORDER TO SHOW THE NEW INFO
 

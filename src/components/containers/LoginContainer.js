@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
         // marginBottom: 20
     },
     boldHeading: {
-        // fontFamily: "indivisible-semibold",
+        fontFamily: "Indivisible-SemiBold",
         fontSize: 36,
         paddingTop: 15
     },

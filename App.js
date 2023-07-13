@@ -1,17 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { useState, useEffect } from 'react'
-// import axios from 'axios';
 import { NativeBaseProvider } from 'native-base';
 import { AppStack } from './src/components/stacks/AppStack';
-// import { useFonts } from "expo-font";
-// import * as SplashScreen from "expo-splash-screen";
-// import { useCallback } from 'react';
 import { theme } from './themes';
-// import * as Font from "expo-font";
 import "expo-dev-client";
-
-// SplashScreen.preventAutoHideAsync();
 
 export default function App() {
 
