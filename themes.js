@@ -27,7 +27,7 @@ export const theme = extendTheme({
         Text: {
             baseStyle: {
                 color: "#303030",
-                // fontFamily: "SF Pro Display",
+                fontFamily: "SF Pro Display Regular",
                 fontSize: 14
             }
         },
@@ -57,7 +57,6 @@ export const theme = extendTheme({
                 borderRadius: 15,
                 backgroundColor: "#411E94",
                 color: "#fff",
-                // fontFamily: "indivisible-semibold",
                 alignSelf: "center"
             }
         },

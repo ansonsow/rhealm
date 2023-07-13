@@ -27,7 +27,7 @@ export const EditProfileForm = props => {
         getData();
     }, []);
 
-    console.log(user);
+    // console.log(user);
 
     return (
         <Container>
