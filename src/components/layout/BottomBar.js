@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Button, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, Text } from 'native-base';
 import { SvgXml } from 'react-native-svg';
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     },
     activeItem: {
         borderColor: "#000",
-        borderRadius: "50%",
+        borderRadius: 60 / 2,
         borderWidth: 1,
         width: 60,
         height: 60

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
-        borderRadius: "15px",
+        borderRadius: 15,
         shadowColor: "#000",
         shadowOpacity: 0.2,
         shadowRadius: 2.1,

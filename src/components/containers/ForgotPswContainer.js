@@ -1,4 +1,4 @@
-import { Container, Text, Button, View, Center } from "native-base";
+import { Container, Text, View, Center } from "native-base";
 import { ForgotPswForm } from "../forms/ForgotPswForm";
 import { useState } from "react";
 import { StyleSheet } from "react-native";

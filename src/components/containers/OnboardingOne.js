@@ -1,8 +1,7 @@
-import { Container, Text, Button, Icon, View } from "native-base";
+import { Container, Text, Button, Icon, View, Modal } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
-import { PopUp } from "../layout/PopUp";
 // import { useNavigation } from "@react-navigation/native";
 import { CameraContainer } from "./CameraContainer";
 
@@ -58,23 +57,28 @@ export const OnboardingOne = () => {
                 Back
             </Button> */}
 
-            {popOne ? (<PopUp
-                content={
-                    <>
+            {popOne ? (
+                <Modal
+                    isOpen={popOne}
+                    width="100%"
+                >
+                    <Modal.Content>
                         <Icon as={<AntDesign name="close" size={24} color="black" onPress={closePop} />} />
-                        <Text
-                            style={styles.text}
-                        >
-                            1. Please keep the distance of your camera about 20cm.
-                        </Text>
-                        <Text
-                            style={styles.text}
-                        >
-                            2. Please take a photo of your neck or arm.
-                        </Text>
-                    </>
-                }
-            />) : (console.log("Closed"))}
+                        <View style={styles.popCont}>
+                            <Text
+                                style={styles.textPop}
+                            >
+                                1. Please keep the distance of your camera about 20cm.
+                            </Text>
+                            <Text
+                                style={styles.textPop}
+                            >
+                                2. Please take a photo of your neck or arm.
+                            </Text>
+                        </View>
+                    </Modal.Content>
+                </Modal>
+            ) : (console.log("Closed"))}
 
         </Container >
     )
@@ -100,8 +104,15 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 16
     },
+
+    // POPUP
     headingPop: {
         fontWeight: "bold",
-        fontSize: 20
-    }
+        fontSize: 16,
+        // fontFamily: "indivisible-semibold",
+    },
+    textPop: {
+        fontSize: 16,
+        paddingTop: 10,
+    },
 })

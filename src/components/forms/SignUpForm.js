@@ -1,4 +1,4 @@
-import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text, View } from "native-base";
+import { Container, VStack, FormControl, HStack, Input, Icon, Pressable, Text, View } from "native-base";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -28,6 +28,7 @@ const SignUpForm = props => {
                     <HStack>
                         <Input
                             placeholder="Name"
+                            variant="underlined"
                             onChangeText={value => {
                                 onNameChange(value)
                             }}
@@ -39,6 +40,7 @@ const SignUpForm = props => {
                     <HStack>
                         <Input
                             placeholder="Email"
+                            variant="underlined"
                             onChangeText={value => {
                                 onEmailChange(value)
                             }}
@@ -50,6 +52,7 @@ const SignUpForm = props => {
                     <HStack>
                         <Input
                             placeholder="************"
+                            variant="underlined"
                             type={show ? "text" : "password"}
                             InputRightElement={
                                 <TouchableOpacity onPress={() => setShow(!show)} paddingRight={10} style={styles.eye}>
@@ -68,6 +71,7 @@ const SignUpForm = props => {
                     <HStack>
                         <Input
                             placeholder="************"
+                            variant="underlined"
                             type={showConf ? "text" : "password"}
                             InputRightElement={
                                 <TouchableOpacity onPress={() => setShowConf(!showConf)} paddingRight={10} style={styles.eye}>
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
         // width: "100%"
-        borderRadius: "10px",
+        borderRadius: 10,
         alignContent: "center",
         alignItems: "center"
     },

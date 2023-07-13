@@ -7,7 +7,7 @@
 // OR: rhealm > assets > colour-converter > colour-converter.md
 
 /*---------- TURN HEX TO RGB ----------*/
-window.HEX_TO_RGB = function(hex){
+const HEX_TO_RGB = (hex) => {
 	let r, g, b;
 	if(hex.indexOf("#") > -1){
 		hex = hex.replaceAll("#","")
@@ -38,7 +38,7 @@ window.HEX_TO_RGB = function(hex){
 }
 
 /*---------- TURN RGB TO HEX ----------*/
-window.RGB_TO_HEX = function(rgb, withHash){
+const RGB_TO_HEX = (rgb, withHash) => {
 	rgb = rgb.replaceAll(", ",",");
 	let arr = rgb.split(",");
 	
@@ -55,7 +55,7 @@ window.RGB_TO_HEX = function(rgb, withHash){
 /*---------- TURN RGB TO HSL ----------*/
 // CREDIT: John Kantner @ css-tricks
 // css-tricks.com/converting-color-spaces-in-javascript
-window.RGB_TO_HSL = function(rgb, format){
+const RGB_TO_HSL = (rgb, format) => {
 	rgb = rgb.replaceAll(" ","");
 	let arr = rgb.split(",");
 	let r = arr[0];
@@ -112,7 +112,7 @@ window.RGB_TO_HSL = function(rgb, format){
 /*---------- TURN HSL TO RGB ----------*/
 // CREDIT: John Kantner @ css-tricks
 // css-tricks.com/converting-color-spaces-in-javascript
-window.HSL_TO_RGB = function(hsl){
+const HSL_TO_RGB = (hsl) => {
   hsl = hsl.trim().replaceAll(", ",",");
   let hsl_arr = hsl.split(",");
   
@@ -168,7 +168,7 @@ window.HSL_TO_RGB = function(hsl){
 /*---------- TURN HSL TO HEX ----------*/
 // credit: icl7126
 // stackoverflow.com/a/44134328/8144506
-window.HSL_TO_HEX = function(hsl, withHash){
+const HSL_TO_HEX = (hsl, withHash) => {
   hsl = hsl.trim().replaceAll(", ",",");
   let hsl_arr = hsl.split(",");
   
@@ -201,21 +201,21 @@ window.HSL_TO_HEX = function(hsl, withHash){
 
 /*---------- TURN HEX TO HSL ----------*/
 // HEX to RGB and then from RGB to HSL
-window.HEX_TO_HSL = function(hex, format){
+const HEX_TO_HSL = (hex, format) => {
 	let getRGB = HEX_TO_RGB(hex);
 	let res = RGB_TO_HSL(getRGB, format);
 	return res
 }
 
 /*------- STRIP HSL FROM THEIR SUFFIXES -------*/
-window.HSL_RAW = function(hsl){
+const HSL_RAW = (hsl) => {
 	hsl = hsl.replaceAll(" , ",", ");
 	hsl = hsl.replace(/[^\d\., ]*/g,"");
 	return hsl
 }
 
 /*------- GET HUE & RETURN HUE NAME -------*/
-window.GET_COLOR_HUE = function(input, mode, format){
+const GET_COLOR_HUE = (input, mode, format) => {
 	let conv;
 	
 	// color hue names
@@ -445,7 +445,7 @@ window.GET_COLOR_HUE = function(input, mode, format){
 }//end function
 
 /*------- GET SATURATION & RETURN SATURATION NAME -------*/
-window.GET_COLOR_SAT = function(input, mode, format){
+const GET_COLOR_SAT = (input, mode, format) => {
 	let conv;
 	
 	// color saturation levels
@@ -536,7 +536,7 @@ window.GET_COLOR_SAT = function(input, mode, format){
 
 
 /*------- GET LUMINOSITY & RETURN LUMINOSITY NAME -------*/
-window.GET_COLOR_LUM = function(input, mode, format){
+const GET_COLOR_LUM = (input, mode, format) => {
 	let conv;
 	
 	// color lumination levels
@@ -625,9 +625,8 @@ window.GET_COLOR_LUM = function(input, mode, format){
 	}
 }//end function
 
-
 /*-------- RETURN COMPLEMENTARY COLOR --------*/
-window.GET_COLOR_COMPLEMENTARY = function(input, mode, output){
+const GET_COLOR_COMPLEMENTARY = (input, mode, output) => {
 	// get input mode
 	let conv;
 	if(mode && mode.trim() !== ""){
@@ -904,3 +903,20 @@ window.seasonal_colors = [
 		detailed_name_alt: "Mandy"
 	}
 ]
+
+/*--------------------*/
+
+export default {
+	HEX_TO_RGB,
+	RGB_TO_HEX,
+	RGB_TO_HSL,
+	HSL_TO_RGB,
+	HSL_TO_HEX,
+	HEX_TO_HSL,
+	HSL_RAW,
+	GET_COLOR_HUE,
+	GET_COLOR_SAT,
+
+	GET_COLOR_LUM,
+	GET_COLOR_COMPLEMENTARY
+}

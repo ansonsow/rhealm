@@ -1,12 +1,13 @@
 import { EditProfileForm } from "../forms/EditProfileForm";
 import { useEffect, useState } from "react";
-import { PopUp } from "../layout/PopUp";
-import { Text, Button, Container, Modal, Center } from "native-base";
+import { Text, Container, Modal, Center } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native-web";
 import { BACKEND } from "@env";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SvgXml } from "react-native-svg";
+import { svgConfirmIcon } from "../../../assets/images/svgs";
 
 export const EditProfileContainer = () => {
 
@@ -51,6 +52,15 @@ export const EditProfileContainer = () => {
         navigation.navigate("Main");
     }
 
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value);
+            await AsyncStorage.setItem('user', jsonValue);
+        } catch (e) {
+            // saving error
+        }
+    };
+
     const getData = async () => {
         try {
             const jsonValue = await AsyncStorage.getItem("user");
@@ -68,9 +78,15 @@ export const EditProfileContainer = () => {
                     })
                         .then(async (res) => {
                             console.log("Res: ", res);
+                            // console.log(JSON.stringify(res, null, 2));
+                            storeData(res.config.data);
+                            // console.log(res.config.data);
                             // const user = JSON.parse(jsonValue);
+                            // user.name = name;
+                            // user.email = email;
                             // const updatedValue = JSON.stringify(user);
                             // await AsyncStorage.setItem("user", updatedValue);
+                            // console.log(updatedValue);
 
                             // MISSING UPDATING THE USER IN ORDER TO SHOW THE NEW INFO
 
@@ -116,7 +132,7 @@ export const EditProfileContainer = () => {
         <Center>
             <EditProfileForm
                 backToMenu={backToMenu}
-                error={error}
+                errorMsg={error}
                 onSubmit={onSubmit}
                 backToProfile={backToProfile}
                 confirmChanges={confirmChanges}
@@ -166,7 +182,7 @@ export const EditProfileContainer = () => {
 
             {popTwo ? (
                 <Modal
-                    isOpen={popFour}
+                    isOpen={popTwo}
                     width="100%"
                 >
                     <Modal.Content>
@@ -217,7 +233,7 @@ const styles = StyleSheet.create({
     },
     btnPopPAction: {
         backgroundColor: "#D33D12",
-        borderRadius: "15px",
+        borderRadius: 15,
         width: 100,
         alignItems: "center"
     },
@@ -227,7 +243,7 @@ const styles = StyleSheet.create({
     },
     btnPopNextAction: {
         // backgroundColor: "#D33D12",
-        borderRadius: "15px",
+        borderRadius: 15,
         width: 100,
         alignItems: "center"
     },

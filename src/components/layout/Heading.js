@@ -34,24 +34,34 @@ export const Heading = props => {
     return (
         <View>
             {/* <Center> */}
-            <Container style={styles.headingCont}>
+            <View style={styles.headingCont}>
                 <TouchableOpacity
                     style={styles.photoContainer}
                     onPress={menu}
                 >
                     <View style={styles.photoCircle}>
-                        <Image
-                            source={require("../../../assets/images/ImageHolderMain.png")}
-                            alt="Image Holder"
-                            style={styles.profilePhoto}
-                        />
+
+                        {user.profilePhoto ?
+                            (<Image
+                                source={{ uri: `${user.profilePhoto}` }}
+                                alt="Image Holder"
+                                style={styles.profilePhoto}
+                            />)
+                            :
+                            (<Image
+                                source={require("../../../assets/images/ImageHolderMain.png")}
+                                alt="Image Holder"
+                                style={styles.profilePhoto}
+                            />)
+                        }
+
                     </View>
                 </TouchableOpacity>
                 <View style={styles.headingContent}>
                     <Text
                         style={styles.heading}
                     >
-                        Hello {user != undefined ? user.name : "Marina"}!
+                        Hello {user != undefined ? user.name : "User"}!
                     </Text>
                     <Text
                         style={styles.text}
@@ -60,7 +70,7 @@ export const Heading = props => {
                     </Text>
                     <Weather />
                 </View>
-            </Container>
+            </View>
             {/* </Center> */}
         </View>
     )
@@ -96,8 +106,9 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     profilePhoto: {
-        maxWidth: "100%",
-        maxHeight: "100%"
+        width: 60,
+        height: 60,
+        borderRadius: 50
     },
     headingContent: {
         padding: 10,

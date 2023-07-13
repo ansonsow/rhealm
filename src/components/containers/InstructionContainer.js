@@ -1,8 +1,7 @@
-import { Text, Button, Container } from "native-base"
+import { Text, Container, Modal, Pressable } from "native-base"
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { PopUp } from "../layout/PopUp";
 
 export const InstructionContainer = () => {
 
@@ -51,12 +50,11 @@ export const InstructionContainer = () => {
             >
                 2. Please take a photo of your neck or arm.
             </Text>
-            <Button
+            <Pressable
                 onPress={onNext}
-                style={styles.btn}
             >
-                Next
-            </Button>
+                <Text style={styles.btnText}>Next</Text>
+            </Pressable>
             <Text>
                 Already know your skin tone?&nbsp;
                 <Text
@@ -67,36 +65,44 @@ export const InstructionContainer = () => {
                 </Text>
             </Text>
 
-            {popUp ? (<PopUp
-                content={
-                    <>
-                        <Text
-                            style={styles.headingPop}
-                        >
-                            No worries!
-                        </Text>
-                        <Text
-                            style={styles.text}
-                        >
-                            To provide you with more personalized recommendations, you can retake your selfie later on the <Text style={styles.textHighlight}>Profile</Text> page.
-                        </Text>
-                        <Button
-                            onPress={cancelBtn}
-                            style={styles.btn}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            onPress={confirmBtn}
-                            style={styles.btn}
-                        >
-                            Confirm
-                        </Button>
+            {popUp ? (
+                <Modal
+                    isOpen={popUp}
+                    width="100%"
+                >
+                    <Modal.Content>
+                        <View style={styles.popCont}>
+                            <Text
+                                style={styles.headingPop}
+                            >
+                                No worries!
+                            </Text>
+                            <Text
+                                style={styles.textPop}
+                            >
+                                To provide you with more personalized recommendations, you can retake your selfie later on the <Text style={styles.textHighlight}>Profile</Text> page.
+                            </Text>
 
-                    </>
-                }
-            />) : (console.log("Closed"))}
-
+                            <View
+                                style={styles.btnPopCont}
+                            >
+                                <Pressable
+                                    onPress={cancelBtn}
+                                    style={styles.btnPopNAction}
+                                >
+                                    <Text style={styles.btnTextPopNAction}>Cancel</Text>
+                                </Pressable>
+                                <Pressable
+                                    onPress={confirmBtn}
+                                    style={styles.btnPopPAction}
+                                >
+                                    <Text style={styles.btnTextPopPAction}>Confirm</Text>
+                                </Pressable>
+                            </View>
+                        </View>
+                    </Modal.Content>
+                </Modal>
+            ) : (console.log("Closed"))}
         </Container>
     )
 }
@@ -123,11 +129,54 @@ const styles = StyleSheet.create({
         color: "#411E94",
         fontWeight: "bold"
     },
+
+    // POPUP
+    headingPop: {
+        fontWeight: "bold",
+        fontSize: 16,
+        // fontFamily: "indivisible-semibold",
+    },
+    textPop: {
+        fontSize: 16,
+        paddingTop: 10,
+    },
     textHighlight: {
         fontWeight: "bold"
     },
-    headingPop: {
-        fontWeight: "bold",
-        fontSize: 20
-    }
+    btnPopNAction: {
+        backgroundColor: "transparent",
+        width: 100,
+        alignItems: "center"
+    },
+    btnTextPopNAction: {
+        fontSize: 14,
+    },
+    btnPopPAction: {
+        backgroundColor: "#84C42C",
+        borderRadius: 15,
+        width: 100,
+        alignItems: "center"
+    },
+    btnTextPopPAction: {
+        fontSize: 14,
+        color: "#fff",
+    },
+    btnPopCont: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        alignContent: "flex-end"
+    },
+    popCont: {
+        padding: 20
+    },
+
+    // BTN
+    btnText: {
+        color: "#fff",
+        textAlign: "center",
+        fontWeight: "bold"
+        // fontFamily: "indivisible-semibold"
+    },
 })

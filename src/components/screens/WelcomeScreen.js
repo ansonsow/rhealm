@@ -1,12 +1,80 @@
-import { Container, Text, Button, View, Center, Pressable } from "native-base";
+import { Container, Text, View, Center, Pressable } from "native-base";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SvgXml } from "react-native-svg";
-import { svgLogo } from "../../../assets/images/svgs";
+import { svgFacebookIcon, svgGoogleIcon, svgLogo } from "../../../assets/images/svgs";
+
+import { useEffect, useState } from "react";
+import * as Google from "expo-auth-session/providers/google";
+import * as WebBrowser from "expo-web-browser";
+import {
+    GoogleAuthProvider,
+    onAuthStateChanged,
+    signInWithCredential
+} from "firebase/auth";
+import { auth } from "../../../firebaseConfig";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { OAUTH_CLIENT_ID_IOS, OAUTH_CLIENT_ID_ANDROID, EXPO_CLIENT_ID, BACKEND } from "@env";
+import axios from "axios";
+import { signOut } from "firebase/auth";
+
+WebBrowser.maybeCompleteAuthSession();
 
 export const WelcomeScreen = () => {
-
     const navigation = useNavigation();
+
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value);
+            await AsyncStorage.setItem('user', jsonValue);
+        } catch (e) {
+            // saving error
+        }
+    };
+
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        iosClientId: `${OAUTH_CLIENT_ID_IOS}`,
+        androidClientId: `${OAUTH_CLIENT_ID_ANDROID}`,
+        expoClientId: `${EXPO_CLIENT_ID}`
+    });
+
+    // Saving the user in the Firebase
+    useEffect(() => {
+        if (response?.type == "success") {
+            const { id_token } = response.params;
+            const credential = GoogleAuthProvider.credential(id_token);
+            signInWithCredential(auth, credential);
+        }
+    }, [response]);
+
+    useEffect(() => {
+        const unsub = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // Store the user in the db
+                const { displayName } = user;
+                const { email } = user;
+                const { photoURL } = user;
+
+                axios.post(`${BACKEND}/register/oauth`, {
+                    name: displayName,
+                    email: email,
+                    profilePhoto: photoURL
+                })
+                    .then(async (res) => {
+                        console.log("Res: ", res);
+                        storeData(res.data);
+                        await AsyncStorage.setItem("user", JSON.stringify(user));
+                        navigation.navigate("Instruction");
+                    })
+                    .catch((error) => {
+                        console.log("E: ", error);
+                    })
+            } else {
+                console.log("User was logged out");
+            }
+        })
+        return () => unsub();
+    }, []);
 
     const simpleSignUp = () => {
         console.log("First Screen Working");
@@ -14,9 +82,12 @@ export const WelcomeScreen = () => {
     }
 
     const fbSignUp = () => {
-        console.log("FB Working")
+        console.log("For now will be a signout button");
     }
 
+    const login = () => {
+        navigation.navigate("Login");
+    }
 
     return (
         <Center>
@@ -61,18 +132,40 @@ export const WelcomeScreen = () => {
                         style={styles.line}
                     />
                 </View>
-
                 <Pressable
-                // onPress={simpleSignUp}
+                    // onPress={googleSignUp}
+                    onPress={() => promptAsync()}
+                    style={styles.googleBtn}
                 >
-                    <Text style={styles.btnText}>Google</Text>
+                    <Text style={styles.btnText}>Sign In With Google</Text>
+                    <SvgXml
+                        xml={svgGoogleIcon}
+                        style={styles.btnIcon}
+                    />
                 </Pressable>
-
                 <Pressable
-                    onPress={fbSignUp}
+                    // onPress={fbSignUp}
+                    onPress={async () => await signOut(auth)}
+                    style={styles.fbBtn}
                 >
-                    <Text style={styles.btnText}>Facebook</Text>
+                    <Text style={styles.btnText}>Sign In With Facebook</Text>
+                    <SvgXml
+                        xml={svgFacebookIcon}
+                    />
                 </Pressable>
+            </View>
+            <View style={styles.oneLiner}>
+                <Text
+                    style={styles.addText}
+                >
+                    Already Have an Account?&nbsp;
+                    <Text
+                        onPress={login}
+                        style={styles.pressable}
+                    >
+                        Sign In!
+                    </Text>
+                </Text>
             </View>
         </Center>
     )
@@ -138,5 +231,42 @@ const styles = StyleSheet.create({
         marginTop: 20,
         alignSelf: "center",
         color: "#969AA8",
+    },
+
+    // BTNS
+    googleBtn: {
+        backgroundColor: "#DB4437",
+        display: "flex",
+        flexDirection: "row-reverse",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10
+    },
+    fbBtn: {
+        backgroundColor: "#4267B2",
+        display: "flex",
+        flexDirection: "row-reverse",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10
+    },
+    // btnIcon: {
+    //     width: 10,
+    //     height: 10
+    // },
+
+    // TEXT LINE - different from other texts
+    addText: {
+        color: "#515151"
+    },
+    oneLiner: {
+        alignItems: "center",
+        paddingTop: 15
+    },
+
+    // PRESSABLE TEXT
+    pressable: {
+        color: "#411E94",
+        fontWeight: "bold"
     },
 })

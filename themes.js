@@ -27,8 +27,8 @@ export const theme = extendTheme({
         Text: {
             baseStyle: {
                 color: "#303030",
-                // fontFamily: "SF Pro Display",
-                fontSize: "14px"
+                fontFamily: "SF Pro Display Regular",
+                fontSize: 14
             }
         },
         Input: {
@@ -39,14 +39,14 @@ export const theme = extendTheme({
                 marginBottom: 5,
                 autoCapitalize: "none",
                 backgroundColor: "#F3F5F9",
-                borderRadius: "15px",
+                borderRadius: 15,
             }
         },
         Button: {
             baseStyle: {
                 marginTop: 10,
                 width: 250,
-                borderRadius: "15px",
+                borderRadius: 15,
             }
         },
         Pressable: {
@@ -54,10 +54,9 @@ export const theme = extendTheme({
                 marginTop: 10,
                 padding: 3,
                 width: 250,
-                borderRadius: "15px",
+                borderRadius: 15,
                 backgroundColor: "#411E94",
                 color: "#fff",
-                // fontFamily: "indivisible-semibold",
                 alignSelf: "center"
             }
         },

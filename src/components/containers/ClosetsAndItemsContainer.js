@@ -75,12 +75,23 @@ const Closets = () => {
             >
                 <Text>Create Closet</Text>
             </TouchableOpacity>
-            {closets === undefined ? (console.log("No closets available")) : closets.map(closet => (
+            {closets && closets.length > 0 ?
+                closets.map(closet => (
+                    <TouchableOpacity key={closet.id} style={styles.closetContainer} onPress={() => goToClosetDetail(closet)}>
+                        <Text>{closet.name}</Text>
+                        <Text>{closet.occasion}</Text>
+                    </TouchableOpacity>
+                ))
+                :
+                (console.log("No closets available"))
+            }
+
+            {/* {closets == undefined ? (console.log("No closets available")) : closets.map(closet => (
                 <TouchableOpacity key={closet.id} style={styles.closetContainer} onPress={() => goToClosetDetail(closet)}>
                     <Text>{closet.name}</Text>
                     <Text>{closet.occasion}</Text>
                 </TouchableOpacity>
-            ))}
+            ))} */}
         </View>
     );
 };
