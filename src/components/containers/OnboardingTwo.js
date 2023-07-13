@@ -1,8 +1,9 @@
-import { Container, Text, Button, Icon, View } from "native-base";
+import { Container, Text, View, Modal, Pressable } from "native-base";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
-import { PopUp } from "../layout/PopUp";
 import { useNavigation } from "@react-navigation/native";
+import { SvgXml } from "react-native-svg";
+import { svgConfirmIcon } from "../../../assets/images/svgs";
 
 export const OnboardingTwo = () => {
 
@@ -46,61 +47,82 @@ export const OnboardingTwo = () => {
 
             {/* Include the dropdowns */}
 
-            <Button
+            <Pressable
                 onPress={saveSetup}
-                style={styles.btn}
             >
-                Next
-            </Button>
+                <Text style={styles.btnText}>Next</Text>
+            </Pressable>
 
             <Text>Don't want to decide now? <Text style={styles.pressable} onPress={skipSetup}>Skip!</Text></Text>
 
-            {popOne ? (<PopUp
-                content={
-                    <>
-                        <Text
-                            style={styles.headingPop}
-                        >
-                            Are you sure?
-                        </Text>
-                        <Text
-                            style={styles.text}
-                        >
-                            Your data will be lost.
-                        </Text>
-                        <Button
-                            onPress={cancelBtn}
-                            style={styles.btn}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            onPress={confirmBtn}
-                            style={styles.btn}
-                        >
-                            Confirm
-                        </Button>
-                    </>
-                }
-            />) : (console.log("Closed"))}
+            {popOne ? (
+                <Modal
+                    isOpen={popOne}
+                    width="100%"
+                >
+                    <Modal.Content>
+                        <View style={styles.popCont}>
+                            <Text
+                                style={styles.headingPop}
+                            >
+                                Are you sure?
+                            </Text>
+                            <Text
+                                style={styles.textPop}
+                            >
+                                Your data will be lost.
+                            </Text>
 
-            {popTwo ? (<PopUp
-                content={
-                    <>
-                        <Text
-                            style={styles.text}
-                        >
-                            You have created an account.
-                        </Text>
-                        <Button
-                            onPress={goToMain}
-                            style={styles.btn}
-                        >
-                            Go to Main
-                        </Button>
-                    </>
-                }
-            />) : (console.log("Closed"))}
+                            <View
+                                style={styles.btnPopCont}
+                            >
+                                <Pressable
+                                    onPress={confirmBtn}
+                                    style={styles.btnPopNAction}
+                                >
+                                    <Text style={styles.btnTextPopNAction}>Leave</Text>
+                                </Pressable>
+                                <Pressable
+                                    onPress={cancelBtn}
+                                    style={styles.btnPopPAction}
+                                >
+                                    <Text style={styles.btnTextPopPAction}>Cancel</Text>
+                                </Pressable>
+                            </View>
+                        </View>
+                    </Modal.Content>
+                </Modal>
+            ) : (console.log("Closed"))}
+
+            {popTwo ? (
+                <Modal
+                    isOpen={popTwo}
+                    width="100%"
+                >
+                    <Modal.Content>
+                        <View style={styles.popCont}>
+                            <SvgXml
+                                xml={svgConfirmIcon}
+                                style={styles.svg}
+                            />
+                            <Text
+                                style={styles.textPop}
+                            >
+                                You have created an account.
+                            </Text>
+
+                            <View style={styles.btnPopCont}>
+                                <Pressable
+                                    onPress={goToMain}
+                                    style={styles.btnPopNextAction}
+                                >
+                                    <Text style={styles.btnTextPopNexAction}>Go to Main</Text>
+                                </Pressable>
+                            </View>
+                        </View>
+                    </Modal.Content>
+                </Modal>
+            ) : (console.log("Closed"))}
 
         </Container >
     )
@@ -133,5 +155,67 @@ const styles = StyleSheet.create({
     pressable: {
         color: "#411E94",
         fontWeight: "bold"
+    },
+
+    // BTN
+    btnText: {
+        color: "#fff",
+        textAlign: "center",
+        fontWeight: "bold"
+        // fontFamily: "indivisible-semibold"
+    },
+
+    // SVG - this is necessary to change considering every SVG we need to alter
+    svg: {
+        color: "#000"
+    },
+
+    // POPUP
+    headingPop: {
+        fontWeight: "bold",
+        fontSize: 16,
+        // fontFamily: "indivisible-semibold",
+    },
+    textPop: {
+        fontSize: 16,
+        paddingTop: 10,
+    },
+    btnPopNAction: {
+        backgroundColor: "transparent",
+        width: 100,
+        alignItems: "center"
+    },
+    btnTextPopNAction: {
+        fontSize: 14,
+    },
+    btnPopPAction: {
+        backgroundColor: "#D33D12",
+        borderRadius: 15,
+        width: 100,
+        alignItems: "center"
+    },
+    btnTextPopPAction: {
+        fontSize: 14,
+        color: "#fff",
+    },
+    btnPopNextAction: {
+        // backgroundColor: "#D33D12",
+        borderRadius: 15,
+        width: 100,
+        alignItems: "center"
+    },
+    btnTextPopNexAction: {
+        fontSize: 14,
+        color: "#fff",
+    },
+    btnPopCont: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        alignContent: "flex-end"
+    },
+    popCont: {
+        padding: 20
     },
 })

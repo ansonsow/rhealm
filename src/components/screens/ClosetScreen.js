@@ -1,5 +1,5 @@
 import { Container, ScrollView } from "native-base";
-import { StyleSheet, Button } from "react-native";
+import { StyleSheet } from "react-native";
 import { Heading } from "../layout/Heading";
 import { useState } from "react";
 import { Menu } from "../layout/Menu";
@@ -25,15 +25,15 @@ export const ClosetScreen = () => {
     }
 
     return (
-        <SafeAreaProvider style={styles.safeArea}>            
+        <SafeAreaProvider style={styles.safeArea}>
             <Container style={styles.container}>
-                <Heading menu={openMenu} />     
+                <Heading menu={openMenu} />
             </Container>
             {menu ? (<Menu
                 closeMenu={closeMenu}
             />) : (console.log("Closed"))}
 
-                <ClosetsAndItemsContainer />
+            <ClosetsAndItemsContainer />
 
             <BottomBar />
 

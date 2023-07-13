@@ -1,6 +1,5 @@
-import { Container, Text, Button, Icon, View, Image } from "native-base";
-import { AntDesign } from "@expo/vector-icons";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { Container, Text, View, Image, Center, Box } from "native-base";
+import { StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SvgXml } from "react-native-svg";
@@ -32,8 +31,8 @@ export const Profile = props => {
     }, [])
 
     return (
-        <Container style={styles.container}>
-            <View style={styles.headingMenuCont}>
+        <Center padding={5}>
+            <SafeAreaView style={styles.container}>
                 <View style={styles.headingMenu}>
                     <TouchableOpacity
                         onPress={backToMenu}
@@ -55,28 +54,93 @@ export const Profile = props => {
                         />
                     </TouchableOpacity>
                 </View>
-            </View>
-            <Text
-                style={styles.subheading}
-            >
-                Name
-            </Text>
-            <Text
-                style={styles.text}
-            >
-                {user != undefined ? user.name : "User"}
-            </Text>
-            <Text
-                style={styles.subheading}
-            >
-                Email
-            </Text>
-            <Text
-                style={styles.text}
-            >
-                {user != undefined ? user.email : "email@gmail.com"}
-            </Text>
-            {/* <Text
+                <View style={styles.photoContainer}>
+                    <View style={styles.photoCircle}>
+                        {user.profilePhoto ?
+                            (<Image
+                                source={{ uri: `${user.profilePhoto}` }}
+                                alt="Image Holder"
+                                style={styles.profilePhoto}
+                            />)
+                            :
+                            (<Image
+                                source={require("../../../assets/images/ImageHolderMain.png")}
+                                alt="Image Holder"
+                                style={styles.profilePhoto}
+                            />)
+                        }
+                    </View>
+                    <Text style={styles.counting}>{user.name}</Text>
+                    <View style={styles.countingCont}>
+                        <View style={styles.countingItemCont}>
+                            <Text style={styles.counting}>Closet Count</Text>
+                            <Text style={styles.countingText}>Closets</Text>
+                        </View>
+                        <View style={styles.countingItemCont}>
+                            <Text style={styles.counting}>Item Count</Text>
+                            <Text style={styles.countingText}>Items</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.profileItem}>
+                    <Text
+                        style={styles.subheading}
+                    >
+                        Name
+                    </Text>
+                    <Text
+                        style={styles.text}
+                    >
+                        {user != undefined ? user.name : "User"}
+                    </Text>
+                    <View
+                        style={styles.line}
+                    />
+                </View>
+                <View style={styles.profileItem}>
+                    <Text
+                        style={styles.subheading}
+                    >
+                        Email
+                    </Text>
+                    <Text
+                        style={styles.text}
+                    >
+                        {user != undefined ? user.email : "email@gmail.com"}
+                    </Text>
+                    <View
+                        style={styles.line}
+                    />
+                </View>
+                <View style={styles.profileItem}>
+                    <Text
+                        style={styles.subheading}
+                    >
+                        Skin Tone
+                    </Text>
+                    <Text
+                        style={styles.text}
+                    >
+                        Tan (skin tone and image)
+                    </Text>
+                    <View
+                        style={styles.line}
+                    />
+                </View>
+                <View style={styles.profileItem}>
+                    <Text
+                        style={styles.subheading}
+                    >
+                        Hair Colour
+                    </Text>
+                    <Text
+                        style={styles.text}
+                    >
+                        Brown (hair colour and image)
+                    </Text>
+                </View>
+
+                {/* <Text
                 style={styles.subheading}
             >
                 Password
@@ -86,47 +150,34 @@ export const Profile = props => {
             >
                 ***********
             </Text> */}
-            <Text
-                style={styles.subheading}
-            >
-                Skin Tone
-            </Text>
-            <Text
-                style={styles.text}
-            >
-                Tan (skin tone and image)
-            </Text>
-            <Text
-                style={styles.subheading}
-            >
-                Hair Colour
-            </Text>
-            <Text
-                style={styles.text}
-            >
-                Brown (hair colour and image)
-            </Text>
-        </Container>
+
+            </SafeAreaView>
+        </Center>
     )
 }
 
 const styles = StyleSheet.create({
+    // PROFILE HEADING
+    container: {
+        width: "100%",
+        height: "100%"
+    },
     headingMenu: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-around"
+        justifyContent: "space-between",
+        // alignContent: "space-between",
     },
     heading: {
         fontWeight: "bold",
-        fontSize: 20,
-        paddingLeft: 10
+        fontSize: 16,
+        paddingHorizontal: 10
     },
-    headingMenuCont: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-around"
+
+    // PROFILE INFO
+    profileItem: {
+        paddingTop: 10,
     },
     subheading: {
         fontWeight: "bold",
@@ -135,9 +186,61 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-        paddingTop: 15
+        paddingTop: 10,
+        color: "#77757E"
     },
-    container: {
-        width: "100%"
+    profileCont: {
+        backgroundColor: "#F7F7F7",
+        padding: 10,
+    },
+
+    // LINES
+    line: {
+        borderBottomWidth: 1,
+        width: "100%",
+        borderColor: "#E9E9E9",
+        // flex: 1
+        // marginLeft: 5,
+        // marginRight: 5,
+        paddingTop: 5
+    },
+
+    // PHOTO CONTAINER
+    photoContainer: {
+        backgroundColor: "#fff",
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        alignContent: "center",
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "center"
+    },
+    photoCircle: {
+        backgroundColor: "#000",
+        width: 80,
+        height: 80,
+        borderRadius: 50,
+        alignContent: "center",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+
+    // COUNTING
+    countingCont: {
+        display: "flex",
+        flexDirection: "row",
+        // padding: 10
+    },
+    countingItemCont: {
+
+    },
+    counting: {
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+    countingText: {
+        color: "#77757E",
+        fontSize: 14
     }
 })

@@ -1,6 +1,10 @@
-import { Container, VStack, FormControl, HStack, Input, Button, Icon, Pressable, Text, WarningOutlineIcon } from "native-base";
+import { Container, VStack, FormControl, HStack, Input, Icon, Pressable, Text, View } from "native-base";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
+import { SvgXml } from "react-native-svg";
+import { svgAlertIcon } from "../../../assets/images/svgs";
+
 
 const SignUpForm = props => {
 
@@ -11,16 +15,20 @@ const SignUpForm = props => {
 
     return (
         <Container>
-            <VStack width="100%">
+            <VStack>
+                {error &&
+                    <View style={styles.alert}>
+                        <SvgXml
+                            xml={svgAlertIcon}
+                        />
+                        <Text color="#942100">{error}</Text>
+                    </View>}
                 <FormControl isRequired>
                     <FormControl.Label>Name</FormControl.Label>
-                    <HStack width="100%">
+                    <HStack>
                         <Input
-                            placeholder="John Doe"
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            autoCapitalize="none"
+                            placeholder="Name"
+                            variant="underlined"
                             onChangeText={value => {
                                 onNameChange(value)
                             }}
@@ -29,13 +37,10 @@ const SignUpForm = props => {
                 </FormControl>
                 <FormControl isRequired>
                     <FormControl.Label>Email</FormControl.Label>
-                    <HStack width="100%">
+                    <HStack>
                         <Input
-                            placeholder="johndoe@gmail.com"
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            autoCapitalize="none"
+                            placeholder="Email"
+                            variant="underlined"
                             onChangeText={value => {
                                 onEmailChange(value)
                             }}
@@ -44,18 +49,15 @@ const SignUpForm = props => {
                 </FormControl>
                 <FormControl isRequired>
                     <FormControl.Label>Password</FormControl.Label>
-                    <HStack width="100%">
+                    <HStack>
                         <Input
                             placeholder="************"
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            autoCapitalize="none"
+                            variant="underlined"
                             type={show ? "text" : "password"}
                             InputRightElement={
-                                <Pressable onPress={() => setShow(!show)} paddingRight={1}>
+                                <TouchableOpacity onPress={() => setShow(!show)} paddingRight={10} style={styles.eye}>
                                     <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} size={10} color="muted.400" />} />
-                                </Pressable>
+                                </TouchableOpacity>
                             }
                             onChangeText={value => {
                                 onPswChange(value)
@@ -66,18 +68,15 @@ const SignUpForm = props => {
                 </FormControl>
                 <FormControl isRequired>
                     <FormControl.Label>Confirm Password</FormControl.Label>
-                    <HStack width="100%">
+                    <HStack>
                         <Input
                             placeholder="************"
-                            width="100%"
-                            px={3}
-                            marginBottom={5}
-                            autoCapitalize="none"
+                            variant="underlined"
                             type={showConf ? "text" : "password"}
                             InputRightElement={
-                                <Pressable onPress={() => setShowConf(!showConf)} paddingRight={1}>
+                                <TouchableOpacity onPress={() => setShowConf(!showConf)} paddingRight={10} style={styles.eye}>
                                     <Icon as={<MaterialIcons name={showConf ? "visibility" : "visibility-off"} size={10} color="muted.400" />} />
-                                </Pressable>
+                                </TouchableOpacity>
                             }
                             onChangeText={value => {
                                 onConfPswChange(value)
@@ -86,29 +85,48 @@ const SignUpForm = props => {
                         />
                     </HStack>
                 </FormControl>
-                {/* <FormControl.ErrorMessage
-                    leftIcon={<WarningOutlineIcon size="xs" />}
-                >
-                    {error}
-                </FormControl.ErrorMessage> */}
-                <Text color="red.500">{error}</Text>
-                <Button
+                <Pressable
                     onPress={onSubmit}
-                    marginTop={10}
-                    width={250}
                 >
-                    Next
-                </Button>
-                <Button
+                    <Text style={styles.btnText}>Next</Text>
+                </Pressable>
+                <Pressable
                     onPress={backToSplash}
-                    marginTop={5}
-                    width={250}
                 >
-                    Back
-                </Button>
+                    <Text style={styles.btnText}>Back</Text>
+                </Pressable>
             </VStack>
         </Container>
     )
 }
+
+const styles = StyleSheet.create({
+    // ALERTS
+    alert: {
+        display: "flex",
+        flexDirection: "row",
+        gap: 10,
+        backgroundColor: "#f7dbd2",
+        padding: 10,
+        marginBottom: 10,
+        // width: "100%"
+        borderRadius: 10,
+        alignContent: "center",
+        alignItems: "center"
+    },
+
+    // FORMS ICON
+    eye: {
+        paddingRight: 10
+    },
+
+    // BTN TEXT
+    btnText: {
+        color: "#fff",
+        textAlign: "center",
+        fontWeight: "bold"
+        // fontFamily: "indivisible-semibold"
+    },
+})
 
 export default SignUpForm;

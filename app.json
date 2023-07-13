@@ -16,14 +16,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.colourfit.rhealm",
+      "bundleIdentifier": "com.colourfit.rhealm"
     },
     "android": {
-      "package": "com.colourfit.rhealm",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.colourfit.rhealm"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -31,6 +31,11 @@
     "plugins": [
       "@react-native-google-signin/google-signin"
     ],
-    "scheme": "googleLogin"
+    "scheme": "rhealm",
+    "extra": {
+      "eas": {
+        "projectId": "00589a7b-0f2e-4092-8ef0-688366774b16"
+      }
+    }
   }
 }

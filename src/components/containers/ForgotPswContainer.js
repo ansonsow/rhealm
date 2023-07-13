@@ -1,9 +1,10 @@
-import { Container, Text, Button } from "native-base";
+import { Container, Text, View, Center } from "native-base";
 import { ForgotPswForm } from "../forms/ForgotPswForm";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
-import { PopUp } from "../layout/PopUp";
 import { useNavigation } from "@react-navigation/native";
+import { SvgXml } from "react-native-svg";
+import { svgLogo } from "../../../assets/images/svgs";
 
 export const ForgotPswContainer = () => {
 
@@ -12,22 +13,27 @@ export const ForgotPswContainer = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
-    const [pop, setPop] = useState(false);
+    const [success, setSuccess] = useState("");
 
     const handleNameChange = (name) => {
         setName(name);
         setError("");
+        setSuccess("");
     }
 
     const handleEmailChange = (email) => {
         setEmail(email);
         setError("");
+        setSuccess("");
     }
 
     const onSubmit = () => {
-        setPop(true)
-        setError("Credentials don't match, please check your credentials")
-
+        if (email === "" || name === "") {
+            setError("Please check your credentials.");
+        }
+        if (email !== "" && name !== "") {
+            setSuccess("New password has been sent to your email. Please check the email to retrieve your password.");
+        }
     }
 
     const backToLogin = () => {
@@ -35,68 +41,78 @@ export const ForgotPswContainer = () => {
         navigation.navigate("Login");
     }
 
-    const backToLoginPop = () => {
-        // console.log("Back to Login Working");
-        setPop(false);
-    }
-
     return (
-        <Container>
-            <Text
-                style={styles.heading}
-            >
-                Forgot Password?
-            </Text>
-            <ForgotPswForm
-                onNameChange={handleNameChange}
-                onEmailChange={handleEmailChange}
-                onSubmit={onSubmit}
-                error={error}
-                login={backToLogin}
-            />
-            {pop ? (<PopUp
-                content={
-                    <>
-                        <Text
-                            style={styles.headingPop}
-                        >
-                            Password Sent
-                        </Text>
-                        <Text
-                            style={styles.text}
-                        >
-                            New password has been sent to your email.
-                            Please check the email to retrieve your password.
-                        </Text>
-                        <Button
-                            onPress={backToLoginPop}
-                            style={styles.btn}
-                        >
-                            Back to Login Page
-                        </Button>
-
-                    </>
-                }
-            />) : (console.log("Closed"))}
-        </Container>
+        <Center>
+            <View>
+                <SvgXml
+                    xml={svgLogo}
+                    style={styles.logo}
+                />
+                <View
+                    style={styles.headingCont}
+                >
+                    <Text
+                        style={styles.heading}
+                    >
+                        Welcome to
+                    </Text>
+                    <Text
+                        style={styles.boldHeading}
+                    >
+                        Colourfit
+                    </Text>
+                </View>
+                <Text
+                    style={styles.subheading}
+                >
+                    Forgot Password?
+                </Text>
+                <ForgotPswForm
+                    onNameChange={handleNameChange}
+                    onEmailChange={handleEmailChange}
+                    onSubmit={onSubmit}
+                    error={error}
+                    login={backToLogin}
+                    success={success}
+                />
+            </View>
+        </Center>
     )
 }
 
 const styles = StyleSheet.create({
+    // HEADING LOGO
     heading: {
         fontWeight: "bold",
-        fontSize: 20,
-        marginBottom: 20
+        fontSize: 24,
+        // marginBottom: 20
     },
-    headingPop: {
-        fontWeight: "bold",
-        fontSize: 20
+    boldHeading: {
+        // fontFamily: "indivisible-semibold",
+        fontSize: 36,
+        paddingTop: 15
     },
-    text: {
-        fontSize: 16
+    headingCont: {
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        alignItems: "center",
+        alignSelf: "center",
+        gap: 10,
+        marginTop: 20,
+        marginBottom: 10
     },
-    btn: {
-        marginTop: 10,
-        width: 250
-    }
+
+    // SUBHEADING
+    subheading: {
+        fontSize: 16,
+        fontWeight: "bold"
+        // fontFamily: "indivisible-semibold",
+    },
+
+    // LOGO
+    logo: {
+        alignSelf: "center",
+        margin: 5
+    },
 })

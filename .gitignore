@@ -10,6 +10,7 @@ npm-debug.*
 *.orig.*
 web-build/
 ios/
+android/
 
 # macOS
 .DS_Store
@@ -19,3 +20,8 @@ ios/
 
 # dotenv environment variable files
 .env.local
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build

@@ -1,72 +1,80 @@
-import { Container, Text, Button, View } from "native-base";
+import { Container, Text, View, Center, Pressable } from "native-base";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
-import { OAUTH_CLIENT_ID_ANDROID, OAUTH_CLIENT_ID_IOS, OAUTH_CLIENT_ID, EXPO_CLIENT_ID, BACKEND } from "@env";
-import axios from "axios";
 import { SvgXml } from "react-native-svg";
-import { svgLogo } from "../../../assets/images/svgs";
+import { svgFacebookIcon, svgGoogleIcon, svgLogo } from "../../../assets/images/svgs";
+
+import { useEffect, useState } from "react";
+import * as Google from "expo-auth-session/providers/google";
+import * as WebBrowser from "expo-web-browser";
+import {
+    GoogleAuthProvider,
+    onAuthStateChanged,
+    signInWithCredential
+} from "firebase/auth";
+import { auth } from "../../../firebaseConfig";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { OAUTH_CLIENT_ID_IOS, OAUTH_CLIENT_ID_ANDROID, EXPO_CLIENT_ID, BACKEND } from "@env";
+import axios from "axios";
+import { signOut } from "firebase/auth";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export const WelcomeScreen = () => {
-
     const navigation = useNavigation();
 
-    const [userInfo, setUserInfo] = useState(null);
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value);
+            await AsyncStorage.setItem('user', jsonValue);
+        } catch (e) {
+            // saving error
+        }
+    };
 
     const [request, response, promptAsync] = Google.useAuthRequest({
-        androidClientId: OAUTH_CLIENT_ID_ANDROID,
-        iosClientId: OAUTH_CLIENT_ID_IOS,
-        webClientId: OAUTH_CLIENT_ID,
-        expoClientId: EXPO_CLIENT_ID
+        iosClientId: `${OAUTH_CLIENT_ID_IOS}`,
+        androidClientId: `${OAUTH_CLIENT_ID_ANDROID}`,
+        expoClientId: `${EXPO_CLIENT_ID}`
     });
 
+    // Saving the user in the Firebase
     useEffect(() => {
-        handleWebSignIn();
+        if (response?.type == "success") {
+            const { id_token } = response.params;
+            const credential = GoogleAuthProvider.credential(id_token);
+            signInWithCredential(auth, credential);
+        }
     }, [response]);
 
-    const handleWebSignIn = async () => {
-        const user = await AsyncStorage.getItem("@user");
+    useEffect(() => {
+        const unsub = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // Store the user in the db
+                const { displayName } = user;
+                const { email } = user;
+                const { photoURL } = user;
 
-        if (!user) {
-            if (response?.type === "success") {
-                await getUserInfo(response.authentication.accessToken);
+                axios.post(`${BACKEND}/register/oauth`, {
+                    name: displayName,
+                    email: email,
+                    profilePhoto: photoURL
+                })
+                    .then(async (res) => {
+                        console.log("Res: ", res);
+                        storeData(res.data);
+                        await AsyncStorage.setItem("user", JSON.stringify(user));
+                        navigation.navigate("Instruction");
+                    })
+                    .catch((error) => {
+                        console.log("E: ", error);
+                    })
+            } else {
+                console.log("User was logged out");
             }
-        } else {
-            setUserInfo(JSON.parse(user));
-        }
-    }
-
-    const getUserInfo = async (token) => {
-        if (!token) return;
-        try {
-            const response = await fetch(
-                "https://www.googleapis.com/userinfo/v2/me", {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            const user = await response.json();
-            await AsyncStorage.setItem("@user", JSON.stringify(user));
-            setUserInfo(user);
-
-            // Add to the db
-            axios.post(`${BACKEND}/register/oauth`, {
-                name: user.name,
-                email: user.email,
-                profilePhoto: user.picture
-            }).then((res) => {
-                console.log("Res: ", res.data);
-                navigation.navigate("Instruction");
-            })
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
+        })
+        return () => unsub();
+    }, []);
 
     const simpleSignUp = () => {
         console.log("First Screen Working");
@@ -74,94 +82,191 @@ export const WelcomeScreen = () => {
     }
 
     const fbSignUp = () => {
-        console.log("FB Working")
+        console.log("For now will be a signout button");
     }
 
-    const clearData = async () => {
-        try {
-            await AsyncStorage.removeItem("@user");
-            console.log("Data cleared")
-        } catch (error) {
-            console.log("Error: ", error);
-        }
+    const login = () => {
+        navigation.navigate("Login");
     }
 
     return (
-        <Container>
-            <SvgXml
-                xml={svgLogo}
-                style={styles.image}
-            />
-            <Text style={styles.heading} >Welcome to ColourFit</Text>
-            <Text>
-                {JSON.stringify(userInfo, null, 2)}
-            </Text>
-            <Button
-                style={styles.btn}
-                onPress={simpleSignUp}
-            >
-                Sign up with email
-            </Button>
-            <View
-                style={styles.lines}
-            >
-                <View
-                    style={styles.line}
+        <Center>
+            <View>
+                <SvgXml
+                    xml={svgLogo}
+                    style={styles.logo}
                 />
-                <Text
-                    style={styles.lineText}
+                <View
+                    style={styles.headingCont}
                 >
-                    or
-                </Text>
+                    <Text
+                        style={styles.heading}
+                    >
+                        Welcome to
+                    </Text>
+                    <Text
+                        style={styles.boldHeading}
+                    >
+                        Colourfit
+                    </Text>
+                </View>
+
+                <Pressable
+                    onPress={simpleSignUp}
+                >
+                    <Text style={styles.btnText}>Sign up with email</Text>
+                </Pressable>
+
                 <View
-                    style={styles.line}
-                />
+                    style={styles.lines}
+                >
+                    <View
+                        style={styles.line}
+                    />
+                    <Text
+                        style={styles.lineText}
+                    >
+                        or connect with
+                    </Text>
+                    <View
+                        style={styles.line}
+                    />
+                </View>
+                <Pressable
+                    // onPress={googleSignUp}
+                    onPress={() => promptAsync()}
+                    style={styles.googleBtn}
+                >
+                    <Text style={styles.btnText}>Sign In With Google</Text>
+                    <SvgXml
+                        xml={svgGoogleIcon}
+                        style={styles.btnIcon}
+                    />
+                </Pressable>
+                <Pressable
+                    // onPress={fbSignUp}
+                    onPress={async () => await signOut(auth)}
+                    style={styles.fbBtn}
+                >
+                    <Text style={styles.btnText}>Sign In With Facebook</Text>
+                    <SvgXml
+                        xml={svgFacebookIcon}
+                    />
+                </Pressable>
             </View>
-            <Button
-                style={styles.btn}
-                onPress={() => promptAsync()}
-            >
-                Google
-            </Button>
-            <Button
-                style={styles.btn}
-                onPress={fbSignUp}
-            >
-                Facebook
-            </Button>
-            <Button
-                onPress={clearData}
-            >
-                Clear Data
-            </Button>
-        </Container>
+            <View style={styles.oneLiner}>
+                <Text
+                    style={styles.addText}
+                >
+                    Already Have an Account?&nbsp;
+                    <Text
+                        onPress={login}
+                        style={styles.pressable}
+                    >
+                        Sign In!
+                    </Text>
+                </Text>
+            </View>
+        </Center>
     )
 }
 
 const styles = StyleSheet.create({
+    // HEADING LOGO
     heading: {
         fontWeight: "bold",
-        fontSize: 20
+        fontSize: 24,
+        // marginBottom: 20
     },
-    btn: {
-        marginTop: 10,
-        width: 250
+    boldHeading: {
+        // fontFamily: "indivisible-semibold",
+        fontSize: 36,
+        paddingTop: 15
     },
+    headingCont: {
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        alignItems: "center",
+        alignSelf: "center",
+        gap: 10,
+        marginTop: 20,
+        marginBottom: 10
+    },
+
+    // LOGO
+    logo: {
+        alignSelf: "center",
+        margin: 5
+    },
+
+    // BTN
+    btnText: {
+        color: "#fff",
+        textAlign: "center",
+        fontWeight: "bold"
+        // fontFamily: "indivisible-semibold"
+    },
+
+    // LINES
     lines: {
         display: "flex",
         flexDirection: "row",
-        alignSelf: "center"
+        alignSelf: "center",
+        // marginBottom: 20,
+        justifyContent: "center",
+        alignItems: "center"
     },
     line: {
         borderBottomWidth: 1,
-        width: 100
-    },
-    lineText: {
-        fontSize: 16,
+        width: 90,
+        borderColor: "#969AA8",
+        // flex: 1
+        marginLeft: 5,
+        marginRight: 5,
         marginTop: 20
     },
-    image: {
+    lineText: {
+        fontSize: 12,
+        marginTop: 20,
         alignSelf: "center",
-        margin: 5
-    }
+        color: "#969AA8",
+    },
+
+    // BTNS
+    googleBtn: {
+        backgroundColor: "#DB4437",
+        display: "flex",
+        flexDirection: "row-reverse",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10
+    },
+    fbBtn: {
+        backgroundColor: "#4267B2",
+        display: "flex",
+        flexDirection: "row-reverse",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10
+    },
+    // btnIcon: {
+    //     width: 10,
+    //     height: 10
+    // },
+
+    // TEXT LINE - different from other texts
+    addText: {
+        color: "#515151"
+    },
+    oneLiner: {
+        alignItems: "center",
+        paddingTop: 15
+    },
+
+    // PRESSABLE TEXT
+    pressable: {
+        color: "#411E94",
+        fontWeight: "bold"
+    },
 })

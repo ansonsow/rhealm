@@ -1,29 +1,27 @@
-import { Container, Text, View, Button } from "native-base";
+import { Container, Text, View, Button, Center, Pressable } from "native-base";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SvgXml } from "react-native-svg";
-import { svgHoodie, svgLeftIcon, svgMiniShorts, svgShortSleeveShirt, svgShorts, svgSkorts, svgSweater } from "../../../assets/images/svgs";
+import { svgAlertIcon, svgHoodie, svgLeftIcon, svgMiniShorts, svgShortSleeveShirt, svgShorts, svgSkorts, svgSweater } from "../../../assets/images/svgs";
 
 export const ClothingInstructionContainer = () => {
 
     const navigation = useNavigation();
 
     const backToMain = () => {
-        console.log("Working");
-        // navigation.navigate("Main");
+        navigation.navigate("Main");
     }
 
     const onCamera = () => {
         console.log("Add camera feature");
-        navigation.navigate("Testing");
+        navigation.navigate("ColourAPI");
     }
 
     return (
-        <Container>
+        <Center>
             <View style={styles.headingInstructionCont}>
                 <TouchableOpacity
                     onPress={backToMain}
-                    style={styles.test}
                 >
                     <SvgXml
                         xml={svgLeftIcon}
@@ -38,7 +36,7 @@ export const ClothingInstructionContainer = () => {
                 </Text>
             </View>
 
-            <View style={styles.imagesCont}>
+            {/* <View style={styles.imagesCont}>
                 <View style={styles.beachWeather}>
                     <SvgXml
                         xml={svgShortSleeveShirt}
@@ -63,7 +61,7 @@ export const ClothingInstructionContainer = () => {
                         xml={svgSkorts}
                     />
                 </View>
-            </View>
+            </View> */}
 
             <Text
                 style={styles.subheading}
@@ -90,13 +88,15 @@ export const ClothingInstructionContainer = () => {
             >
                 2. Both photos need to be taken with a clean background.
             </Text>
-            <Button
+
+            <Pressable
                 onPress={onCamera}
-                style={styles.btn}
             >
-                Scan
-            </Button>
-        </Container>
+                <Text style={styles.btnText}>
+                    Scan
+                </Text>
+            </Pressable>
+        </Center>
     )
 }
 
@@ -115,33 +115,43 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "space-between",
+        borderColor: "#f4f",
+        borderWidth: 2
     },
     headingInstructionCont: {
         display: "flex",
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        marginBottom: 5
     },
     beachWeather: {
         justifyContent: "center",
         alignContent: "center",
         alignItems: "center",
         padding: 10,
-        gap: 5
+        gap: 5,
+        borderColor: "#f4f",
+        borderWidth: 2
     },
     coldWeather: {
         justifyContent: "center",
         alignContent: "center",
         alignItems: "center",
         padding: 10,
-        gap: 5
+        gap: 5,
+        borderColor: "#f4f",
+        borderWidth: 2
     },
     coolWeather: {
         justifyContent: "center",
         alignContent: "center",
         alignItems: "center",
         padding: 10,
-        gap: 5
+        gap: 5,
+        borderColor: "#f4f",
+        borderWidth: 2
     },
     subheading: {
         fontWeight: "bold",
@@ -156,8 +166,12 @@ const styles = StyleSheet.create({
         marginTop: 10,
         width: 250
     },
-    test: {
-        borderColor: "red",
-        borderWidth: 2
-    }
+
+    // BTN TEXT
+    btnText: {
+        color: "#fff",
+        textAlign: "center",
+        fontWeight: "bold"
+        // fontFamily: "indivisible-semibold"
+    },
 })
