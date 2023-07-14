@@ -85,7 +85,8 @@ export const LoginContainer = () => {
     const [request, response, promptAsync] = Google.useAuthRequest({
         iosClientId: `${OAUTH_CLIENT_ID_IOS}`,
         androidClientId: `${OAUTH_CLIENT_ID_ANDROID}`,
-        expoClientId: `${EXPO_CLIENT_ID}`
+        expoClientId: `${EXPO_CLIENT_ID}`,
+        // useProxy: false
     })
 
     // Saving the user in the Firebase
