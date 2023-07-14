@@ -2,7 +2,7 @@ import { Container, Text, View, Center, Pressable } from "native-base";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SvgXml } from "react-native-svg";
-import { svgFacebookIcon, svgGoogleIcon, svgLogo } from "../../../assets/images/svgs";
+import { svgFacebookWhiteIcon, svgGoogleWhiteIcon, svgLogo } from "../../../assets/images/svgs";
 
 import { useEffect, useState } from "react";
 import * as Google from "expo-auth-session/providers/google";
@@ -139,7 +139,7 @@ export const WelcomeScreen = () => {
                 >
                     <Text style={styles.btnText}>Sign In With Google</Text>
                     <SvgXml
-                        xml={svgGoogleIcon}
+                        xml={svgGoogleWhiteIcon}
                         style={styles.btnIcon}
                     />
                 </Pressable>
@@ -150,7 +150,7 @@ export const WelcomeScreen = () => {
                 >
                     <Text style={styles.btnText}>Sign In With Facebook</Text>
                     <SvgXml
-                        xml={svgFacebookIcon}
+                        xml={svgFacebookWhiteIcon}
                     />
                 </Pressable>
             </View>
