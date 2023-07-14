@@ -46,8 +46,9 @@ const CreateClothingForm = props => {
 
     const handleClicked = () => {
         const uid = props.user._id
-
-        console.log("huh")
+        // console.log(uid)
+        // console.log("huh")
+        // console.log(`${BACKEND}/clothing`)
         axios.post(`${BACKEND}/clothing`, {
             userId: uid,
             name: name,
@@ -55,11 +56,17 @@ const CreateClothingForm = props => {
             type: type,
             texture: texture,
             photo: imageSelection
-        }).then((res) => {
+        }, 
+         {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }).then((res) => {
             props.forceUpdate()
-        }).catch((err) => {
+        }).catch((err)=>{
+            console.log("Error:", err);
+            console.log("Response:", err.response);
 
-            console.log(err)
         })
     }
 

@@ -27,6 +27,7 @@ WebBrowser.maybeCompleteAuthSession();
 
 export const LoginContainer = () => {
     const navigation = useNavigation();
+    console.log(BACKEND)
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

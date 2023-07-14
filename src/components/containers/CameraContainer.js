@@ -1,33 +1,31 @@
 import { Camera, CameraType } from 'expo-camera';
 import { useState,useEffect,useRef } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
 import { getStorage, ref,uploadBytes, getDownloadURL } from "firebase/storage";
 import { manipulateAsync, ImageManipulator,FlipType, SaveFormat } from 'expo-image-manipulator';
 
 // import RNFetchBlob from 'rn-fetch-blob';
 // import {DocumentDirectoryPath, writeFile} from 'react-native-fs';
-import { FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_PROJECT_ID, FIREBASE_STORAGE_BUCKET, FIREBASE_MSG_SENDER_ID, FIREBASE_APP_ID } from "@env";
-
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-
 
 
 export const CameraContainer= ()=> {
-  const firebaseConfig = {
-    apiKey: "AIzaSyA_8yqR29-hsBsA7N-HQmjHr5n_RMYENdI",
-    authDomain: "rhealm-b4991.firebaseapp.com",
-    databaseURL: "https://rhealm-b4991-default-rtdb.firebaseio.com",
-    projectId: "rhealm-b4991",
-    storageBucket: "rhealm-b4991.appspot.com",
-    messagingSenderId: "319527628749",
-    appId: "1:319527628749:web:12de6f6957ea54b3ec9e84"
-  };
+  // const firebaseConfig = {
+  //   apiKey: "AIzaSyA_8yqR29-hsBsA7N-HQmjHr5n_RMYENdI",
+  //   authDomain: "rhealm-b4991.firebaseapp.com",
+  //   databaseURL: "https://rhealm-b4991-default-rtdb.firebaseio.com",
+  //   projectId: "rhealm-b4991",
+  //   storageBucket: "rhealm-b4991.appspot.com",
+  //   messagingSenderId: "319527628749",
+  //   appId: "1:319527628749:web:12de6f6957ea54b3ec9e84"
+  // };
 
   // Initialize Firebase
-  const firebase = initializeApp(firebaseConfig);
-  const auth = getAuth(firebase);
+  // const firebase = initializeApp(firebaseConfig);
+  // const auth = getAuth(firebase);
+  const navigation = useNavigation();
+
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [capturedImage, setCapturedImage] = useState(null);
@@ -61,21 +59,23 @@ export const CameraContainer= ()=> {
       const photo = await cameraRef.current.takePictureAsync();
       setCapturedImage(photo.uri);
       console.log(photo.uri)
-
-      const manipulate = await manipulateAsync(photo.uri,[],{compress:0.1 , format: SaveFormat.JPG})
+  
+      const manipulate = await manipulateAsync(photo.uri, [], { compress: 0, format: SaveFormat.JPG })
       const storage = getStorage();
       const storageRef = ref(storage, 'images/' + Date.now() + '.jpg');
       const response = await fetch(manipulate.uri);
       const blob = await response.blob();
       try {
         await uploadBytes(storageRef, blob);
-        const downloadURL = await getDownloadURL(storageRef);
-        console.log(downloadURL)
-        setUploadImage(downloadURL)
+        getDownloadURL(storageRef).then((result)=>{
+          console.log(result)
+          navigation.navigate("ColourAPI", { result });
+        })
+        // console.log(downloadURL)
+        // setUploadImage(downloadURL)
       } catch (err) {
         console.error(err.stack);
       }
-
     }
   }
 
