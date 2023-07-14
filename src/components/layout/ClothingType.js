@@ -1,29 +1,30 @@
-import hairColour from "../../../assets/hair-colour/hairColour.json";
+import clothingType from "../../../assets/clothing-type/clothingType.json";
 import { View, Text } from "native-base";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 
-export const HairColourSelection = () => {
-    const [selectedColour, setSelectedColour] = useState(null);
+export const ClothingTypeSelection = ({ selectedClothingType, onTypeChange }) => {
 
-    const handleColourSelection = (colour) => {
-        setSelectedColour(colour);
+    // const [selectedClothingType, setSelectedClothingType] = useState(null);
+
+    const handleClothingTypeSelection = (clothing) => {
+        onTypeChange(clothing);
     }
 
-    // console.log(selectedColour);
+    // console.log(selectedClothingType);
 
     const renderItem = (item) => {
         return (
             <View
                 style={styles.item}
             >
-                <View
+                {/* <View
                     style={[
-                        styles.swatch,
+                        styles.svgs,
                         { backgroundColor: item.value },
                     ]}
-                />
+                /> */}
                 <Text style={styles.textItem}>{item.label}</Text>
             </View>
         )
@@ -37,17 +38,17 @@ export const HairColourSelection = () => {
                 selectedTextStyle={styles.selectedTextStyle}
                 inputSearchStyle={styles.inputSearchStyle}
                 iconStyle={styles.iconStyle}
-                data={hairColour.map((colour) => ({
-                    label: colour.name,
-                    value: colour.hexValue
+                data={clothingType.map((clothing) => ({
+                    label: clothing.label,
+                    value: clothing.name
                 }))}
                 search
                 labelField="label"
                 valueField="value"
-                placeholder="Select Hair Colour"
+                placeholder="Select Clothing Type"
                 searchPlaceholder="Search"
-                value={selectedColour}
-                onChange={handleColourSelection}
+                value={selectedClothingType}
+                onChange={handleClothingTypeSelection}
                 renderItem={renderItem}
             />
         </View>
@@ -56,7 +57,7 @@ export const HairColourSelection = () => {
 
 const styles = StyleSheet.create({
     dropdown: {
-        margin: 16,
+        // margin: 16,
         height: 50,
         borderBottomColor: 'gray',
         borderBottomWidth: 0.5,
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
         fontFamily: "SF Pro Display Regular",
     },
     selectedTextStyle: {
-        fontSize: 16,
+        fontSize: 14,
         borderColor: "#77757E",
         borderWidth: 1,
         padding: 6,

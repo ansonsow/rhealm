@@ -1,29 +1,30 @@
-import hairColour from "../../../assets/hair-colour/hairColour.json";
-import { View, Text } from "native-base";
+import clothingTexture from "../../../assets/clothing-texture/clothingTexture.json";
+import { View, Text, Image } from "native-base";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 
-export const HairColourSelection = () => {
-    const [selectedColour, setSelectedColour] = useState(null);
+export const ClothingTextureSelection = ({ selectedClothingTexture, onTextureChange }) => {
+    // const [selectedClothingTexture, setSelectedClothingTexture] = useState(null);
 
-    const handleColourSelection = (colour) => {
-        setSelectedColour(colour);
+    const handleClothingTextureSelection = (clothing) => {
+        onTextureChange(clothing);
     }
 
-    // console.log(selectedColour);
+    // console.log(selectedClothingTexture);
 
     const renderItem = (item) => {
         return (
             <View
                 style={styles.item}
             >
-                <View
-                    style={[
-                        styles.swatch,
-                        { backgroundColor: item.value },
-                    ]}
-                />
+                {item.uri && (
+                    <Image
+                        source={{ uri: item.uri }}
+                        style={styles.image}
+                        alt="Texture"
+                    />
+                )}
                 <Text style={styles.textItem}>{item.label}</Text>
             </View>
         )
@@ -37,17 +38,18 @@ export const HairColourSelection = () => {
                 selectedTextStyle={styles.selectedTextStyle}
                 inputSearchStyle={styles.inputSearchStyle}
                 iconStyle={styles.iconStyle}
-                data={hairColour.map((colour) => ({
-                    label: colour.name,
-                    value: colour.hexValue
+                data={clothingTexture.map((clothing) => ({
+                    label: clothing.label,
+                    value: clothing.name,
+                    uri: clothing.uri
                 }))}
                 search
                 labelField="label"
                 valueField="value"
-                placeholder="Select Hair Colour"
+                placeholder="Select Clothing Texture"
                 searchPlaceholder="Search"
-                value={selectedColour}
-                onChange={handleColourSelection}
+                value={selectedClothingTexture}
+                onChange={handleClothingTextureSelection}
                 renderItem={renderItem}
             />
         </View>
@@ -67,10 +69,10 @@ const styles = StyleSheet.create({
     placeholderStyle: {
         fontSize: 16,
         color: "#77757E",
-        fontFamily: "SF Pro Display Regular",
+        // fontFamily: "SF Pro Display Regular",
     },
     selectedTextStyle: {
-        fontSize: 16,
+        fontSize: 14,
         borderColor: "#77757E",
         borderWidth: 1,
         padding: 6,
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
         alignContent: "center",
         width: "100%"
     },
-    swatch: {
+    image: {
         width: 20,
         height: 20,
         borderRadius: 10,
