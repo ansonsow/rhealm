@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SvgXml } from "react-native-svg";
 import { svgConfirmIcon, svgLogo } from "../../../assets/images/svgs";
 import { Overlay } from "@rneui/themed";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const SignUpContainer = () => {
 
@@ -43,6 +44,15 @@ export const SignUpContainer = () => {
         setPopOne(true);
     }
 
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value);
+            await AsyncStorage.setItem("user", jsonValue);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     const savePrimary = () => {
         if (password !== confPsw) {
             console.log("Passwords don't match");
@@ -55,8 +65,13 @@ export const SignUpContainer = () => {
                 password: password
             }).then((res) => {
                 console.log("Res: ", res);
-                // setError("");
-                // console.log(error)
+                console.log(res.data);
+                // storeData(res.data);
+                // axios.get(`${BACKEND}/user/${res.data._id}`)
+                //     .then((res) => {
+                //         console.log(res);
+                //         // storeData(res.config.data);
+                //     })
                 setPopTwo(true);
             })
         }
