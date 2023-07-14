@@ -1,0 +1,50 @@
+[
+    {
+        "label": "T-shirt",
+        "name": "T-shirt"
+    },
+    {
+        "label": "Shirts",
+        "name": "Shirts"
+    },
+    {
+        "label": "Pants",
+        "name": "Pants"
+    },
+    {
+        "label": "Jeans",
+        "name": "Jeans"
+    },
+    {
+        "label": "Sweater",
+        "name": "Sweater"
+    },
+    {
+        "label": "Dress",
+        "name": "Dress"
+    },
+    {
+        "label": "Hoodie",
+        "name": "Hoodie"
+    },
+    {
+        "label": "Coat",
+        "name": "Coat"
+    },
+    {
+        "label": "Vest",
+        "name": "Vest"
+    },
+    {
+        "label": "Cardigan",
+        "name": "Cardigan"
+    },
+    {
+        "label": "Skirt",
+        "name": "Skirt"
+    },
+    {
+        "label": "Parka",
+        "name": "Parka"
+    }
+]

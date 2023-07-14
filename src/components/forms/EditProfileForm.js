@@ -58,7 +58,7 @@ export const EditProfileForm = props => {
                 </View>
                 <View style={styles.photoContainer}>
                     <View style={styles.photoCircle}>
-                        {user.profilePhoto ?
+                        {user.profilePhoto && user.profilePhoto ?
                             (<Image
                                 source={{ uri: `${user.profilePhoto}` }}
                                 alt="Image Holder"
@@ -95,15 +95,11 @@ export const EditProfileForm = props => {
                     <FormControl.Label>
                         Name
                     </FormControl.Label>
-                    <HStack
-                    // style={styles.subcontainer}
-                    // width="100%"
-                    >
+                    <HStack>
                         <Input
-                            // placeholder="Name"
-                            // style={styles.input}
                             placeholder={user != undefined ? user.name : "user"}
                             variant="underlined"
+                            backgroundColor="transparent"
                             onChangeText={value => {
                                 onNameChange(value)
                             }}
@@ -114,14 +110,11 @@ export const EditProfileForm = props => {
                     <FormControl.Label>
                         Email
                     </FormControl.Label>
-                    <HStack
-                    // style={styles.subcontainer}
-                    // width="100%"
-                    >
+                    <HStack>
                         <Input
-                            // style={styles.input}
                             placeholder={user != undefined ? user.email : "email@gmail.com"}
                             variant="underlined"
+                            backgroundColor="transparent"
                             onChangeText={value => {
                                 onEmailChange(value)
                             }}
@@ -132,13 +125,11 @@ export const EditProfileForm = props => {
                     <FormControl.Label>
                         Password
                     </FormControl.Label>
-                    <HStack
-                    // style={styles.subcontainer}
-                    >
+                    <HStack>
                         <Input
                             placeholder="Password"
                             variant="underlined"
-                        // style={styles.input}
+                            backgroundColor="transparent"
                         />
                     </HStack>
                 </FormControl>
@@ -146,11 +137,10 @@ export const EditProfileForm = props => {
                     <FormControl.Label>
                         Skin Tone
                     </FormControl.Label>
-                    <HStack style={styles.subcontainer}>
+                    <HStack>
                         <Input
                             placeholder="Skin Tone"
                             variant="underlined"
-                        // style={styles.input}
                         />
                     </HStack>
                 </FormControl>
@@ -158,15 +148,13 @@ export const EditProfileForm = props => {
                     <FormControl.Label>
                         Hair Colour
                     </FormControl.Label>
-                    <HStack style={styles.subcontainer}>
+                    <HStack>
                         <Input
                             placeholder="Hair Colour"
                             variant="underlined"
-                        // style={styles.input}
                         />
                     </HStack>
                 </FormControl>
-                {/* <Text color="red.500">{error}</Text> */}
                 <Text
                     onPress={deleteAccount}
                     style={styles.delete}
@@ -218,11 +206,6 @@ const styles = StyleSheet.create({
         width: 250
     },
 
-    // SVG - this is necessary to change considering every SVG we need to alter
-    svg: {
-        color: "#000"
-    },
-
     // DELETE ACCOUNT
     delete: {
         color: "#D33D12",
@@ -267,5 +250,10 @@ const styles = StyleSheet.create({
     countingText: {
         color: "#77757E",
         fontSize: 14
-    }
+    },
+
+    // SVG - this is necessary to change considering every SVG we need to alter
+    svg: {
+        color: "#000"
+    },
 })

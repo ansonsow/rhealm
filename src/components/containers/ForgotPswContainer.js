@@ -1,10 +1,10 @@
 import { Container, Text, View, Center } from "native-base";
 import { ForgotPswForm } from "../forms/ForgotPswForm";
 import { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SvgXml } from "react-native-svg";
-import { svgLogo } from "../../../assets/images/svgs";
+import { svgLeftIcon, svgLogo } from "../../../assets/images/svgs";
 
 export const ForgotPswContainer = () => {
 
@@ -44,6 +44,14 @@ export const ForgotPswContainer = () => {
     return (
         <Center>
             <View>
+                {/* <TouchableOpacity
+                    onPress={backToLogin}
+                >
+                    <SvgXml
+                        xml={svgLeftIcon}
+                        onPress={backToLogin}
+                    />
+                </TouchableOpacity> */}
                 <SvgXml
                     xml={svgLogo}
                     style={styles.logo}

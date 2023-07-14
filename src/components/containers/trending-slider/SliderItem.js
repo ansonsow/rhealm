@@ -15,26 +15,26 @@ const SliderItem = ({ img, css, colors }) => {
 
     const startFlipAnimation = () => {
         Animated.parallel([
-          Animated.timing(flipAniFront, {
-            toValue: isFlipped ? 180 : 0,
-            duration: css.cardFlipSpeed,
-            useNativeDriver: true,
-          }),
-          
-          Animated.timing(flipAniBack, {
-            toValue: isFlipped ? 0 : 180,
-            duration: css.cardFlipSpeed,
-            useNativeDriver: true,
-          }),
+            Animated.timing(flipAniFront, {
+                toValue: isFlipped ? 180 : 0,
+                duration: css.cardFlipSpeed,
+                useNativeDriver: true,
+            }),
+
+            Animated.timing(flipAniBack, {
+                toValue: isFlipped ? 0 : 180,
+                duration: css.cardFlipSpeed,
+                useNativeDriver: true,
+            }),
         ]).start();
-      };
-    
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         startFlipAnimation();
-      }, [isFlipped]);
+    }, [isFlipped]);
 
     const styles = StyleSheet.create({
-    
+
         cardWrap: {
             position: "relative",
             height: css.itemHeight,
@@ -53,7 +53,7 @@ const SliderItem = ({ img, css, colors }) => {
             borderRadius: css.itemRounding,
             overflow: "hidden",
         },
-    
+
         cardFront: {
             position: "absolute",
             top: 0,
@@ -74,7 +74,7 @@ const SliderItem = ({ img, css, colors }) => {
             width: 30,
             height: 30,
             backgroundColor: "#ffffff",
-            borderRadius: "100%",
+            borderRadius: 30 / 2,
             alignItems: "center",
             justifyContent: "center",
             shadowColor: "#000000",
@@ -89,7 +89,7 @@ const SliderItem = ({ img, css, colors }) => {
 
         heartBub: {
         },
-    
+
         imgs: {
             flex: 1,
         },
@@ -162,7 +162,7 @@ const SliderItem = ({ img, css, colors }) => {
         }
     })
 
-    
+
 
     const flipThis = () => {
         setIsFlipped(!isFlipped);
@@ -182,59 +182,59 @@ const SliderItem = ({ img, css, colors }) => {
             >
                 <TouchableOpacity
                     style={[styles.touchWrap]}
-                    activeOpacity="1"
+                    activeOpacity={1}
                     onPress={flipThis}
                 >
-                        {/*---- CARD, FRONT ----*/}
-                        <Animated.View
-                            style={[styles.cardFront, {
-                                transform: [{
-                                    rotateY: flipAniFront.interpolate({
-                                        inputRange: [0, 180],
-                                        outputRange: ["0deg", "180deg"]
-                                    })
-                                }]
-                            }]}
-                        >
-                            <View style={styles.heartCont}>
-                                <SvgXml
-                                    xml={heartIcon}
-                                    style={styles.heartBub}
-                                    width="18"
-                                    height="18"
-                                />
-                            </View>
+                    {/*---- CARD, FRONT ----*/}
+                    <Animated.View
+                        style={[styles.cardFront, {
+                            transform: [{
+                                rotateY: flipAniFront.interpolate({
+                                    inputRange: [0, 180],
+                                    outputRange: ["0deg", "180deg"]
+                                })
+                            }]
+                        }]}
+                    >
+                        <View style={styles.heartCont}>
+                            <SvgXml
+                                xml={heartIcon}
+                                style={styles.heartBub}
+                                width="18"
+                                height="18"
+                            />
+                        </View>
 
-                            <Image source={{ uri: img }} style={styles.imgs} resizeMode="cover"/>
+                        <Image source={{ uri: img }} style={styles.imgs} resizeMode="cover" />
 
-                            <View style={styles.flipCont}>
-                                <SvgXml
-                                    xml={flipArrowIcon}
-                                    style={styles.flipBub}
-                                    width="18"
-                                    height="18"
-                                />
-                            </View>
+                        <View style={styles.flipCont}>
+                            <SvgXml
+                                xml={flipArrowIcon}
+                                style={styles.flipBub}
+                                width="18"
+                                height="18"
+                            />
+                        </View>
 
-                            <View style={styles.gradShad}></View>
-                        </Animated.View>
+                        <View style={styles.gradShad}></View>
+                    </Animated.View>
 
-                        {/*---- CARD, BACK ----*/}
-                        {/* <View style={[styles.cardBack]}> */}
-                        <Animated.View
-                            style={[styles.cardBack, {
-                                transform: [{
-                                    rotateY: flipAniBack.interpolate({
-                                        inputRange: [0, 180],
-                                        outputRange: ["0deg", "180deg"]
-                                    })
-                                }]
-                            }]}
-                        >
-                            {
-                                typeof(colors) !== "undefined" ||
+                    {/*---- CARD, BACK ----*/}
+                    {/* <View style={[styles.cardBack]}> */}
+                    <Animated.View
+                        style={[styles.cardBack, {
+                            transform: [{
+                                rotateY: flipAniBack.interpolate({
+                                    inputRange: [0, 180],
+                                    outputRange: ["0deg", "180deg"]
+                                })
+                            }]
+                        }]}
+                    >
+                        {
+                            typeof (colors) !== "undefined" ||
                                 colors && colors.trim?.() === "" &&
-                                typeof(colors) == "array" ?
+                                typeof (colors) == "array" ?
                                 (
                                     colors.map((eachColor, colorIndex) => (
                                         <View
@@ -244,16 +244,16 @@ const SliderItem = ({ img, css, colors }) => {
                                             <Text>{COLOR_CONVERTER.HEX_TO_RGB("#bdced0")}</Text>
                                             {/* <Text style={styles.colorText}>{ntc(eachColor).colorName}</Text> */}
                                             {
-                                                COLOR_CONVERTER.GET_COLOR_LUM(eachColor, "hex", "name") == "dimmed" || 
-                                                COLOR_CONVERTER.GET_COLOR_LUM(eachColor, "hex", "name") == "very dark" ?
-                                                <Text style={[styles.colorText, styles.textWhite]}>{ntc(eachColor).colorName}</Text> :
-                                                <Text style={[styles.colorText, styles.textBlack]}>{ntc(eachColor).colorName}</Text>
+                                                COLOR_CONVERTER.GET_COLOR_LUM(eachColor, "hex", "name") == "dimmed" ||
+                                                    COLOR_CONVERTER.GET_COLOR_LUM(eachColor, "hex", "name") == "very dark" ?
+                                                    <Text style={[styles.colorText, styles.textWhite]}>{ntc(eachColor).colorName}</Text> :
+                                                    <Text style={[styles.colorText, styles.textBlack]}>{ntc(eachColor).colorName}</Text>
                                             }
                                         </View>
                                     ))
                                 ) : ("")
-                            }
-                        </Animated.View>
+                        }
+                    </Animated.View>
                 </TouchableOpacity>
             </Card>
         </>

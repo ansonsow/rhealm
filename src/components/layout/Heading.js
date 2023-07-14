@@ -5,6 +5,8 @@ import { StyleSheet } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react'
 import { Weather } from "./Weather";
+import { SvgXml } from "react-native-svg";
+import { svgMeatballsIcon } from "../../../assets/images/svgs";
 
 export const Heading = props => {
     const [user, setUser] = useState('')
@@ -35,41 +37,49 @@ export const Heading = props => {
         <View>
             {/* <Center> */}
             <View style={styles.headingCont}>
+                <View style={styles.headingSecCont}>
+                    <TouchableOpacity
+                        style={styles.photoContainer}
+                    >
+                        <View style={styles.photoCircle}>
+
+                            {user.profilePhoto ?
+                                (<Image
+                                    source={{ uri: `${user.profilePhoto}` }}
+                                    alt="Image Holder"
+                                    style={styles.profilePhoto}
+                                />)
+                                :
+                                (<Image
+                                    source={require("../../../assets/images/ImageHolderMain.png")}
+                                    alt="Image Holder"
+                                    style={styles.profilePhoto}
+                                />)
+                            }
+
+                        </View>
+                    </TouchableOpacity>
+                    <View style={styles.headingContent}>
+                        <Text
+                            style={styles.heading}
+                        >
+                            Hello {user != undefined ? user.name : "User"}!
+                        </Text>
+                        <Text
+                            style={styles.text}
+                        >
+                            It's sunny outside.
+                        </Text>
+                        <Weather />
+                    </View>
+                </View>
                 <TouchableOpacity
-                    style={styles.photoContainer}
                     onPress={menu}
                 >
-                    <View style={styles.photoCircle}>
-
-                        {user.profilePhoto ?
-                            (<Image
-                                source={{ uri: `${user.profilePhoto}` }}
-                                alt="Image Holder"
-                                style={styles.profilePhoto}
-                            />)
-                            :
-                            (<Image
-                                source={require("../../../assets/images/ImageHolderMain.png")}
-                                alt="Image Holder"
-                                style={styles.profilePhoto}
-                            />)
-                        }
-
-                    </View>
+                    <SvgXml
+                        xml={svgMeatballsIcon}
+                    />
                 </TouchableOpacity>
-                <View style={styles.headingContent}>
-                    <Text
-                        style={styles.heading}
-                    >
-                        Hello {user != undefined ? user.name : "User"}!
-                    </Text>
-                    <Text
-                        style={styles.text}
-                    >
-                        It's sunny outside.
-                    </Text>
-                    <Weather />
-                </View>
             </View>
             {/* </Center> */}
         </View>
@@ -85,7 +95,17 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignContent: "center",
         paddingVertical: 10,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        justifyContent: "space-between"
+    },
+    headingSecCont: {
+        backgroundColor: "lightgray",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        alignContent: "center",
+        // paddingVertical: 10,
+        // paddingHorizontal: 10,
     },
     photoContainer: {
         backgroundColor: "#fff",

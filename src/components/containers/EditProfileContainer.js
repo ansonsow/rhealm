@@ -1,6 +1,7 @@
 import { EditProfileForm } from "../forms/EditProfileForm";
 import { useEffect, useState } from "react";
-import { Text, Container, Modal, Center } from "native-base";
+import { Text, Container, Center, View, Pressable } from "native-base";
+import { Overlay } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet } from "react-native-web";
 import { BACKEND } from "@env";
@@ -18,10 +19,10 @@ export const EditProfileContainer = () => {
     const [popTwo, setPopTwo] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    // const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null);
 
     const backToMenu = () => {
-        navigation.navigate("Profile");
+        setPopOne(!popOne);
     }
 
     const onSubmit = () => {
@@ -46,6 +47,7 @@ export const EditProfileContainer = () => {
 
     const confirmChanges = () => {
         getData();
+        setPopTwo(!popTwo);
     }
 
     const mainPage = () => {
@@ -55,7 +57,7 @@ export const EditProfileContainer = () => {
     const storeData = async (value) => {
         try {
             const jsonValue = JSON.stringify(value);
-            await AsyncStorage.setItem('user', jsonValue);
+            await AsyncStorage.setItem("user", jsonValue);
         } catch (e) {
             // saving error
         }
@@ -78,19 +80,14 @@ export const EditProfileContainer = () => {
                     })
                         .then(async (res) => {
                             console.log("Res: ", res);
-                            // console.log(JSON.stringify(res, null, 2));
-                            storeData(res.config.data);
                             // console.log(res.config.data);
-                            // const user = JSON.parse(jsonValue);
-                            // user.name = name;
-                            // user.email = email;
-                            // const updatedValue = JSON.stringify(user);
-                            // await AsyncStorage.setItem("user", updatedValue);
-                            // console.log(updatedValue);
+                            // storeData(res.config.data);
+                            // const jsonValue = await AsyncStorage.getItem("user");
 
-                            // MISSING UPDATING THE USER IN ORDER TO SHOW THE NEW INFO
+                            // if (jsonValue != null) {
+                            //     setUser(JSON.parse(jsonValue).data);
+                            // }
 
-                            navigation.navigate("Profile");
                         })
                         .catch((error) => {
                             console.log("E: ", error);
@@ -110,12 +107,6 @@ export const EditProfileContainer = () => {
         console.log(userId);
     }
 
-    // console.log(user);
-    // console.log(user._id);
-    // useEffect(() => {
-
-    // })
-
     const handleNameChange = (name) => {
         setName(name);
     }
@@ -134,7 +125,6 @@ export const EditProfileContainer = () => {
                 backToMenu={backToMenu}
                 errorMsg={error}
                 onSubmit={onSubmit}
-                backToProfile={backToProfile}
                 confirmChanges={confirmChanges}
                 onNameChange={handleNameChange}
                 onEmailChange={handleEmailChange}
@@ -142,72 +132,66 @@ export const EditProfileContainer = () => {
             />
 
             {popOne ? (
-                <Modal
-                    isOpen={popOne}
-                    width="100%"
+                <Overlay
+                    isVisible={popOne}
                 >
-                    <Modal.Content>
-                        <View style={styles.popCont}>
-                            <Text
-                                style={styles.headingPop}
-                            >
-                                Are you sure?
-                            </Text>
-                            <Text
-                                style={styles.textPop}
-                            >
-                                Your changes will be lost.
-                            </Text>
+                    <View style={styles.popCont}>
+                        <Text
+                            style={styles.headingPop}
+                        >
+                            Are you sure?
+                        </Text>
+                        <Text
+                            style={styles.textPop}
+                        >
+                            Your changes will be lost.
+                        </Text>
 
-                            <View
-                                style={styles.btnPopCont}
+                        <View
+                            style={styles.btnPopCont}
+                        >
+                            <Pressable
+                                onPress={confirmBtn}
+                                style={styles.btnPopNAction}
                             >
-                                <Pressable
-                                    onPress={confirmBtn}
-                                    style={styles.btnPopNAction}
-                                >
-                                    <Text style={styles.btnTextPopNAction}>Leave</Text>
-                                </Pressable>
-                                <Pressable
-                                    onPress={cancelBtn}
-                                    style={styles.btnPopPAction}
-                                >
-                                    <Text style={styles.btnTextPopPAction}>Cancel</Text>
-                                </Pressable>
-                            </View>
+                                <Text style={styles.btnTextPopNAction}>Leave</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={cancelBtn}
+                                style={styles.btnPopPAction}
+                            >
+                                <Text style={styles.btnTextPopPAction}>Cancel</Text>
+                            </Pressable>
                         </View>
-                    </Modal.Content>
-                </Modal>
+                    </View>
+                </Overlay>
             ) : (console.log("Closed"))}
 
             {popTwo ? (
-                <Modal
-                    isOpen={popTwo}
-                    width="100%"
+                <Overlay
+                    isVisible={popTwo}
                 >
-                    <Modal.Content>
-                        <View style={styles.popCont}>
-                            <SvgXml
-                                xml={svgConfirmIcon}
-                                style={styles.svg}
-                            />
-                            <Text
-                                style={styles.textPop}
-                            >
-                                Changes have been saved.
-                            </Text>
+                    <View style={styles.popCont}>
+                        <SvgXml
+                            xml={svgConfirmIcon}
+                            style={styles.svg}
+                        />
+                        <Text
+                            style={styles.textPop}
+                        >
+                            Changes have been saved.
+                        </Text>
 
-                            <View style={styles.btnPopCont}>
-                                <Pressable
-                                    onPress={mainPage}
-                                    style={styles.btnPopNextAction}
-                                >
-                                    <Text style={styles.btnTextPopNexAction}>Go to Main</Text>
-                                </Pressable>
-                            </View>
+                        <View style={styles.btnPopCont}>
+                            <Pressable
+                                onPress={mainPage}
+                                style={styles.btnPopNextAction}
+                            >
+                                <Text style={styles.btnTextPopNexAction}>Go to Main</Text>
+                            </Pressable>
                         </View>
-                    </Modal.Content>
-                </Modal>) : (console.log("Closed"))}
+                    </View>
+                </Overlay>) : (console.log("Closed"))}
         </Center>
     )
 }
@@ -259,6 +243,12 @@ const styles = StyleSheet.create({
         alignContent: "flex-end"
     },
     popCont: {
-        padding: 20
+        padding: 20,
+        width: 300,
+    },
+
+    // SVG - this is necessary to change considering every SVG we need to alter
+    svg: {
+        color: "#000"
     },
 })

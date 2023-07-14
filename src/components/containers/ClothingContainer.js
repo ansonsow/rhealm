@@ -1,11 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
-import { Container, Text, Image, View, Center, Modal, Pressable } from "native-base";
+import { Container, Text, Image, View, Pressable } from "native-base";
 import { useState, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { SvgXml } from "react-native-svg";
 import { svgConfirmIcon, svgDeleteIcon, svgEditIcon, svgLeftIcon } from "../../../assets/images/svgs";
 import axios from "axios";
 import { BACKEND } from "@env";
+import { Overlay } from "@rneui/themed";
 
 
 export const ClothingContainer = (props) => {
@@ -160,155 +161,164 @@ export const ClothingContainer = (props) => {
                 </View>
             </View>
 
-            <View style={styles.subcontainer}>
-                <Text style={styles.label}>Type of Texture</Text>
-                {data.type && (<Text style={styles.text}>Type: {data.type}</Text>)}
-            </View>
+
 
             <View style={styles.subcontainer}>
                 <Text style={styles.label}>Texture</Text>
-                {data.texture && (
-                    <Text style={styles.text}>{data.texture}</Text>)}
+                {/* {data.texture && (
+                    <Text style={styles.text}>{data.texture}</Text>)} */}
+                {data.texture && data.texture.map((t, index) => (
+                    <View>
+                        <Image
+                            key={index}
+                            source={{ uri: t.uri }}
+                            alt="Texture"
+                            style={{
+                                width: 20,
+                                height: 20,
+                                borderRadius: 20 / 2,
+                            }}
+                        />
+                        <Text>{t.label}</Text>
+                    </View>
+                ))}
+            </View>
+
+            <View style={styles.subcontainer}>
+                <Text style={styles.label}>Type of Clothing</Text>
+                {/* {data.type && data.type.map(<Text style={styles.text}>Type: {data.type}</Text>)} */}
+                {data.type && data.type.map((t) => (
+                    <View>
+                        <Text>{t.label}</Text>
+                    </View>
+                ))}
             </View>
 
             {popOne ? (
-                <Modal
-                    isOpen={popOne}
-                    width="100%"
+                <Overlay
+                    isVisible={popOne}
                 >
-                    <Modal.Content>
-                        <View style={styles.popCont}>
-                            <Text
-                                style={styles.headingPop}
-                            >
-                                Are you sure?
-                            </Text>
-                            <Text
-                                style={styles.textPop}
-                            >
-                                Your changes will be lost.
-                            </Text>
+                    <View style={styles.popCont}>
+                        <Text
+                            style={styles.headingPop}
+                        >
+                            Are you sure?
+                        </Text>
+                        <Text
+                            style={styles.textPop}
+                        >
+                            Your changes will be lost.
+                        </Text>
 
-                            <View
-                                style={styles.btnPopCont}
+                        <View
+                            style={styles.btnPopCont}
+                        >
+                            <Pressable
+                                onPress={confirmBtn}
+                                style={styles.btnPopNAction}
                             >
-                                <Pressable
-                                    onPress={confirmBtn}
-                                    style={styles.btnPopNAction}
-                                >
-                                    <Text style={styles.btnTextPopNAction}>Leave</Text>
-                                </Pressable>
-                                <Pressable
-                                    onPress={cancelBtn}
-                                    style={styles.btnPopPAction}
-                                >
-                                    <Text style={styles.btnTextPopPAction}>Cancel</Text>
-                                </Pressable>
-                            </View>
+                                <Text style={styles.btnTextPopNAction}>Leave</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={cancelBtn}
+                                style={styles.btnPopPAction}
+                            >
+                                <Text style={styles.btnTextPopPAction}>Cancel</Text>
+                            </Pressable>
                         </View>
-                    </Modal.Content>
-                </Modal>
+                    </View>
+                </Overlay>
             ) : console.log("Closed")}
 
             {popTwo ? (
-                <Modal
-                    isOpen={popTwo}
-                    width="100%"
+                <Overlay
+                    isVisible={popTwo}
                 >
-                    <Modal.Content>
-                        <View style={styles.popCont}>
-                            <SvgXml
-                                xml={svgConfirmIcon}
-                                style={styles.svg}
-                            />
-                            <Text
-                                style={styles.textPop}
-                            >
-                                Changes have been saved.
-                            </Text>
+                    <View style={styles.popCont}>
+                        <SvgXml
+                            xml={svgConfirmIcon}
+                            style={styles.svg}
+                        />
+                        <Text
+                            style={styles.textPop}
+                        >
+                            Changes have been saved.
+                        </Text>
 
-                            <View style={styles.btnPopCont}>
-                                <Pressable
-                                    onPress={nextBtn}
-                                    style={styles.btnPopNextAction}
-                                >
-                                    <Text style={styles.btnTextPopNexAction}>Back to Closet</Text>
-                                </Pressable>
-                            </View>
+                        <View style={styles.btnPopCont}>
+                            <Pressable
+                                onPress={nextBtn}
+                                style={styles.btnPopNextAction}
+                            >
+                                <Text style={styles.btnTextPopNexAction}>Back to Closet</Text>
+                            </Pressable>
                         </View>
-                    </Modal.Content>
-                </Modal>
+                    </View>
+                </Overlay>
             ) : (console.log("Closed"))}
 
             {popThree ? (
-                <Modal
-                    isOpen={popThree}
-                    width="100%"
+                <Overlay
+                    isVisible={popThree}
                 >
-                    <Modal.Content>
-                        <View style={styles.popCont}>
-                            <Text
-                                style={styles.headingPop}
-                            >
-                                Are you sure?
-                            </Text>
-                            <Text
-                                style={styles.textPop}
-                            >
-                                Do you really want to delete this item? This process cannot be undone.
-                            </Text>
+                    <View style={styles.popCont}>
+                        <Text
+                            style={styles.headingPop}
+                        >
+                            Are you sure?
+                        </Text>
+                        <Text
+                            style={styles.textPop}
+                        >
+                            Do you really want to delete this item? This process cannot be undone.
+                        </Text>
 
-                            <View
-                                style={styles.btnPopCont}
+                        <View
+                            style={styles.btnPopCont}
+                        >
+                            <Pressable
+                                onPress={deleteBtn}
+                                style={styles.btnPopNAction}
                             >
-                                <Pressable
-                                    onPress={deleteBtn}
-                                    style={styles.btnPopNAction}
-                                >
-                                    <Text style={styles.btnTextPopNAction}>Delete</Text>
-                                </Pressable>
-                                <Pressable
-                                    onPress={cancelBtnTwo}
-                                    style={styles.btnPopPAction}
-                                >
-                                    <Text style={styles.btnTextPopPAction}>Cancel</Text>
-                                </Pressable>
-                            </View>
+                                <Text style={styles.btnTextPopNAction}>Delete</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={cancelBtnTwo}
+                                style={styles.btnPopPAction}
+                            >
+                                <Text style={styles.btnTextPopPAction}>Cancel</Text>
+                            </Pressable>
                         </View>
-                    </Modal.Content>
-                </Modal>
+                    </View>
+                </Overlay>
             ) : console.log("Closed")}
 
             {popFour ? (
-                <Modal
-                    isOpen={popFour}
-                    width="100%"
+                <Overlay
+                    isVisible={popFour}
                 >
-                    <Modal.Content>
-                        <View style={styles.popCont}>
-                            <SvgXml
-                                xml={svgConfirmIcon}
-                                style={styles.svg}
-                            />
-                            <Text
-                                style={styles.textPop}
+                    <View style={styles.popCont}>
+                        <SvgXml
+                            xml={svgConfirmIcon}
+                            style={styles.svg}
+                        />
+                        <Text
+                            style={styles.textPop}
+                        >
+                            The item has been deleted.
+                        </Text>
+
+                        <View style={styles.btnPopCont}>
+                            <Pressable
+                                onPress={nextBtn}
+                                style={styles.btnPopNextAction}
                             >
-                                The item has been deleted.
-                            </Text>
-
-                            <View style={styles.btnPopCont}>
-                                <Pressable
-                                    onPress={nextBtn}
-                                    style={styles.btnPopNextAction}
-                                >
-                                    <Text style={styles.btnTextPopNexAction}>Back to Closet</Text>
-                                </Pressable>
-                            </View>
+                                <Text style={styles.btnTextPopNexAction}>Back to Closet</Text>
+                            </Pressable>
                         </View>
-                    </Modal.Content>
-                </Modal>
+                    </View>
+                </Overlay>
             ) : (console.log("Closed"))}
-
         </View>
     )
 }

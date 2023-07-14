@@ -1,9 +1,11 @@
-import { Container, Text, View, Modal, Pressable } from "native-base";
+import { Container, Text, View, Pressable } from "native-base";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SvgXml } from "react-native-svg";
 import { svgConfirmIcon } from "../../../assets/images/svgs";
+import { HairColourSelection } from "../layout/HairColour";
+import { Overlay } from "@rneui/themed";
 
 export const OnboardingTwo = () => {
 
@@ -47,6 +49,8 @@ export const OnboardingTwo = () => {
 
             {/* Include the dropdowns */}
 
+            <HairColourSelection />
+
             <Pressable
                 onPress={saveSetup}
             >
@@ -56,72 +60,66 @@ export const OnboardingTwo = () => {
             <Text>Don't want to decide now? <Text style={styles.pressable} onPress={skipSetup}>Skip!</Text></Text>
 
             {popOne ? (
-                <Modal
-                    isOpen={popOne}
-                    width="100%"
+                <Overlay
+                    isVisible={popOne}
                 >
-                    <Modal.Content>
-                        <View style={styles.popCont}>
-                            <Text
-                                style={styles.headingPop}
-                            >
-                                Are you sure?
-                            </Text>
-                            <Text
-                                style={styles.textPop}
-                            >
-                                Your data will be lost.
-                            </Text>
+                    <View style={styles.popCont}>
+                        <Text
+                            style={styles.headingPop}
+                        >
+                            Are you sure?
+                        </Text>
+                        <Text
+                            style={styles.textPop}
+                        >
+                            Your data will be lost.
+                        </Text>
 
-                            <View
-                                style={styles.btnPopCont}
+                        <View
+                            style={styles.btnPopCont}
+                        >
+                            <Pressable
+                                onPress={confirmBtn}
+                                style={styles.btnPopNAction}
                             >
-                                <Pressable
-                                    onPress={confirmBtn}
-                                    style={styles.btnPopNAction}
-                                >
-                                    <Text style={styles.btnTextPopNAction}>Leave</Text>
-                                </Pressable>
-                                <Pressable
-                                    onPress={cancelBtn}
-                                    style={styles.btnPopPAction}
-                                >
-                                    <Text style={styles.btnTextPopPAction}>Cancel</Text>
-                                </Pressable>
-                            </View>
+                                <Text style={styles.btnTextPopNAction}>Leave</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={cancelBtn}
+                                style={styles.btnPopPAction}
+                            >
+                                <Text style={styles.btnTextPopPAction}>Cancel</Text>
+                            </Pressable>
                         </View>
-                    </Modal.Content>
-                </Modal>
+                    </View>
+                </Overlay>
             ) : (console.log("Closed"))}
 
             {popTwo ? (
-                <Modal
-                    isOpen={popTwo}
-                    width="100%"
+                <Overlay
+                    isVisible={popTwo}
                 >
-                    <Modal.Content>
-                        <View style={styles.popCont}>
-                            <SvgXml
-                                xml={svgConfirmIcon}
-                                style={styles.svg}
-                            />
-                            <Text
-                                style={styles.textPop}
-                            >
-                                You have created an account.
-                            </Text>
+                    <View style={styles.popCont}>
+                        <SvgXml
+                            xml={svgConfirmIcon}
+                            style={styles.svg}
+                        />
+                        <Text
+                            style={styles.textPop}
+                        >
+                            You have created an account.
+                        </Text>
 
-                            <View style={styles.btnPopCont}>
-                                <Pressable
-                                    onPress={goToMain}
-                                    style={styles.btnPopNextAction}
-                                >
-                                    <Text style={styles.btnTextPopNexAction}>Go to Main</Text>
-                                </Pressable>
-                            </View>
+                        <View style={styles.btnPopCont}>
+                            <Pressable
+                                onPress={goToMain}
+                                style={styles.btnPopNextAction}
+                            >
+                                <Text style={styles.btnTextPopNexAction}>Go to Main</Text>
+                            </Pressable>
                         </View>
-                    </Modal.Content>
-                </Modal>
+                    </View>
+                </Overlay>
             ) : (console.log("Closed"))}
 
         </Container >

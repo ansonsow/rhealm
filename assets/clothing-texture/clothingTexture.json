@@ -1,0 +1,92 @@
+[
+    {
+        "name": "Chiffon",
+        "label": "Chiffon",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FChiffon.jpg?alt=media&token=cee9f825-f86a-4221-b9cc-f33f54c19d06"
+    },
+    {
+        "name": "Cotton",
+        "label": "Cotton",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FCotton.jpg?alt=media&token=3733216a-c38e-4c65-973e-3d41aa917e36"
+    },
+    {
+        "name": "Down",
+        "label": "Down",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FDown.jpg?alt=media&token=7d8b92e2-0be9-4408-a220-5926480dc9f0"
+    },
+    {
+        "name": "Fleece",
+        "label": "Fleece",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FFleece.jpg?alt=media&token=c585be63-1cd6-41b5-9bbd-acd0902e43ed"
+    },
+    {
+        "name": "Knit",
+        "label": "Knit",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FKnit.jpg?alt=media&token=e8901d19-11fd-47b8-b305-34edcca02726"
+    },
+    {
+        "name": "Lame",
+        "label": "Lame",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FLame.jpg?alt=media&token=4beb874f-b3d6-47e7-881e-1de7343041ea"
+    },
+    {
+        "name": "Leather",
+        "label": "Leather",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FLeather.jpg?alt=media&token=24fee383-6ddb-4f51-a0e8-40b32b689c34"
+    },
+    {
+        "name": "Linen",
+        "label": "Linen",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FLinen.jpeg?alt=media&token=bbb951a6-c636-4812-9ab3-f9e1bf4f8631"
+    },
+    {
+        "name": "Nylon",
+        "label": "Nylon",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FNylon.jpg?alt=media&token=a0f27751-95de-4972-9a5b-0eafd93a7113"
+    },
+    {
+        "name": "Polyester",
+        "label": "Polyester",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FPolyester.jpg?alt=media&token=6b7ba05c-478d-4816-81a3-2ed362ba42df"
+    },
+    {
+        "name": "Rayon",
+        "label": "Rayon",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FRayon.jpg?alt=media&token=1d63e185-62ab-46d8-b114-90b39bb34fd9"
+    },
+    {
+        "name": "Satin",
+        "label": "Satin",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FSatin.jpg?alt=media&token=fbdd40bd-5b6e-4a7b-a0e8-16b8840849c8"
+    },
+    {
+        "name": "Silk",
+        "label": "Silk",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FSilk.jpg?alt=media&token=bb9e7f26-e3b8-44a0-9da5-f7d46fcca794"
+    },
+    {
+        "name": "Suede",
+        "label": "Suede",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FSuede.jpg?alt=media&token=2404fa08-7ee3-40b9-9f1c-94b05f12dcbc"
+    },
+    {
+        "name": "Twill",
+        "label": "Twill",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FTwill.jpg?alt=media&token=f89e653e-164b-4576-914f-0b0ac72a0d73"
+    },
+    {
+        "name": "Wool",
+        "label": "Wool",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2FWool.jpg?alt=media&token=7d8587de-fcd3-40c9-af74-9e5751476c75"
+    },
+    {
+        "name": "Denim",
+        "label": "Denim",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2Fdenim.jpg?alt=media&token=087c8de1-5645-4ef3-a6c0-92d6e25249f1"
+    },
+    {
+        "name": "Velvet",
+        "label": "Velvet",
+        "uri": "https://firebasestorage.googleapis.com/v0/b/colourfit-7c73c.appspot.com/o/texture-images%2Fvelvet.jpg?alt=media&token=102dd1bb-ae26-44ac-97d0-1377913dfbcc"
+    }
+]
