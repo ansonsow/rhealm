@@ -2,7 +2,7 @@ import { Container, Text, Image, View, Center, Box, Pressable } from "native-bas
 import { LoginForm } from "../forms/LoginForm";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
+import { StyleSheet, SafeAreaView, TouchableOpacity, ImageBackground, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SvgXml } from "react-native-svg";
@@ -20,9 +20,10 @@ import {
 } from "firebase/auth";
 import { auth } from "../../../firebaseConfig";
 
-import { HairColourSelection } from "../layout/HairColour";
-
 WebBrowser.maybeCompleteAuthSession();
+
+// const screenHeight = Dimensions.get('window').height;
+// const screenWidth = Dimensions.get('window').width;
 
 export const LoginContainer = () => {
     const navigation = useNavigation();
@@ -119,6 +120,16 @@ export const LoginContainer = () => {
 
     return (
         <Center>
+            {/* <Image
+                source={require("../../../assets/images/BackgroundImage.png")}
+                style={styles.img}
+                alt="Background Image"
+            /> */}
+            {/* <ImageBackground
+                source={require("../../../assets/images/BackgroundImage.png")}
+                resizeMode="stretch"
+                style={styles.img}
+            > */}
             <SvgXml
                 xml={svgLogo}
                 style={styles.logo}
@@ -137,11 +148,6 @@ export const LoginContainer = () => {
                     Colourfit
                 </Text>
             </View>
-
-            <View>
-                <HairColourSelection />
-            </View>
-
             <LoginForm
                 onEmailChange={handleEmailChange}
                 onPswChange={handlePswChange}
@@ -201,6 +207,7 @@ export const LoginContainer = () => {
                     </Text>
                 </Text>
             </View>
+            {/* </ImageBackground> */}
         </Center>
     )
 }
@@ -284,5 +291,19 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         padding: 20,
         gap: 20
-    }
+    },
+
+    // // IMG BACKGROUND
+    // img: {
+    //     height: screenHeight,
+    //     width: screenWidth,
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    // },
+    // img: {
+    //     flex: 1,
+    //     resizeMode: 'cover',
+    //     width: "100%",
+    //     height: "100%"
+    // }
 })

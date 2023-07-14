@@ -1,4 +1,4 @@
-import { Center, Text, Pressable, View, ScrollView, Modal } from "native-base";
+import { Center, Text, Pressable, View, ScrollView } from "native-base";
 import SignUpForm from "../forms/SignUpForm";
 import { useState } from "react";
 import axios from "axios";
@@ -7,6 +7,7 @@ import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SvgXml } from "react-native-svg";
 import { svgConfirmIcon, svgLogo } from "../../../assets/images/svgs";
+import { Overlay } from "@rneui/themed";
 
 export const SignUpContainer = () => {
 
@@ -106,72 +107,66 @@ export const SignUpContainer = () => {
                 />
 
                 {popOne ? (
-                    <Modal
-                        isOpen={popOne}
-                        width="100%"
+                    <Overlay
+                        isVisible={popOne}
                     >
-                        <Modal.Content>
-                            <View style={styles.popCont}>
-                                <Text
-                                    style={styles.headingPop}
-                                >
-                                    Are you sure?
-                                </Text>
-                                <Text
-                                    style={styles.textPop}
-                                >
-                                    Your changes will be lost.
-                                </Text>
+                        <View style={styles.popCont}>
+                            <Text
+                                style={styles.headingPop}
+                            >
+                                Are you sure?
+                            </Text>
+                            <Text
+                                style={styles.textPop}
+                            >
+                                Your changes will be lost.
+                            </Text>
 
-                                <View
-                                    style={styles.btnPopCont}
+                            <View
+                                style={styles.btnPopCont}
+                            >
+                                <Pressable
+                                    onPress={confirmBtn}
+                                    style={styles.btnPopNAction}
                                 >
-                                    <Pressable
-                                        onPress={confirmBtn}
-                                        style={styles.btnPopNAction}
-                                    >
-                                        <Text style={styles.btnTextPopNAction}>Leave</Text>
-                                    </Pressable>
-                                    <Pressable
-                                        onPress={cancelBtn}
-                                        style={styles.btnPopPAction}
-                                    >
-                                        <Text style={styles.btnTextPopPAction}>Cancel</Text>
-                                    </Pressable>
-                                </View>
+                                    <Text style={styles.btnTextPopNAction}>Leave</Text>
+                                </Pressable>
+                                <Pressable
+                                    onPress={cancelBtn}
+                                    style={styles.btnPopPAction}
+                                >
+                                    <Text style={styles.btnTextPopPAction}>Cancel</Text>
+                                </Pressable>
                             </View>
-                        </Modal.Content>
-                    </Modal>
+                        </View>
+                    </Overlay>
                 ) : (console.log("Closed"))}
 
                 {popTwo ? (
-                    <Modal
+                    <Overlay
                         isOpen={popTwo}
-                        width="100%"
                     >
-                        <Modal.Content>
-                            <View style={styles.popCont}>
-                                <SvgXml
-                                    xml={svgConfirmIcon}
-                                    style={styles.svg}
-                                />
-                                <Text
-                                    style={styles.textPop}
-                                >
-                                    Your information has been saved.
-                                </Text>
+                        <View style={styles.popCont}>
+                            <SvgXml
+                                xml={svgConfirmIcon}
+                                style={styles.svg}
+                            />
+                            <Text
+                                style={styles.textPop}
+                            >
+                                Your information has been saved.
+                            </Text>
 
-                                <View style={styles.btnPopCont}>
-                                    <Pressable
-                                        onPress={nextBtn}
-                                        style={styles.btnPopNextAction}
-                                    >
-                                        <Text style={styles.btnTextPopNexAction}>Next</Text>
-                                    </Pressable>
-                                </View>
+                            <View style={styles.btnPopCont}>
+                                <Pressable
+                                    onPress={nextBtn}
+                                    style={styles.btnPopNextAction}
+                                >
+                                    <Text style={styles.btnTextPopNexAction}>Next</Text>
+                                </Pressable>
                             </View>
-                        </Modal.Content>
-                    </Modal>
+                        </View>
+                    </Overlay>
                 ) : (console.log("Closed"))}
             </View>
         </Center>
@@ -186,7 +181,7 @@ const styles = StyleSheet.create({
         // marginBottom: 20
     },
     boldHeading: {
-        // fontFamily: "indivisible-semibold",
+        fontFamily: "Indivisible-SemiBold",
         fontSize: 36,
         paddingTop: 15
     },
@@ -211,7 +206,7 @@ const styles = StyleSheet.create({
     headingPop: {
         fontWeight: "bold",
         fontSize: 16,
-        // fontFamily: "indivisible-semibold",
+        fontFamily: "Indivisible-SemiBold",
     },
     textPop: {
         fontSize: 16,
@@ -253,7 +248,8 @@ const styles = StyleSheet.create({
         alignContent: "flex-end"
     },
     popCont: {
-        padding: 20
+        padding: 20,
+        width: 300,
     },
 
     // SVG - this is necessary to change considering every SVG we need to alter

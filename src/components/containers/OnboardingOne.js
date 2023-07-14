@@ -1,9 +1,10 @@
-import { Container, Text, Button, Icon, View, Modal } from "native-base";
+import { Container, Text, Button, Icon, View } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 // import { useNavigation } from "@react-navigation/native";
 import { CameraContainer } from "./CameraContainer";
+import { Overlay } from "@rneui/themed";
 
 export const OnboardingOne = () => {
 
@@ -58,26 +59,23 @@ export const OnboardingOne = () => {
             </Button> */}
 
             {popOne ? (
-                <Modal
-                    isOpen={popOne}
-                    width="100%"
+                <Overlay
+                    isVisible={popOne}
                 >
-                    <Modal.Content>
-                        <Icon as={<AntDesign name="close" size={24} color="black" onPress={closePop} />} />
-                        <View style={styles.popCont}>
-                            <Text
-                                style={styles.textPop}
-                            >
-                                1. Please keep the distance of your camera about 20cm.
-                            </Text>
-                            <Text
-                                style={styles.textPop}
-                            >
-                                2. Please take a photo of your neck or arm.
-                            </Text>
-                        </View>
-                    </Modal.Content>
-                </Modal>
+                    <Icon as={<AntDesign name="close" size={24} color="black" onPress={closePop} />} />
+                    <View style={styles.popCont}>
+                        <Text
+                            style={styles.textPop}
+                        >
+                            1. Please keep the distance of your camera about 20cm.
+                        </Text>
+                        <Text
+                            style={styles.textPop}
+                        >
+                            2. Please take a photo of your neck or arm.
+                        </Text>
+                    </View>
+                </Overlay>
             ) : (console.log("Closed"))}
 
         </Container >

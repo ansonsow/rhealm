@@ -1,7 +1,8 @@
-import { Text, Container, Modal, Pressable } from "native-base"
+import { Text, Container, Pressable } from "native-base"
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import { Overlay } from "@rneui/themed";
 
 export const InstructionContainer = () => {
 
@@ -66,42 +67,39 @@ export const InstructionContainer = () => {
             </Text>
 
             {popUp ? (
-                <Modal
-                    isOpen={popUp}
-                    width="100%"
+                <Overlay
+                    isVisible={popUp}
                 >
-                    <Modal.Content>
-                        <View style={styles.popCont}>
-                            <Text
-                                style={styles.headingPop}
-                            >
-                                No worries!
-                            </Text>
-                            <Text
-                                style={styles.textPop}
-                            >
-                                To provide you with more personalized recommendations, you can retake your selfie later on the <Text style={styles.textHighlight}>Profile</Text> page.
-                            </Text>
+                    <View style={styles.popCont}>
+                        <Text
+                            style={styles.headingPop}
+                        >
+                            No worries!
+                        </Text>
+                        <Text
+                            style={styles.textPop}
+                        >
+                            To provide you with more personalized recommendations, you can retake your selfie later on the <Text style={styles.textHighlight}>Profile</Text> page.
+                        </Text>
 
-                            <View
-                                style={styles.btnPopCont}
+                        <View
+                            style={styles.btnPopCont}
+                        >
+                            <Pressable
+                                onPress={cancelBtn}
+                                style={styles.btnPopNAction}
                             >
-                                <Pressable
-                                    onPress={cancelBtn}
-                                    style={styles.btnPopNAction}
-                                >
-                                    <Text style={styles.btnTextPopNAction}>Cancel</Text>
-                                </Pressable>
-                                <Pressable
-                                    onPress={confirmBtn}
-                                    style={styles.btnPopPAction}
-                                >
-                                    <Text style={styles.btnTextPopPAction}>Confirm</Text>
-                                </Pressable>
-                            </View>
+                                <Text style={styles.btnTextPopNAction}>Cancel</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={confirmBtn}
+                                style={styles.btnPopPAction}
+                            >
+                                <Text style={styles.btnTextPopPAction}>Confirm</Text>
+                            </Pressable>
                         </View>
-                    </Modal.Content>
-                </Modal>
+                    </View>
+                </Overlay>
             ) : (console.log("Closed"))}
         </Container>
     )
