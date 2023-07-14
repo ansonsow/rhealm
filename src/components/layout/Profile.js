@@ -56,7 +56,7 @@ export const Profile = props => {
                 </View>
                 <View style={styles.photoContainer}>
                     <View style={styles.photoCircle}>
-                        {user.profilePhoto ?
+                        {user.profilePhoto && user.profilePhoto ?
                             (<Image
                                 source={{ uri: `${user.profilePhoto}` }}
                                 alt="Image Holder"
