@@ -4,13 +4,18 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { SvgXml } from "react-native-svg";
 import { svgLeftIcon } from "../../../assets/images/svgs";
 import { XIMILAR_AI_ACCESS_KEY } from "@env";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { useRoute } from "@react-navigation/native";
+
 import axios from "axios";
 
 export const ColourAPI = () => {
 
     const navigation = useNavigation();
+    const route = useRoute();
+
     const [imageSelection, setImageSelection] = useState(null);
+    const [link, setLink] = useState(null)
     const [coloursHex, setColoursHex] = useState(null);
     const [coloursNaming, setColoursNaming] = useState(null);
 
@@ -24,6 +29,17 @@ export const ColourAPI = () => {
     //         coloursNaming: coloursNaming
     //     })
     // }
+    useEffect(() => {
+        if (route.params && route.params.result) {
+          setLink(route.params.result);
+        }
+      }, []);
+
+
+    useEffect(()=>{
+        setImageSelection(link)
+    },[link])
+    
 
     const onImageChange = (image) => {
         setImageSelection(image);
@@ -87,6 +103,7 @@ export const ColourAPI = () => {
 
             <Input
                 placeholder="Paste your link here"
+                {...(link ? { value: link } : {})}
                 onChangeText={value => {
                     onImageChange(value)
                 }}
