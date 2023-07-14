@@ -31,22 +31,28 @@
 
 **Option 2 – Local / VSCode:**
 
-The color conversion file has already been included, and you do not need to call the function where you need to use it, because it uses `window.FUNCTION_NAME`.  
+First, you need to import/reference the colour converter file:
+```javascript
+import COLOR_CONVERTER from "𝑝𝑎𝑡ℎ-𝑡𝑜/assets/colour-converter/colour-converter";
+```
 
 Here's an example of how you would use it:
 ```
-<Text>{HEX_TO_RGB("#bdced0")}</Text> {/* outputs 189, 206, 208 */}
+<Text>{COLOR_CONVERTER.HEX_TO_RGB("#bdced0")}</Text> {/* outputs 189, 206, 208 */}
 ```
 
-Lastly, install [this](https://www.npmjs.com/package/@yatiac/name-that-color) dependency (for color naming):
+Next, for color naming, make sure [this](https://www.npmjs.com/package/@yatiac/name-that-color) dependency is installed (for color naming):
 ```zsh
 npm install @yatiac/name-that-color
 ```
 
-Example usage of getting the name of that color:
+Import it like so:
 ```javascript
 const ntc = require('@yatiac/name-that-color');
+```
 
+Example usage of getting the name of that color:
+```javascript
 let sample = ntc("#bdced0").colorName;
 console.log(sample);
 ```
@@ -59,7 +65,7 @@ console.log(sample);
 
 ```javascript
 let string = "#bdced0";
-let string_RGB = HEX_TO_RGB(string);
+let string_RGB = COLOR_CONVERTER.HEX_TO_RGB(string);
 console.log(string_RGB); // returns: 189, 206, 208
 ```
 
@@ -69,10 +75,10 @@ console.log(string_RGB); // returns: 189, 206, 208
  ```javascript
 let string = "#bdced0";
 
-let string_HSL_formatted = HEX_TO_HSL(string);
+let string_HSL_formatted = COLOR_CONVERTER.HEX_TO_HSL(string);
 console.log(string_HSL_formatted); // returns: 86deg, 16.8%, 77.8%
 
-let string_HSL_raw = HEX_TO_HSL(string, "raw");
+let string_HSL_raw = COLOR_CONVERTER.HEX_TO_HSL(string, "raw");
 console.log(string_HSL_raw); // returns: 186, 16.8, 77.8
 ```
 
@@ -82,10 +88,10 @@ console.log(string_HSL_raw); // returns: 186, 16.8, 77.8
  ```javascript
 let string = "189, 206, 208"; // do not use the rgb() wrapper, just numbers is fine
 
-let string_HEX = RGB_TO_HEX(string);
+let string_HEX = COLOR_CONVERTER.RGB_TO_HEX(string);
 console.log(string_HEX); // returns: bdced0
 
-let string_HEX_hash = RGB_TO_HEX(string, "#");
+let string_HEX_hash = COLOR_CONVERTER.RGB_TO_HEX(string, "#");
 console.log(string_HEX_hash); // returns: #bdced0
 ```
 
@@ -95,10 +101,10 @@ console.log(string_HEX_hash); // returns: #bdced0
  ```javascript
 let string = "189, 206, 208"; // do not use the rgb() wrapper, just numbers is fine
 
-let string_HSL_formatted = RGB_TO_HSL(string);
+let string_HSL_formatted = COLOR_CONVERTER.RGB_TO_HSL(string);
 console.log(string_HSL_formatted); // returns: 186deg, 16.8%, 77.8%
 
-let string_HSL_raw = RGB_TO_HSL(string, "raw");
+let string_HSL_raw = COLOR_CONVERTER.RGB_TO_HSL(string, "raw");
 console.log(string_HSL_raw); // returns: 186, 16.8, 77.8
 ```
 
@@ -108,7 +114,7 @@ console.log(string_HSL_raw); // returns: 186, 16.8, 77.8
  ```javascript
 let string = "186deg, 16.8%, 77.8%"; // MUST have units, cannot be just numbers
 
-let string_RGB = HSL_TO_RGB(string);
+let string_RGB = COLOR_CONVERTER.HSL_TO_RGB(string);
 console.log(string_RGB); // returns: 189, 206, 208
 ```
 
@@ -118,10 +124,10 @@ console.log(string_RGB); // returns: 189, 206, 208
  ```javascript
 let string = "186deg, 16.8%, 77.8%"; // MUST have units, cannot be just numbers
 
-let string_HEX = HSL_TO_HEX(string);
+let string_HEX = COLOR_CONVERTER.HSL_TO_HEX(string);
 console.log(string_HEX); // returns: bdced0
 
-let string_HEX_hash = HSL_TO_HEX(string, "#");
+let string_HEX_hash = COLOR_CONVERTER.HSL_TO_HEX(string, "#");
 console.log(string_HEX_hash); // returns: #bdced0
 ```
 
@@ -131,7 +137,7 @@ console.log(string_HEX_hash); // returns: #bdced0
 ```javascript
 let hsl = "186deg, 16.8%, 77.8%";
 
-let hsl_no_units = HSL_RAW(hsl);
+let hsl_no_units = COLOR_CONVERTER.HSL_RAW(hsl);
 console.log(hsl_no_units); // returns 186, 16.8, 77.8
 ```
 
@@ -139,7 +145,7 @@ console.log(hsl_no_units); // returns 186, 16.8, 77.8
 
 ### Hue value / hue name
 ```javascript
-let result = GET_COLOR_HUE(input, mode, format);
+let result = COLOR_CONVERTER.GET_COLOR_HUE(input, mode, format);
 ```
 - `input`: your color input, can be any mode (RGB / hex / HSL)
 - `mode`: the mode of what you just entered (RGB / hex / HSL)
@@ -155,10 +161,10 @@ let result = GET_COLOR_HUE(input, mode, format);
 
 Example:
 ```javascript:
-let exampleA = GET_COLOR_HUE("189, 206, 208", "RGB", "value");
+let exampleA = COLOR_CONVERTER.GET_COLOR_HUE("189, 206, 208", "RGB", "value");
 console.log(exampleA); // returns 186
 
-let exampleB = GET_COLOR_HUE("189, 206, 208", "RGB", "name");
+let exampleB = COLOR_CONVERTER.GET_COLOR_HUE("189, 206, 208", "RGB", "name");
 console.log(exampleB); // returns "blue"
 ```
 
@@ -166,7 +172,7 @@ console.log(exampleB); // returns "blue"
 
 ### Saturation value / saturation level
 ```javascript
-let result = GET_COLOR_SAT(input, mode, format);
+let result = COLOR_CONVERTER.GET_COLOR_SAT(input, mode, format);
 ```
 - `input`: your color input, can be any mode (RGB / hex / HSL)
 - `mode`: the mode of what you just entered (RGB / hex / HSL)
@@ -181,10 +187,10 @@ let result = GET_COLOR_SAT(input, mode, format);
 
 Example:
 ```javascript:
-let exampleA = GET_COLOR_SAT("189, 206, 208", "RGB", "value");
+let exampleA = COLOR_CONVERTER.GET_COLOR_SAT("189, 206, 208", "RGB", "value");
 console.log(exampleA); // returns 16.8
 
-let exampleB = GET_COLOR_SAT("189, 206, 208", "RGB", "name");
+let exampleB = COLOR_CONVERTER.GET_COLOR_SAT("189, 206, 208", "RGB", "name");
 console.log(exampleB); // returns "muted"
 ```
 
@@ -192,7 +198,7 @@ console.log(exampleB); // returns "muted"
 
 ### Lightness value / lightness level
 ```javascript
-let result = GET_COLOR_LUM(input, mode, format);
+let result = COLOR_CONVERTER.GET_COLOR_LUM(input, mode, format);
 ```
 - `input`: your color input, can be any mode (RGB / hex / HSL)
 - `mode`: the mode of what you just entered (RGB / hex / HSL)
@@ -207,9 +213,9 @@ let result = GET_COLOR_LUM(input, mode, format);
 
 Example:
 ```javascript:
-let exampleA = GET_COLOR_LUM("#bdced0", "hex", "value");
+let exampleA = COLOR_CONVERTER.GET_COLOR_LUM("#bdced0", "hex", "value");
 console.log(exampleA); // returns 16.8
 
-let exampleB = GET_COLOR_LUM("#bdced0", "hex", "name");
+let exampleB = COLOR_CONVERTER.GET_COLOR_LUM("#bdced0", "hex", "name");
 console.log(exampleB); // returns "moderate"
 ```
