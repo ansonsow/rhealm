@@ -29,6 +29,7 @@ const SignUpForm = props => {
                         <Input
                             placeholder="Name"
                             variant="underlined"
+                            backgroundColor="transparent"
                             onChangeText={value => {
                                 onNameChange(value)
                             }}
@@ -41,6 +42,7 @@ const SignUpForm = props => {
                         <Input
                             placeholder="Email"
                             variant="underlined"
+                            backgroundColor="transparent"
                             onChangeText={value => {
                                 onEmailChange(value)
                             }}
@@ -53,6 +55,7 @@ const SignUpForm = props => {
                         <Input
                             placeholder="************"
                             variant="underlined"
+                            backgroundColor="transparent"
                             type={show ? "text" : "password"}
                             InputRightElement={
                                 <TouchableOpacity onPress={() => setShow(!show)} paddingRight={10} style={styles.eye}>
@@ -72,6 +75,7 @@ const SignUpForm = props => {
                         <Input
                             placeholder="************"
                             variant="underlined"
+                            backgroundColor="transparent"
                             type={showConf ? "text" : "password"}
                             InputRightElement={
                                 <TouchableOpacity onPress={() => setShowConf(!showConf)} paddingRight={10} style={styles.eye}>

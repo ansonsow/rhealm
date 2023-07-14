@@ -28,7 +28,7 @@ export const LoginForm = props => {
                     <HStack>
                         <Input
                             placeholder="Email"
-                            variant="underlined"
+                            variant="filled"
                             onChangeText={value => {
                                 onEmailChange(value)
                             }}
@@ -40,7 +40,7 @@ export const LoginForm = props => {
                     <HStack width="100%">
                         <Input
                             placeholder="Password"
-                            variant="underlined"
+                            variant="filled"
                             type={show ? "text" : "password"}
                             InputRightElement={
                                 <TouchableOpacity onPress={() => setShow(!show)} paddingRight={1} style={styles.eye}>

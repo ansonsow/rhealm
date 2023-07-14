@@ -35,7 +35,7 @@ export const theme = extendTheme({
             baseStyle: {
                 width: "100%",
                 px: 5,
-                py: 3,
+                py: 4,
                 marginBottom: 5,
                 autoCapitalize: "none",
                 backgroundColor: "#F3F5F9",

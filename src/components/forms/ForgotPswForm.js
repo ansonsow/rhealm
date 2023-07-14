@@ -25,28 +25,28 @@ export const ForgotPswForm = props => {
                             // fill="currentColor"
                             style={styles.svg}
                         />
-                        <Text color="#345B00">{success}</Text>
+                        <Text color="#345B00" width="90%">{success}</Text>
                     </View>}
                 <FormControl isRequired>
-                    <FormControl.Label>Name</FormControl.Label>
+                    {/* <FormControl.Label>Email</FormControl.Label> */}
                     <HStack>
                         <Input
-                            placeholder="Name"
-                            variant="underlined"
+                            placeholder="Email"
+                            variant="filled"
                             onChangeText={value => {
-                                onNameChange(value)
+                                onEmailChange(value)
                             }}
                         />
                     </HStack>
                 </FormControl>
                 <FormControl isRequired>
-                    <FormControl.Label>Email</FormControl.Label>
+                    {/* <FormControl.Label>Name</FormControl.Label> */}
                     <HStack>
                         <Input
-                            placeholder="Email"
-                            variant="underlined"
+                            placeholder="Name"
+                            variant="filled"
                             onChangeText={value => {
-                                onEmailChange(value)
+                                onNameChange(value)
                             }}
                         />
                     </HStack>
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         gap: 10,
-        backgroundColor: "#84C42C",
-        opacity: 0.2,
+        backgroundColor: "#84C42C20",
+        // opacity: 0.2,
         padding: 10,
         marginBottom: 10,
         maxWidth: "100%",
