@@ -80,7 +80,7 @@ export const ClothingsContainer = ({ route }) => {
 
     return (
         <Center>
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <CreateClothingForm
                     forceUpdate={forceUpdate}
                     user={user}
@@ -88,12 +88,12 @@ export const ClothingsContainer = ({ route }) => {
                     coloursNaming={coloursNaming}
                     imageSelection={imageSelection}
                 />
-                {/* <ScrollView> */}
+                <ScrollView>
                 {clothings.length > 0 ? (
                     clothings.map((item, index) => <Button title={item.name} onPress={() => { handlePress(item) }} key={index}>{item.name}</Button>)
                 ) : <Text>No Clothing found</Text>}
-                {/* </ScrollView> */}
-            </View>
+                </ScrollView>
+            </ScrollView>
         </Center>
     )
 }
