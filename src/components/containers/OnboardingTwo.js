@@ -25,6 +25,7 @@ export const OnboardingTwo = () => {
     const confirmBtn = () => {
         // console.log("Go to Details Page")
         navigation.navigate("Main");
+        setPopOne(!popOne);
     }
 
     const saveSetup = () => {
@@ -33,6 +34,7 @@ export const OnboardingTwo = () => {
 
     const goToMain = () => {
         navigation.navigate("Main");
+        setPopTwo(!popTwo);
     }
 
     return (
@@ -214,6 +216,7 @@ const styles = StyleSheet.create({
         alignContent: "flex-end"
     },
     popCont: {
-        padding: 20
+        padding: 20,
+        width: 300,
     },
 })

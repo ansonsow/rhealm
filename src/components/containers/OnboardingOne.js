@@ -113,4 +113,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingTop: 10,
     },
+    popCont: {
+        padding: 20,
+        // width: 300,
+    }
 })

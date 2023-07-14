@@ -1,4 +1,4 @@
-import { Text, Container, Pressable } from "native-base"
+import { Text, Container, Pressable, View } from "native-base"
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
@@ -13,6 +13,7 @@ export const InstructionContainer = () => {
     const onNext = () => {
         // console.log("Next Working");
         navigation.navigate("OnboardingOne");
+        setPopUp(!popUp);
     }
 
     const inputSkinTone = () => {
@@ -23,6 +24,7 @@ export const InstructionContainer = () => {
     const confirmBtn = () => {
         // console.log("Go to Details Page")
         navigation.navigate("OnboardingTwo");
+        setPopUp(!popUp);
     }
 
     const cancelBtn = () => {
@@ -167,7 +169,8 @@ const styles = StyleSheet.create({
         alignContent: "flex-end"
     },
     popCont: {
-        padding: 20
+        padding: 20,
+
     },
 
     // BTN

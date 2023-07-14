@@ -448,6 +448,7 @@ const styles = StyleSheet.create({
         alignContent: "flex-end"
     },
     popCont: {
-        padding: 20
+        padding: 20,
+        width: 300,
     },
 })
