@@ -519,3 +519,25 @@ Created by potrace 1.16, written by Peter Selinger 2001-2019
 </g>
 </svg>
 `
+
+export const svgFacebookWhiteIcon = `
+<svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M28.1734 14.0867C28.1734 6.30469 21.8635 0 14.0867 0C6.30469 0 0 6.30469 0 14.0867C0 21.116 5.14958 26.9444 11.8857 28V18.1595H8.30853V14.0876H11.8857V10.9824C11.8857 7.45276 13.9855 5.50351 17.2043 5.50351C18.7459 5.50351 20.3597 5.7782 20.3597 5.7782V9.24441H18.5804C16.8336 9.24441 16.2878 10.3317 16.2878 11.4455V14.0867H20.1942L19.5665 18.1587H16.2878V27.9991C23.0186 26.9435 28.1734 21.116 28.1734 14.0867Z" fill="white"/>
+</svg>
+`
+
+export const svgGoogleWhiteIcon = `
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M14 0C6.26787 0 0 6.26811 0 13.9998C0 21.7318 6.26787 28 14 28C21.7316 28 28 21.732 28 13.9998C28 6.26811 21.7316 0 14 0ZM14.1636 22.1881C9.651 22.1881 5.996 18.5239 5.996 13.9999C5.996 9.47603 9.651 5.81176 14.1636 5.81176C16.3689 5.81176 18.2113 6.62542 19.6257 7.94583L17.323 10.2539V10.2487C16.4656 9.42984 15.3784 9.01032 14.1636 9.01032C11.4683 9.01032 9.27846 11.2927 9.27846 13.995C9.27846 16.6966 11.4684 18.9846 14.1636 18.9846C16.6088 18.9846 18.2727 17.5824 18.6151 15.6582H14.1636V12.4647H21.8458C21.948 13.0121 22.0039 13.5854 22.0039 14.1841C22.0039 18.8617 18.8803 22.1881 14.1636 22.1881Z" fill="white"/>
+</svg>
+`
+
+export const svgMeatballsIcon = `
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Meatballs_menu">
+<circle id="Ellipse 206" cx="12" cy="12.5" r="1.75" transform="rotate(90 12 12.5)" stroke="#33363F" stroke-width="1.5" stroke-linecap="round"/>
+<circle id="Ellipse 207" cx="12" cy="6" r="1.75" transform="rotate(90 12 6)" stroke="#33363F" stroke-width="1.5" stroke-linecap="round"/>
+<circle id="Ellipse 208" cx="12" cy="19" r="1.75" transform="rotate(90 12 19)" stroke="#33363F" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+</svg>
+`
